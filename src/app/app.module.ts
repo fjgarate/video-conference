@@ -44,6 +44,8 @@ import { HomeComponent } from './home';
 import { LoginComponent} from './login';
 import { RegisterComponent } from './register';
 import { AlertComponent } from './shared/components/alert';
+import { DoctorComponent } from './doctor/doctor.component';
+import { PatientComponent } from './patient/patient.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +64,9 @@ import { AlertComponent } from './shared/components/alert';
     AlertComponent,
     HomeComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    DoctorComponent,
+    PatientComponent
   ],
   imports: [
     FormsModule,

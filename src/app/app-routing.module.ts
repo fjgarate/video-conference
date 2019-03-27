@@ -6,15 +6,20 @@ import {LoginComponent} from './login/login.component';
 import { HomeComponent } from "./home";
 import {RegisterComponent} from './register';
 import { AuthGuard } from "./shared/guards";
+import {DoctorComponent} from './doctor/doctor.component';
+import { PatientComponent } from "./patient/patient.component";
 const appRoutes: Routes = [
   // { path: '', component: DashboardComponent },
- // { path: '', component: LoginComponent },
-  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
+  // { path: '', component: LoginComponent },
+  { path: "", component: LoginComponent },
   { path: "login", component: LoginComponent },
   { path: "register", component: RegisterComponent },
-  { path: ":roomName", component: VideoRoomComponent },
+
+  { path: "doctor", component: DoctorComponent, canActivate: [AuthGuard] },
+  { path: "patient", component: PatientComponent, canActivate: [AuthGuard] },
+  { path: ":roomName", component: VideoRoomComponent, canActivate: [AuthGuard]  },
   // otherwise redirect to home
-  { path: '**', redirectTo: '' }
+  { path: "**", redirectTo: "" }
 ];
 
 @NgModule({

@@ -54,10 +54,16 @@ export class LoginComponent implements OnInit {
             .pipe(first())
             .subscribe(
                 data => {
-                  console.log(data);
-                   const roomName = this.loginForm.value.username.replace(/ /g, "-"); // replace white spaces by -
+                console.log(data.role);
+                let role = data.role;
+                if (role == 'doctor'){
+                  this.router.navigate(['/doctor']);
+                } else{
+                  this.router.navigate(['/patient']);
+                }
+                // const roomName = this.loginForm.value.username.replace(/ /g, "-"); // replace white spaces by -
                 //this.router.navigate(['']);
-                this.router.navigate(["/", roomName]);
+                //this.router.navigate(["/", roomName]);
                 },
                 error => {
                     this.alertService.error(error);
