@@ -1,0 +1,140 @@
+#dialogChooseRoom {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+#dialogChooseRoom h1 {
+  text-align: center;
+}
+#card-content {
+  max-width: 95%;
+  height: fit-content;
+  margin: auto;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.volumeSlider {
+  position: absolute;
+  height: 40%;
+  z-index: 99999;
+  pointer-events: none;
+}
+
+#img_content {
+  position: absolute;
+  top: 3px;
+  left: 0;
+}
+
+#header_img {
+  max-width: 165px;
+}
+
+#sessionInfo {
+  margin-top: 0;
+}
+#camDeviceButton,
+#micDeviceButton,
+#nicknameButton {
+  margin: 0px 10px;
+}
+#joinButton {
+  margin: 15px;
+}
+
+#photoButton {
+  margin: 10px;
+}
+#avatarContainer {
+  border: 1px solid;
+  border-color: rgb(182, 182, 182);
+  width: 100px;
+  height: 100px;
+  margin: 10px;
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+}
+
+#devicesSection {
+  margin: 15px 0px;
+}
+
+#avatarSection,
+#devicesSection {
+  height: fit-content !important;
+  min-height: auto !important;
+}
+
+#imgText {
+  display: table;
+}
+#avatarImg,
+#imgText {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+#avatarImg {
+  height: 88%;
+  width: 88%;
+}
+#avatarContainer,
+#avatarImg {
+  border-radius: 50%;
+}
+#optionsContent {
+  position: initial;
+}
+
+mat-form-field,
+#nicknameDialog {
+  width: 100%;
+}
+
+mat-card {
+  max-width: 85% !important;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  max-width: fit-content;
+  max-height: fit-content;
+  margin: auto;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+@media only screen and (max-width: 959px) {
+  mat-card {
+    max-width: 80% !important;
+    max-height: 80% !important;
+  }
+}
+
+::ng-deep .mat-option-text {
+  color: black !important;
+}
+
+::ng-deep .mat-slider-thumb {
+  visibility: hidden;
+}
+::ng-deep .mat-slider-vertical .mat-slider-track-fill,
+::ng-deep .mat-slider-vertical .mat-slider-track-background,
+::ng-deep .mat-slider-vertical .mat-slider-track-wrapper {
+  width: 10px !important;
+}
+
+::-webkit-scrollbar {
+  width: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #6b6b6b;
+}

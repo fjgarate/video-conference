@@ -1,0 +1,51 @@
+
+html {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  height: 100%;
+  width: 100%;
+}
+
+/* webcomponent */
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/materialicons/v38/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format('woff2');
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+.backgroung_login{
+	background-image: url(https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=3f6e5055d9ad1d603fd364c11823d026&auto=format&fit=crop&w=1504&q=80);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+}
+.login{
+	height: 300px;
+	margin-top: 70px;
+	margin-bottom: auto;
+	width: 400px;
+	background-color:rgba(112, 114, 119, 0.38) !important;
+	padding: 20px;
+	border: 2px solid #343a40;
+  border-radius: 10px;
+  color:sandybrown;
+}
