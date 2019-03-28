@@ -80,7 +80,7 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.loadAllUsers();
+
     this.openViduSrv.getOvSettingsData().then((data: OvSettings) => {
       this.ovSettings = this.ovSettings ? this.ovSettings : data;
     }).catch((error) => console.error(error));
@@ -90,11 +90,7 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
     this.currentUserSubscription.unsubscribe();
     this.exitSession();
   }
-  private loadAllUsers() {
-    this.userService.getAll().pipe(first()).subscribe(users => {
-      this.users = users;
-    });
-  }
+
   initApp() {
     this.remoteUsers = [];
     this.checkTheme();
@@ -199,7 +195,8 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
   toggleDialogChooseRoom(data: {user: UserModel, sessionId: string}) {
     this.showDialogChooseRoom = false;
     this.localUser = data.user;
-    this.mySessionId = data.sessionId;
+    //this.mySessionId = data.sessionId;
+    this.mySessionId = this.currentUser.username;
     this.initApp();
   }
 

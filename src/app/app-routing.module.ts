@@ -16,7 +16,7 @@ const appRoutes: Routes = [
   { path: "register", component: RegisterComponent },
 
   { path: "doctor", component: DoctorComponent, canActivate: [AuthGuard] },
-  { path: "patient", component: PatientComponent, canActivate: [AuthGuard] },
+  { path: "patient", component: VideoRoomComponent, canActivate: [AuthGuard] },
   { path: ":roomName", component: VideoRoomComponent, canActivate: [AuthGuard]  },
   // otherwise redirect to home
   { path: "**", redirectTo: "" }

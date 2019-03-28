@@ -88,7 +88,30 @@ export class OpenViduService {
         });
     });
   }
+  getSessions(openviduServerUrl: string, openviduSecret: string): Promise<string> {
+    return new Promise((resolve, reject) => {
 
+      const options = {
+        headers: new HttpHeaders({
+          Authorization: 'Basic ' + btoa('OPENVIDUAPP:' + openviduSecret),
+          'Content-Type': 'application/json',
+        }),
+      };
+      return this.http
+        .get<any>(openviduServerUrl + '/api/sessions', options)
+        .pipe(
+          catchError(error => {
+            reject(error);
+            return observableThrowError(error);
+          })
+        )
+        .subscribe(response => {
+          console.log('sessiones:');
+          console.log(response);
+          resolve(response.token);
+        });
+    });
+  }
   getOvSettingsData(): Promise<OvSettings> {
     return new Promise((resolve) => {
       this.http.get(this.SETTINGS_FILE_NAME).subscribe(

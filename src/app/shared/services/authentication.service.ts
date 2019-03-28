@@ -20,11 +20,10 @@ export class AuthenticationService {
     }
 
     login(username: string, password: string) {
-      console.log(username);
       return this.http.post<any>(`https://login-videocall.herokuapp.com/users/authenticate`, { username, password })
             .pipe(map(user => {
                 // login successful if there's a jwt token in the response
-                console.log(user)
+                user.id = user._id
                 if (user && user.token) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', JSON.stringify(user));
