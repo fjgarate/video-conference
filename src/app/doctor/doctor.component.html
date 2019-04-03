@@ -12,5 +12,13 @@ LISTA PACIENTES
 </ul>
 
 
-SESION
-<pre>{{ sessionprueba | json }}</pre>
+SESIONES ACTIVAS
+<ul>
+  <li *ngFor="let session of sessionprueba.content">
+    <span>conectado: {{session.sessionId}}</span>
+    <p></p>
+     <span> desde las {{session.createdAt | date:'medium'}}</span><br>
+    <a routerLink="/videoconf" class="btn btn-link">Iniciar videoconferencia</a>
+
+  </li>
+</ul>
