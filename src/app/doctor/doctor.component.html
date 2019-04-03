@@ -4,9 +4,13 @@
 <h1>Hi {{currentUser.firstName}}!</h1>
 <h3>Pacientes :</h3>
 
+LISTA PACIENTES
 <ul>
   <li *ngFor="let user of users">
-    {{user.username}} ({{user.firstName}} {{user.lastName}})
-    - <a (click)="deleteUser(user.id)" class="text-danger">conect</a>
+    {{user.username}} ({{user.firstName}} {{user.lastName}} 
   </li>
 </ul>
+
+
+SESION
+<pre>{{ sessionprueba | json }}</pre>

@@ -1,25 +1,25 @@
 ﻿import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { throwError as observableThrowError } from "rxjs";
-import { catchError } from "rxjs/operators";
+import { throwError as observableThrowError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { User } from '../models';
 
-@Injectable({ providedIn: "root" })
+@Injectable({ providedIn: 'root' })
 export class UserService {
   constructor(private http: HttpClient) {}
 
   getAll(token: string) {
     //return this.http.get<User[]>(`https://login-videocall.herokuapp.com/users`);
-    console.log("token");
+    console.log('token');
     console.log(token);
     const options = {
       headers: new HttpHeaders({
-        Authorization: "Bearer " + token,
-        "Content-Type": "application/json"
+        Authorization: 'Bearer ' + token,
+        'Content-Type': 'application/json'
       })
     };
     return this.http.get<any>(
-      "https://login-videocall.herokuapp.com" + "/users",
+      'https://login-videocall.herokuapp.com' + '/users',
       options
     );
   }
@@ -29,15 +29,17 @@ console.log(user.id)
     console.log(user)
     const options = {
       headers: new HttpHeaders({
-        Authorization: "Bearer " + user.token,
-        "Content-Type": "application/json"
+        Authorization: 'Bearer ' + user.token,
+        'Content-Type': 'application/json'
       })
     };
     return this.http.get<any>(
-      "https://login-videocall.herokuapp.com" + `/users/patients/${user.id}`,
+      'https://login-videocall.herokuapp.com' + `/users/patients/${user.id}`,
       options
     );
   }
+
+  //Estas no sirven
   getById(id: number) {
     return this.http.get(`http://localhost:4200/users/${id}`);
   }

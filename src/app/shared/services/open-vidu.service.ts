@@ -1,18 +1,19 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { throwError as observableThrowError } from 'rxjs';
+import { throwError as observableThrowError, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { OvSettings } from '../models/ov-settings';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class OpenViduService {
   private URL_OV = 'https://138.4.10.65:4443';
+  private prueba = [];
   private MY_SECRET = 'gbttel';
   private SETTINGS_FILE_NAME = 'ov-settings.json';
-
   private ovSettings: OvSettings = {
     chat: true,
     autopublish: false,
@@ -88,9 +89,9 @@ export class OpenViduService {
         });
     });
   }
-  getSessions(openviduServerUrl: string, openviduSecret: string): Promise<string> {
+  /*Devuelve sesiones activas*/
+  /*getSessions(openviduServerUrl: string, openviduSecret: string): Promise<string> {
     return new Promise((resolve, reject) => {
-
       const options = {
         headers: new HttpHeaders({
           Authorization: 'Basic ' + btoa('OPENVIDUAPP:' + openviduSecret),
@@ -109,9 +110,33 @@ export class OpenViduService {
           console.log('sessiones:');
           console.log(response);
           resolve(response.token);
+          this.prueba = response;
         });
     });
-  }
+  }*/
+
+  getSessionsPrueba(openviduServerUrl: string, openviduSecret: string) {
+      const options = {
+        headers: new HttpHeaders({
+          Authorization: 'Basic ' + btoa('OPENVIDUAPP:' + openviduSecret),
+          'Content-Type': 'application/json',
+        }),
+      };
+     return this.http
+     .get<any>(openviduServerUrl + '/api/sessions/', options);
+    }
+
+  getSessionsId(openviduServerUrl: string, openviduSecret: string, sessionId: string) {
+      const options = {
+        headers: new HttpHeaders({
+          Authorization: 'Basic ' + btoa('OPENVIDUAPP:' + openviduSecret),
+          'Content-Type': 'application/json',
+        }),
+      };
+     return this.http
+     .get<any>(openviduServerUrl + '/api/sessions/' + sessionId, options);
+    }
+
   getOvSettingsData(): Promise<OvSettings> {
     return new Promise((resolve) => {
       this.http.get(this.SETTINGS_FILE_NAME).subscribe(
