@@ -1,0 +1,38 @@
+<body>
+<div class="container">
+<div class="row">
+<div class="col-sm grupo">
+<dl>LISTA PACIENTES</dl>
+<ul>
+  <li *ngFor="let user of users" >
+    {{user.username}} ({{user.firstName}} {{user.lastName}}
+     <button class="btn btn-success">{{texto}}</button>
+
+      <button [ngClass]="{si: esta, no: !esta}" 
+      (click)="cambiaEstado(user.username, 'noe2')">{{texto}}
+      </button>
+
+  </li>
+</ul>
+
+
+<ul *ngFor="let user of users">
+  <li [style.color]="getColor(user, sessionprueba)">{{ texto }} 
+  </li>
+</ul>
+
+
+<dl>SESIONES ACTIVAS</dl>
+<ul>
+  <li *ngFor="let session of sessionprueba.content"class="text-success">
+    <span>conectado: {{session.sessionId}}</span>
+    <p></p>
+    <span> desde las {{session.createdAt | date:'medium'}}</span><br>
+    <a routerLink="/videoconf" class="btn btn-link" (click)="selectUser(session.sessionId)">Iniciar videoconferencia</a>
+
+  </li>
+</ul>
+</div>
+</div>
+</div>
+</body>

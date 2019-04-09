@@ -5,6 +5,11 @@ import { NicknameMatcher } from '../../forms-matchers/nickname';
 import { ApiService } from '../../services/api.service';
 import { OpenVidu, Publisher } from 'openvidu-browser';
 import { ActivatedRoute, Params } from '@angular/router';
+import { User } from '../../models/user';
+import { Subscription } from 'rxjs';
+import { UserService, AuthenticationService } from '../../services';
+import { DoctorComponent } from '../../../doctor/doctor.component';
+
 
 interface IDevices {
   label: string;
@@ -17,6 +22,9 @@ interface IDevices {
   styleUrls: ['./dialog-choose-room.component.css'],
 })
 export class DialogChooseRoomComponent implements OnInit {
+  currentUser: User;
+  currentUserSubscription: Subscription;
+  users: User[] = [];
 
   @Input() userNickname: string;
   @Input() sessionName: string;
@@ -43,7 +51,16 @@ export class DialogChooseRoomComponent implements OnInit {
   nicknameFormControl = new FormControl('', [Validators.maxLength(25), Validators.required]);
   matcher = new NicknameMatcher();
 
-  constructor(private route: ActivatedRoute, private apiSrv: ApiService) {}
+  constructor(private route: ActivatedRoute, private apiSrv: ApiService, private authenticationService: AuthenticationService,
+    private userService: UserService) {
+    this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
+      this.currentUser = user;
+    });
+    }
+
+   get isDoctor() {
+     return this.currentUser && this.currentUser.role === 'doctor';
+   }
 
   ngOnInit() {
     this.OV = new OpenVidu();
@@ -111,7 +128,7 @@ export class DialogChooseRoomComponent implements OnInit {
   }
 
   generateNickname() {
-    const nickname = this.userNickname ? this.userNickname : 'OpenVidu_User' + Math.floor(Math.random() * 100);
+    const nickname = this.userNickname ? this.userNickname : this.currentUser.firstName +' '+ this.currentUser.lastName;
     this.nicknameFormControl.setValue(nickname);
   }
 

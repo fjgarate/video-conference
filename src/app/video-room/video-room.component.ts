@@ -190,12 +190,17 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
 
   toggleDialogExtension() {
     this.showDialogExtension = !this.showDialogExtension;
-  }
+  }5
 
   toggleDialogChooseRoom(data: {user: UserModel, sessionId: string}) {
     this.showDialogChooseRoom = false;
     this.localUser = data.user;
     //this.mySessionId = data.sessionId;
+    /*if (this.currentUser.role === 'patient') {
+      this.mySessionId = this.currentUser.username;
+    } else {
+      this.mySessionId = this
+    }*/
     this.mySessionId = this.currentUser.username;
     this.initApp();
   }

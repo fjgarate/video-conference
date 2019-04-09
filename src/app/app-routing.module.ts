@@ -8,13 +8,15 @@ import {RegisterComponent} from './register';
 import { AuthGuard } from './shared/guards';
 import {DoctorComponent} from './doctor/doctor.component';
 import { PatientComponent } from './patient/patient.component';
+import { VideoconfComponent} from './videoconf/videoconf.component';
+
 const appRoutes: Routes = [
   // { path: '', component: DashboardComponent },
   // { path: '', component: LoginComponent },
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-
+  { path: 'video', component: VideoconfComponent },
   { path: 'doctor', component: DoctorComponent, canActivate: [AuthGuard] },
   { path: 'patient', component: VideoRoomComponent, canActivate: [AuthGuard] },
   { path: 'videoconf', component: VideoRoomComponent, canActivate: [AuthGuard] },

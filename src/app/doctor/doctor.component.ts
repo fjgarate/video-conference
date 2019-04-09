@@ -1,11 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy} from '@angular/core';
 import { Subscription } from 'rxjs';
 import { first, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { User } from '../shared/models';
 import { UserService, AuthenticationService } from '../shared/services';
 import { OpenViduService } from '../shared/services/open-vidu.service';
-
 
 @Component({
   selector: 'app-doctor',
@@ -19,7 +18,8 @@ export class DoctorComponent implements OnInit, OnDestroy {
   prueba: [];
   sessionprueba: [];
   data: string;
-  public prueba2$: Observable <any> = null;
+  public sessionName: [];
+
 
 
   constructor(
@@ -36,9 +36,9 @@ export class DoctorComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadAllPatients();
-   // this.loadAllConnectedP();
+    //this.loadAllConnectedP();
     // this.loadSessionsId();
-    this.loadSessionsPrueba();
+   this.loadSessionsPrueba();
 
   }
 
@@ -68,6 +68,11 @@ export class DoctorComponent implements OnInit, OnDestroy {
     //this.openViduSrv.getSessions("https://138.4.10.65:4443", "gbttel");
   }*/
 
+  public selectUser(user) {
+    console.log(user);
+    this.sessionName = user;
+
+  }
 
   private loadAllPatients() {
     this.userService
@@ -78,10 +83,10 @@ export class DoctorComponent implements OnInit, OnDestroy {
         this.users = users;
       });
   }
-  /*private loadAllConnectedP() {
+ /* private loadAllConnectedP() {
     this.openViduSrv
       .getSessions('https://138.4.10.65:4443', 'gbttel')
-      .then(response => { this.data = response;});
+
   }*/
 
   private loadSessionsPrueba() {
@@ -103,5 +108,6 @@ export class DoctorComponent implements OnInit, OnDestroy {
     });
   }*/
  
+
 
 }

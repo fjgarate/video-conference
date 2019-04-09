@@ -70,8 +70,8 @@ export class LoginComponent implements OnInit {
                     this.loading = false;
                 });
     }
-/*
-  public goToVideoCall() {
+
+  /*public goToVideoCall() {
     console.log('lleha')
     if (this.loginForm.valid) {
       const roomName = this.loginForm.value.username.replace(/ /g, "-"); // replace white spaces by -

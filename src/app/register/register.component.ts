@@ -1,15 +1,18 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControlName } from '@angular/forms';
 import { first } from 'rxjs/operators';
-
 import { AlertService, UserService, AuthenticationService } from '../shared/services';
+import { User } from '../shared/models';
 
 @Component({templateUrl: 'register.component.html'})
 export class RegisterComponent implements OnInit {
     registerForm: FormGroup;
     loading = false;
     submitted = false;
+    roleName = '';
+    doctors: User[] = [];
+    admin: User[] = [];
 
     constructor(
         private formBuilder: FormBuilder,
@@ -25,11 +28,15 @@ export class RegisterComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.loadAllDoctors();
         this.registerForm = this.formBuilder.group({
             firstName: ['', Validators.required],
             lastName: ['', Validators.required],
             username: ['', Validators.required],
-            password: ['', [Validators.required, Validators.minLength(6)]]
+            password: ['', [Validators.required, Validators.minLength(6)]],
+            dni: ['', Validators.required],
+            role: ['', Validators.required],
+            doctorIds: ['']
         });
     }
 
@@ -57,4 +64,23 @@ export class RegisterComponent implements OnInit {
                     this.loading = false;
                 });
     }
+
+    asignarDoctor(): boolean {
+        if (this.registerForm.value.role === 'patient') {return true;
+    } else {
+        return false; }
+    }
+
+
+
+    private loadAllDoctors() {
+        this.userService
+            .getDoctors()
+            .pipe(first())
+            .subscribe(doctors => {
+                console.log('Doctores', doctors);
+                this.doctors = doctors;
+            });
+    }
+
 }

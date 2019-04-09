@@ -4,6 +4,7 @@ import { throwError as observableThrowError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { User } from '../models';
 
+
 @Injectable({ providedIn: 'root' })
 export class UserService {
   constructor(private http: HttpClient) {}
@@ -39,8 +40,38 @@ console.log(user.id)
     );
   }
 
+  getDoctors() {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'cache-control': 'no-cache',
+      })
+    };
+    return this.http.get<any>(
+      'https://login-videocall.herokuapp.com' + '/users',
+      options
+    );
+  }
+
+
+
+  register(user: User) {
+    console.log('register');
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'cache-control': 'no-cache',
+      })
+    };
+    return this.http.post<any>(
+      'https://login-videocall.herokuapp.com' + '/users/register',
+      user, options
+    );
+  }
+
+
   //Estas no sirven
-  getById(id: number) {
+  /*getById(id: number) {
     return this.http.get(`http://localhost:4200/users/${id}`);
   }
 
@@ -50,7 +81,7 @@ console.log(user.id)
 
   update(user: User) {
     return this.http.put(`http://localhost:4200/users/${user.id}`, user);
-  }
+  }*/
 
   delete(id: number) {
     return this.http.delete(`http://localhost:4200/users/${id}`);

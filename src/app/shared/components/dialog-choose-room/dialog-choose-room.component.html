@@ -1,21 +1,17 @@
 <div id="dialogChooseRoom" [ngStyle]="{ display: autopublish ? 'none' : 'block' }">
   <mat-card *ngIf="user.getStreamManager()">
     <mat-card-title>
-      <div id="img_content">
-        <img
-          id="header_img"
-          alt="OpenVidu Logo"
-          src="https://raw.githubusercontent.com/OpenVidu/openvidu-call/master/front/openvidu-call/src/assets/images/openvidu_logo_grey.png"
-        />
-      </div>
-      <h1 mat-dialog-title>Set up your room</h1>
+      <h1 mat-dialog-title>Personaliza tu sala </h1>
     </mat-card-title>
+
+
+
     <mat-card-content align="center" id="card-content">
       <div class="">
         <div class="" fxLayout="row" fxLayout.sm="column" fxLayout.lt-sm="column" fxFlexFill>
           <!--  left section -->
           <div fxFlex="45" fxFlex.sm="25" fxFlex.lt-sm="25" class="volume-theme">
-            <h3 id="sessionInfo">Session : {{ mySessionId }}</h3>
+            <h3 id="sessionInfo">Sesión : {{ currentUser.username }}</h3>
             <mat-slider
               class="volumeSlider"
               [max]="0"
@@ -26,46 +22,28 @@
             >
             </mat-slider>
             <ov-video [streamManager]="user.getStreamManager()" id="ovVideo" style="display: inline-block"></ov-video>
-            <div id="photoButton">
-              <button mat-stroked-button (click)="takePhoto()" id="avatarButton">
-                <mat-icon matTooltip="Take Photo">photo_camera</mat-icon>
-                <span style="margin-left: 5px">Capture Avatar</span>
-              </button>
-            </div>
+
           </div>
           <!--  right section -->
           <div fxFlex="55" fxFlex.sm="65" fxFlex.lt-sm="65" class="sec3">
-            <div fxLayout="row" fxFill id="avatarSection">
-              <div fxLayout fxFlex>
-                <div class="" fxFlex="30" fxLayoutAlign="center center"><h3 style="margin: auto;">Avatar</h3></div>
-                <div class="two" style="background-color: azure" fxFlex="70" fxLayoutAlign="center center">
-                  <div
-                    id="avatarContainer"
-                    (mouseover)="hover1 = true"
-                    (click)="setAvatar('video')"
-                    (mouseleave)="hover1 = false"
-                    [ngStyle]="{ backgroundColor: videoAvatar && hover1 && avatarSelected !== 'video' ? 'lightgreen' : 'white' }"
-                    [style.background]="avatarSelected === 'video' ? 'lightgreen' : 'transparent'"
-                  >
-                    <div id="imgText" *ngIf="!videoAvatar">Press Avatar Button</div>
-                    <img id="avatarImg" *ngIf="videoAvatar" [src]="videoAvatar" />
+              <div fxLayout="row" fxFill id="infoPatient" *ngIf="isDoctor">
+                  <div class="info" fxFlex="100" fxLayoutAlign="center">
+                  <div class="container">
+                 <div class="row">
+                 <div class="col-sm">
+                <div class="col-sm titulo2">
+                    Información del paciente
+                    </div>
+                      <div class="col-sm infoP">
+
+                      El paciente es: {{prueba}}
+                      </div>
                   </div>
-                  <div
-                    id="avatarContainer"
-                    (click)="setAvatar('random')"
-                    (mouseover)="hover2 = true"
-                    (mouseleave)="hover2 = false"
-                    [ngStyle]="{
-                      backgroundColor: randomAvatar && hover2 && avatarSelected !== 'random' ? 'lightgreen' : 'white'
-                    }"
-                    [style.background]="avatarSelected === 'random' ? 'lightgreen' : 'transparent'"
-                  >
-                    <mat-spinner id="imgText" [diameter]="70" *ngIf="!randomAvatar" color="accent"></mat-spinner>
-                    <img id="avatarImg" *ngIf="randomAvatar" [src]="randomAvatar" />
                   </div>
-                </div>
+                  </div>
+                  </div>
               </div>
-            </div>
+
             <!-- Devices section / Camera-->
             <div fxLayout="row" fxFill id="devicesSection">
               <div fxLayout fxFlex>
@@ -78,8 +56,8 @@
                 <div class="two" fxFlex="80" fxLayoutAlign="center center">
                   <mat-form-field class="alternate-theme">
                     <mat-select
-                      placeholder="Camera Options"
-                      [ngModel]="isVideoActive ? camValue.label : 'None'"
+                      placeholder="Seleccionar cámara"
+                      [ngModel]="isVideoActive ? camValue.label : 'Ninguna'"
                       (selectionChange)="camChanged($event.value)"
                     >
                       <mat-option *ngFor="let camera of cameras" [value]="camera.label">{{ camera.label }}</mat-option>
@@ -101,8 +79,8 @@
                 <div class="two" fxFlex="80" fxLayoutAlign="center center">
                   <mat-form-field class="alternate-theme">
                     <mat-select
-                      placeholder="Microphone Options"
-                      [ngModel]="isAudioActive ? micValue.label : 'None'"
+                      placeholder="Seleccionar micrófono"
+                      [ngModel]="isAudioActive ? micValue.label : 'Ninguno'"
                       (selectionChange)="micChanged($event.value)"
                     >
                       <mat-option *ngFor="let microphone of microphones" [value]="microphone.label">{{
@@ -127,7 +105,7 @@
                     <mat-form-field>
                       <input
                         matInput
-                        placeholder="Nickname"
+                        placeholder="Usuario"
                         [formControl]="nicknameFormControl"
                         [errorStateMatcher]="matcher"
                         (keypress)="eventKeyPress($event)"
