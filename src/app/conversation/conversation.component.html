@@ -1,0 +1,28 @@
+<p>
+  conversation works!
+</p>
+
+ultimas conversaciones
+<div style = "display:flex">
+<div id="conversations" style="float:left">
+  <ul>
+  <li  *ngFor="let conversation of conversations">
+    <div (onCreate)="createItem(conversation)"></div>
+    <span (click)="pruebacall(conversation.id)"> creada: {{conversation.createdDate}}</span>
+
+  </li>
+  </ul>
+</div>
+<div id="messages" style="float:right">
+  <ul>
+    <li *ngFor="let message of messages">
+      <span>autor: {{message.author}}</span><br />
+      <span>date: {{message.createdDate}}</span><br />
+      <span>text: {{message.text}}</span><br />
+      <span>leido: {{message.read}}</span><br />
+    </li>
+  </ul>
+</div>
+</div>
+
+  <a class="nav-item nav-link" (click)="pruebacall('hola')">prueba</a>

@@ -8,6 +8,8 @@ import {RegisterComponent} from './register';
 import { AuthGuard } from './shared/guards';
 import {DoctorComponent} from './doctor/doctor.component';
 import { PatientComponent } from './patient/patient.component';
+import { ConversationComponent } from './conversation/conversation.component';
+
 const appRoutes: Routes = [
   // { path: '', component: DashboardComponent },
   // { path: '', component: LoginComponent },
@@ -17,6 +19,7 @@ const appRoutes: Routes = [
 
   { path: 'doctor', component: DoctorComponent, canActivate: [AuthGuard] },
   { path: 'patient', component: VideoRoomComponent, canActivate: [AuthGuard] },
+  { path: 'conversations', component: ConversationComponent, canActivate: [AuthGuard] },
   { path: 'videoconf', component: VideoRoomComponent, canActivate: [AuthGuard] },
   { path: ':roomName', component: VideoRoomComponent, canActivate: [AuthGuard]  },
   // otherwise redirect to home
