@@ -5,10 +5,10 @@ import { User } from '../shared/models';
 import { UserService, AuthenticationService } from '../shared/services';
 import { OpenViduService } from '../shared/services/open-vidu.service';
 import { DoctorComponent} from '../doctor/doctor.component';
-
+import { RouterModule, Router } from "@angular/router";
 @Component({
-  selector: 'app-videoconf',
-  templateUrl: './videoconf.component.html',
+  selector: "app-videoconf",
+  templateUrl: "./videoconf.component.html"
 })
 export class VideoconfComponent implements OnInit {
   currentUser: User;
@@ -20,12 +20,11 @@ export class VideoconfComponent implements OnInit {
   esta: boolean = true;
   public sessionName: [];
 
-
-
   constructor(
     private authenticationService: AuthenticationService,
     private userService: UserService,
-    private openViduSrv: OpenViduService
+    private openViduSrv: OpenViduService,
+    private router: Router
   ) {
     this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
       user => {
@@ -40,22 +39,21 @@ export class VideoconfComponent implements OnInit {
   }
 
   cambiaEstado(variable1, variable2) {
-    if (variable1.includes(variable2))
-    {
+    if (variable1.includes(variable2)) {
       this.esta = true;
-      console.log('Verdadero');
+      console.log("Verdadero");
     } else {
       this.esta = false;
-      console.log('Falso');
-
+      console.log("Falso");
     }
   }
 
   getColor(varia1, varia2) {
     switch (this.texto) {
       case varia1.username.includes(varia2.sessionId):
-        return 'green';}
-        console.log('Cambia color')
+        return "green";
+    }
+    console.log("Cambia color");
   }
 
   private loadAllPatients() {
@@ -70,16 +68,17 @@ export class VideoconfComponent implements OnInit {
 
   private loadSessionsPrueba() {
     this.openViduSrv
-      .getSessionsPrueba('https://138.4.10.65:4443', 'gbttel')
+      .getSessionsPrueba("https://138.4.10.65:4443", "gbttel")
       .subscribe(response => {
-        console.log('Funciona', response);
+        console.log("Funciona", response);
         this.sessionprueba = response;
       });
   }
   public selectUser(user) {
     console.log(user);
+    this.router.navigate(["videoconf"], {
+      queryParams: { user_p: user }
+    });
     this.sessionName = user;
-
   }
-
 }

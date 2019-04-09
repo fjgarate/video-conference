@@ -29,7 +29,7 @@
     <p></p>
     <span> desde las {{session.createdAt | date:'medium'}}</span><br>
     <a routerLink="/videoconf" class="btn btn-link" (click)="selectUser(session.sessionId)">Iniciar videoconferencia</a>
-
+    <p class="btn btn-link" (click)="selectUser(session.sessionId)">Iniciar videoconferencia2</p>
   </li>
 </ul>
 </div>

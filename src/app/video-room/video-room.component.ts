@@ -1,6 +1,6 @@
 import { Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { Router } from '@angular/router';
+import { ActivatedRoute,Router } from "@angular/router";
 import { OpenVidu, Publisher, Session, SignalOptions, Stream, StreamEvent, StreamManagerEvent } from 'openvidu-browser';
 import { DialogErrorComponent } from '../shared/components/dialog-error/dialog-error.component';
 import { OpenViduLayout, OpenViduLayoutOptions } from '../shared/layout/openvidu-layout';
@@ -12,6 +12,7 @@ import { User } from "../shared/models";
 import { Subscription } from "rxjs";
 import { UserService, AuthenticationService } from "../shared/services";
 import { first } from "rxjs/operators";
+
 @Component({
   selector: 'app-video-room',
   templateUrl: './video-room.component.html',
@@ -53,13 +54,15 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
   remoteUsers: UserModel[];
   messageList: { connectionId: string; nickname: string; message: string; userAvatar: string }[] = [];
   newMessages = 0;
-
+  user_p = "";
+  private sub: any;
   private OV: OpenVidu;
   private bigElement: HTMLElement;
 
   constructor(
     private openViduSrv: OpenViduService,
     private router: Router,
+    private route: ActivatedRoute,
     public dialog: MatDialog,
     private authenticationService: AuthenticationService,
     private userService: UserService
@@ -80,7 +83,12 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-
+    this.sub = this.route.queryParams.subscribe(params => {
+      // Defaults to 0 if no query param provided.
+      this.user_p = params["user_p"];
+    });
+    console.log("usuario paciente")
+    console.log(this.user_p)
     this.openViduSrv.getOvSettingsData().then((data: OvSettings) => {
       this.ovSettings = this.ovSettings ? this.ovSettings : data;
     }).catch((error) => console.error(error));
@@ -201,8 +209,10 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
     } else {
       this.mySessionId = this
     }*/
-    this.mySessionId = this.currentUser.username;
+    //this.mySessionId = this.currentUser.username;
+   
     this.initApp();
+    this.mySessionId = this.user_p;
   }
 
   screenShare() {
