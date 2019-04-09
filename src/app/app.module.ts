@@ -47,6 +47,8 @@ import { AlertComponent } from './shared/components/alert';
 import { DoctorComponent } from './doctor/doctor.component';
 import { PatientComponent } from './patient/patient.component';
 import { VideoconfComponent } from './videoconf/videoconf.component';
+import { ConversationComponent } from './conversation/conversation.component';
+
 
 @NgModule({
   declarations: [
@@ -68,7 +70,8 @@ import { VideoconfComponent } from './videoconf/videoconf.component';
     RegisterComponent,
     DoctorComponent,
     PatientComponent,
-    VideoconfComponent
+    VideoconfComponent,
+    ConversationComponent
   ],
   imports: [
     FormsModule,
