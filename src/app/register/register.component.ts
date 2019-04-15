@@ -28,7 +28,6 @@ export class RegisterComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.loadAllDoctors();
         this.registerForm = this.formBuilder.group({
             firstName: ['', Validators.required],
             lastName: ['', Validators.required],
@@ -71,16 +70,5 @@ export class RegisterComponent implements OnInit {
         return false; }
     }
 
-
-
-    private loadAllDoctors() {
-        this.userService
-            .getDoctors()
-            .pipe(first())
-            .subscribe(doctors => {
-                console.log('Doctores', doctors);
-                this.doctors = doctors;
-            });
-    }
 
 }

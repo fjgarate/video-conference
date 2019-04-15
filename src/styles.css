@@ -74,14 +74,51 @@ img {
 }
 
 .grupo {
-	margin-top: 100px;
-	margin-bottom: auto;
-	width: 500px;
-	background-color:rgba(179, 180, 184, 0.38) !important;
+	margin-top: 50px;
+  width: 250px;
+  margin-left: 50px;
+  margin-right: auto;
+}
+.lista {
+  margin-top:2px;
+  margin-bottom: auto;
+}
+
+.mensajes {
+  margin-top: 100px;
+  margin-bottom: auto;
 	padding: 20px;
 	border: 2px solid #343a40;
   border-radius: 5px;
   color:rgb(15, 15, 15);
+}
+.contenido{
+  margin-top: 5px;
+  margin-bottom: auto;
+  margin-left: 2%;
+  margin-right: 2%;
+}
+
+.doctor{
+ background-color: rgb(199, 245, 155);
+ border: 2px solid #343a40;
+ border-radius: 5px;
+ color:rgb(15, 15, 15);
+ margin-right: auto;
+ margin-left: 20%;
+}
+
+.paciente{
+ background-color: rgb(243, 245, 155);
+  border: 2px solid #343a40;
+  border-radius: 5px;
+  color:rgb(15, 15, 15);
+  margin-left: auto;
+  margin-right: 20%;
+}
+
+.prueba{
+  font-size: 50 px;
 }
 
 .inicio {
@@ -105,10 +142,8 @@ img {
 
 }
 .titulo2{
-  margin-top:5px;
+  margin-top:50px;
   margin-bottom: auto;
-  font-weight: normal;
-  font-style: normal;
 }
 
 button.si{

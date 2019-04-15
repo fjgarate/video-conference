@@ -1,8 +1,5 @@
 <div id="dialogChooseRoom" [ngStyle]="{ display: autopublish ? 'none' : 'block' }">
   <mat-card *ngIf="user.getStreamManager()">
-    <mat-card-title>
-      <h1 mat-dialog-title>Personaliza tu sala </h1>
-    </mat-card-title>
 
 
 
@@ -11,7 +8,7 @@
         <div class="" fxLayout="row" fxLayout.sm="column" fxLayout.lt-sm="column" fxFlexFill>
           <!--  left section -->
           <div fxFlex="45" fxFlex.sm="25" fxFlex.lt-sm="25" class="volume-theme">
-            <h3 id="sessionInfo">Sesión : {{ currentUser.username }}</h3>
+            <h3 id="sessionInfo">Sesión : {{ user_p }}</h3>
             <mat-slider
               class="volumeSlider"
               [max]="0"
@@ -32,11 +29,12 @@
                  <div class="row">
                  <div class="col-sm">
                 <div class="col-sm titulo2">
-                    Información del paciente
+                    <h4>Información del paciente</h4>
                     </div>
                       <div class="col-sm infoP">
-
-                      El paciente es: {{prueba}}
+                      El paciente es: {{pacientes.firstName}} {{pacientes.lastName}}
+                      <p>
+                      El motivo de la videoconferencia es: Revisión
                       </div>
                   </div>
                   </div>

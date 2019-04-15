@@ -26,6 +26,7 @@
         "ngx-linkifyjs": "1.2.2",
         "openvidu-browser": "2.8.0",
         "rxjs": "6.3.3",
+        "scrolling": "^0.1.1",
         "wolfy87-eventemitter": "5.2.5",
         "zone.js": "0.8.26"
     },

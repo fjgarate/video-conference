@@ -161,7 +161,7 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
     this.localUser = null;
     this.OV = null;
     this.openviduLayout = null;
-    this.router.navigate(['']);
+    this.router.navigate(['videoconf']);
     this.leaveSession.emit();
   }
 
@@ -198,7 +198,7 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
 
   toggleDialogExtension() {
     this.showDialogExtension = !this.showDialogExtension;
-  }5
+  }
 
   toggleDialogChooseRoom(data: {user: UserModel, sessionId: string}) {
     this.showDialogChooseRoom = false;
@@ -212,7 +212,10 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
     //this.mySessionId = this.currentUser.username;
    
     this.initApp();
-    this.mySessionId = this.user_p;
+    if (this.currentUser.role === 'doctor') {
+      this.mySessionId = this.user_p;
+    }
+    this.mySessionId = this.currentUser.id;
   }
 
   screenShare() {

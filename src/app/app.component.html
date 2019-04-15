@@ -1,10 +1,10 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="currentUser">
   <div class="navbar-nav">
-    <a class="nav-item nav-link" routerLink="/doctor">Home</a>
+    <a class="nav-item nav-link" routerLink="/doctor">Inicio</a>
     <a class="nav-item nav-link" routerLink="/video">Videoconferencia</a>
-    <a class="nav-item nav-link " (click)="logout()" >Cerrar sesión</a>
-    <a class="nav-item nav-link" routerLink="/conversations">Mensages</a>
+    <a class="nav-item nav-link" routerLink="/conversations">Mensajes</a>
+    <a class="nav-item nav-link right" (click)="logout()" >Cerrar sesión</a>
    </div>
 </nav>
 <router-outlet></router-outlet>

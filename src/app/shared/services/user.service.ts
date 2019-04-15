@@ -38,20 +38,19 @@ export class UserService {
     );
   }
 
-  getDoctors() {
+
+  getById(token: string, id: string) {
     const options = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'cache-control': 'no-cache',
+        Authorization: 'Bearer ' + token,
+        'Content-Type': 'application/json'
       })
     };
     return this.http.get<any>(
-      'https://login-videocall.herokuapp.com' + '/users',
+      'https://login-videocall.herokuapp.com' + '/users/' + id,
       options
     );
   }
-
-
 
   register(user: User) {
     console.log('register');

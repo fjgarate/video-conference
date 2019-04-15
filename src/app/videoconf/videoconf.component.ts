@@ -38,24 +38,6 @@ export class VideoconfComponent implements OnInit {
     this.loadSessionsPrueba();
   }
 
-  cambiaEstado(variable1, variable2) {
-    if (variable1.includes(variable2)) {
-      this.esta = true;
-      console.log("Verdadero");
-    } else {
-      this.esta = false;
-      console.log("Falso");
-    }
-  }
-
-  getColor(varia1, varia2) {
-    switch (this.texto) {
-      case varia1.username.includes(varia2.sessionId):
-        return "green";
-    }
-    console.log("Cambia color");
-  }
-
   private loadAllPatients() {
     this.userService
       .getPatients(this.currentUser)
@@ -68,15 +50,15 @@ export class VideoconfComponent implements OnInit {
 
   private loadSessionsPrueba() {
     this.openViduSrv
-      .getSessionsPrueba("https://138.4.10.65:4443", "gbttel")
+      .getSessionsPrueba('https://138.4.10.65:4443', 'gbttel')
       .subscribe(response => {
-        console.log("Funciona", response);
+        console.log('Funciona', response);
         this.sessionprueba = response;
       });
   }
   public selectUser(user) {
     console.log(user);
-    this.router.navigate(["videoconf"], {
+    this.router.navigate(['videoconf'], {
       queryParams: { user_p: user }
     });
     this.sessionName = user;

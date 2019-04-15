@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, Injector } from '@angular/core';
+import { NgModule, Injector, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
@@ -19,6 +19,8 @@ import {
   MatProgressSpinnerModule,
   MatSliderModule
 } from '@angular/material';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { VideoRoomComponent } from './video-room/video-room.component';
@@ -96,6 +98,7 @@ import { ConversationComponent } from './conversation/conversation.component';
     AppRoutingModule,
     HttpClientModule,
     FlexLayoutModule,
+    ScrollingModule,
     NgxLinkifyjsModule.forRoot()
   ],
   entryComponents: [DialogErrorComponent, WebComponentComponent],
@@ -105,7 +108,10 @@ import { ConversationComponent } from './conversation/conversation.component';
 
 
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA,
+  ]
 })
 export class AppModule {
   constructor(private injector: Injector) {

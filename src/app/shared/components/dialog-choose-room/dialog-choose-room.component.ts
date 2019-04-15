@@ -4,11 +4,12 @@ import { UserModel } from '../../models/user-model';
 import { NicknameMatcher } from '../../forms-matchers/nickname';
 import { ApiService } from '../../services/api.service';
 import { OpenVidu, Publisher } from 'openvidu-browser';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { User } from '../../models/user';
 import { Subscription } from 'rxjs';
 import { UserService, AuthenticationService } from '../../services';
 import { DoctorComponent } from '../../../doctor/doctor.component';
+import { first } from 'rxjs/operators';
 
 
 interface IDevices {
@@ -25,6 +26,9 @@ export class DialogChooseRoomComponent implements OnInit {
   currentUser: User;
   currentUserSubscription: Subscription;
   users: User[] = [];
+  user_p = '';
+  private sub: any;
+  pacientes: User[]=[];
 
   @Input() userNickname: string;
   @Input() sessionName: string;
@@ -52,7 +56,7 @@ export class DialogChooseRoomComponent implements OnInit {
   matcher = new NicknameMatcher();
 
   constructor(private route: ActivatedRoute, private apiSrv: ApiService, private authenticationService: AuthenticationService,
-    private userService: UserService) {
+    private userService: UserService, private router: Router) {
     this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
       this.currentUser = user;
     });
@@ -69,6 +73,13 @@ export class DialogChooseRoomComponent implements OnInit {
     this.setDevicesValue();
     this.getRandomAvatar();
     this.columns = (window.innerWidth > 900) ? 2 : 1;
+    this.sub = this.route.queryParams.subscribe(params => {
+      // Defaults to 0 if no query param provided.
+      this.user_p = params['user_p'];
+    });
+    console.log('usuario paciente');
+    console.log(this.user_p);
+    this.getById();
   }
 
   toggleCam() {
@@ -217,5 +228,15 @@ export class DialogChooseRoomComponent implements OnInit {
     (<Publisher>this.user.getStreamManager()).off('streamAudioVolumeChange');
     this.user.getStreamManager().stream.disposeWebRtcPeer();
     this.user.getStreamManager().stream.disposeMediaStream();
+  }
+
+  private getById() {
+    this.userService
+      .getById(this.currentUser.token, this.user_p)
+      .pipe(first())
+      .subscribe(pacientes => {
+        console.log('Pacientes', pacientes);
+        this.pacientes = pacientes;
+        });
   }
 }
