@@ -10,7 +10,16 @@
 
 <div class="col-sm-6 inicio">
 <h4>MENSAJES:</h4>
+<div *ngFor="let conversation of conversations">
+  Creada: {{conversation.createdDate| date:'medium'}}
+  <div class="container contenido" *ngFor="let message of messages | isPresent">
+  <span>{{message.text}}</span><br />
+  <span>Leído: {{message.read}}</span><br />
 
+
+
+  </div>
+</div>
 
 
 </div>

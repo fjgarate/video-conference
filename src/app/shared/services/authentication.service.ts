@@ -2,6 +2,7 @@
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { environment } from './../../../environments/environment';
 
 import { User } from '../models';
 
@@ -20,7 +21,8 @@ export class AuthenticationService {
     }
 
     login(username: string, password: string) {
-      return this.http.post<any>(`https://login-videocall.herokuapp.com/users/authenticate`, { username, password })
+        console.log(environment.api_url)
+        return this.http.post<any>(environment.api_url + '/users/authenticate', { username, password })
             .pipe(map(user => {
                 // login successful if there's a jwt token in the response
                 user.id = user._id

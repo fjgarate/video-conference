@@ -50,6 +50,10 @@ import { DoctorComponent } from './doctor/doctor.component';
 import { PatientComponent } from './patient/patient.component';
 import { VideoconfComponent } from './videoconf/videoconf.component';
 import { ConversationComponent } from './conversation/conversation.component';
+import { IsPresentPipe } from './is-present.pipe';
+import { IsReadPipe } from './is-read.pipe';
+import { IsDocPipe } from './is-doc.pipe';
+import { MessagesComponent } from './messages/messages.component';
 
 
 @NgModule({
@@ -73,7 +77,11 @@ import { ConversationComponent } from './conversation/conversation.component';
     DoctorComponent,
     PatientComponent,
     VideoconfComponent,
-    ConversationComponent
+    ConversationComponent,
+    IsPresentPipe,
+    IsReadPipe,
+    IsDocPipe,
+    MessagesComponent
   ],
   imports: [
     FormsModule,

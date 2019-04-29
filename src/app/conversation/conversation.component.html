@@ -2,59 +2,48 @@
   <div class="container">
     <div class="row">
       <div class="col-sm grupo">
-        <h5>LISTA PACIENTES</h5>
-        <ul>
-          <li *ngFor="let user of users" class="lista">
-            <span>{{user.firstName}} {{user.lastName}}</span> 
-          <button (click)="createConver(user.id)"
-            class="btn btn-outline-success" style="margin-left: 20px">
-            <span>Crear</span>
-          </button>
-            <button (click)="getConversationsById(user.id)" 
-          (click)="getById(user.id)" (click)="toogleCollapse()"
-          class="btn btn-outline-success" style="margin-left: 20px"> 
+        <ol id="lista2"> 
+        <li *ngFor="let conversation of conversations" class="lista">
+            <span>{{conversation.title}}</span> 
+            <button (click)="goMessages(conversation.id)"  class="btn btn-outline-success" style="margin-left: 20px"> 
           <span>Ver</span> 
-          </button> 
           
+        </button>          
         </li>
-        </ul>
-     </div>
+        </ol>
+        <button (click)="toogleCollapse()" class="btn btn-info">
+   <span>Nueva conversación</span>
+        </button>
+        <div *ngIf="!isCollapsed" class="col-sm"> 
+        <form [formGroup]="conversationForm" (ngSubmit)="createConver()">
+    <div class="form-group">
 
-
-
-      <div *ngIf="!isCollapsed" class="col-sm mensajes"> 
-      <dl>CONVERSACIÓN</dl>
-        <div *ngFor="let conversation of conversations">
-          Creada: {{conversation.createdDate| date:'medium'}}
-          <div class="row">
-            <div class="container contenido" *ngFor="let message of messages" 
-            [ngClass]="{'doctor': message.author === currentUser.id,
-          'paciente': message.author === pacientes.id}">
-              <span style="font-weight:bold">Autor: {{message.author}}</span><br />
-              <span style="font-style: oblique ">{{message.createdDate| date:'short'}}</span><br />
-              <span >{{message.text}}</span><br />
-              <span>Leído: {{message.read}}</span><br />
+        <mat-form-field>
+          <label for="participants">Seleccionar paciente </label>
+          <select matNativeControl required formControlName="participants">
+            <option *ngFor="let patient of users"
+            [value]="patient.id">{{patient.firstName}} {{patient.lastName}}
+            </option>
             
-          </div>
-          </div>
-        <form [formGroup]="messageForm" (ngSubmit)="submitNewM(conversation.id)">
-            <div class="form-group">
-              <label for="message">Mensaje</label>
-              <input type="text" formControlName="text" class="form-control">
-              </div>
+          </select>
+        </mat-form-field>
+      </div>
+       <div class="form-group">
+       <label for="title">Título</label>
+       <input id="btn-input" type="text" formControlName="title" class="form-control input-sm" placeholder="Paciente:Francisco, Problema:Diabetes">
+       </div>
+
           <div class="form-group">
-         <button [disabled]="loading" class="btn btn-success">Enviar</button>
-        <img *ngIf="loading" class="pl-3"
-          src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+            <span class="input-group-btn">
+              <button class="btn btn-warning btn-sm" id="btn-chat" >
+                Crear
+              </button>
+            </span>
           </div>
-        </form>
-      </div>
-
-      </div>
-
+        </form>  
+          </div>
+    </div>
   </div>
   </div>
   </body>
 
-
- 

@@ -117,6 +117,12 @@ img {
   margin-right: 20%;
 }
 
+.read{
+  fill:#4fc3f7;
+}
+.noread{
+  fill:#343a40;
+}
 .prueba{
   font-size: 50 px;
 }

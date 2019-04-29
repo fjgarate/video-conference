@@ -1,9 +1,9 @@
-﻿import { Injectable } from '@angular/core';
+﻿import { environment } from './../../../environments/environment';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { throwError as observableThrowError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { User } from '../models';
-
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -20,7 +20,7 @@ export class UserService {
       })
     };
     return this.http.get<any>(
-      'https://login-videocall.herokuapp.com' + '/users',
+      environment.api_url + '/users',
       options
     );
   }
@@ -33,7 +33,7 @@ export class UserService {
       })
     };
     return this.http.get<any>(
-      'https://login-videocall.herokuapp.com' + `/users/patients/${user.id}`,
+      environment.api_url + `/users/patients/${user.id}`,
       options
     );
   }
@@ -47,7 +47,7 @@ export class UserService {
       })
     };
     return this.http.get<any>(
-      'https://login-videocall.herokuapp.com' + '/users/' + id,
+      environment.api_url + '/users/' + id,
       options
     );
   }
@@ -61,7 +61,7 @@ export class UserService {
       })
     };
     return this.http.post<any>(
-      'https://login-videocall.herokuapp.com' + '/users/register',
+      environment.api_url + '/users/register',
       user, options
     );
   }

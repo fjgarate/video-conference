@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Message } from '../models/message';
 import { Conversation } from '../models/conversation';
+import { environment } from './../../../environments/environment';
 
 @Injectable({
   providedIn: "root"
@@ -17,7 +18,7 @@ export class ConversationService {
       })
     };
     return this.http.get<any>(
-      "https://login-videocall.herokuapp.com" + "/conversations",
+      environment.api_url + "/conversations",
       options
     );
   }
@@ -29,7 +30,20 @@ export class ConversationService {
       })
     };
     return this.http.get<any>(
-      "https://login-videocall.herokuapp.com" + "/conversations/user"+"/"+id,
+      environment.api_url + "/conversations/user"+"/"+id,
+      options
+    );
+  }
+
+  getById(token: string, id: string) {
+    const options = {
+      headers: new HttpHeaders({
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json"
+      })
+    };
+    return this.http.get<any>(
+      environment.api_url + "/conversations" + "/" + id,
       options
     );
   }
@@ -43,7 +57,7 @@ export class ConversationService {
       })
     };
     return this.http.put<any>(
-      'https://login-videocall.herokuapp.com' + '/conversations/' + id,
+      environment.api_url + '/conversations/' + id,
       newMessage,
       options
     );
@@ -58,8 +72,22 @@ export class ConversationService {
       })
     };
     return this.http.post<any>(
-    'https://login-videocall.herokuapp.com' + '/conversations/register',
+    environment.api_url + '/conversations/register',
 newConversation, options
     );
+  }
+
+  updateConversation(token: string, id: string, newConversation: Conversation) {
+    console.log('Conversacion actualizada');
+    const options = {
+      headers: new HttpHeaders({
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json"
+      }) 
+    };
+    return this.http.put<any>(
+      environment.api_url + '/conversations/update' + id,
+      newConversation, options );
+
   }
 }

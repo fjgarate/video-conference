@@ -38,6 +38,17 @@ export class VideoconfComponent implements OnInit {
     this.loadSessionsPrueba();
   }
 
+  
+
+  private loadSessionsPrueba() {
+    this.openViduSrv
+      .getSessionsPrueba('https://138.4.10.65:4443', 'gbttel')
+      .subscribe(response => {
+        console.log('Funciona', response);
+        this.sessionprueba = response;
+      });
+  }
+
   private loadAllPatients() {
     this.userService
       .getPatients(this.currentUser)
@@ -48,14 +59,9 @@ export class VideoconfComponent implements OnInit {
       });
   }
 
-  private loadSessionsPrueba() {
-    this.openViduSrv
-      .getSessionsPrueba('https://138.4.10.65:4443', 'gbttel')
-      .subscribe(response => {
-        console.log('Funciona', response);
-        this.sessionprueba = response;
-      });
-  }
+
+
+
   public selectUser(user) {
     console.log(user);
     this.router.navigate(['videoconf'], {

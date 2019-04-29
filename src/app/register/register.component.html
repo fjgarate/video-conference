@@ -21,11 +21,8 @@
  
         <div *ngIf="asignarDoctor()">
             <mat-form-field>
-                <label for="doctorIds">Doctor asignado </label>
-                <select matNativeControl required formControlName="doctorIds">
-                    <option value="patient">Juan</option>
-                    <option value="patient">Maria</option>
-                </select>
+                <label for="doctorIds">Id doctor asignado </label>
+                <input type="text" formControlName="doctorIds" class="form-control" />
                 <p></p>
             </mat-form-field>
         </div>

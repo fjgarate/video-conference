@@ -9,6 +9,8 @@ import { Message } from "../shared/models/message";
 import * as crypto from "crypto-js";
 import { FormBuilder, FormGroup, Validators, FormControlName } from '@angular/forms';
 import { FlexAlignStyleBuilder } from '@angular/flex-layout';
+import { Router } from '@angular/router';
+import { SharedService } from '../shared/services/shared.service';
 
 
 @Component({
@@ -22,10 +24,16 @@ export class ConversationComponent implements OnInit {
   conversations: Conversation[] = [];
   messageForm: FormGroup;
   conversationForm: FormGroup;
+  cambio: FormGroup;
   loading = false;
   submitted = false;
   isCollapsed: boolean = true;
   isCreated: boolean = false;
+  participants: string[] = [];
+  conversation: Conversation;
+  last_message: Message;
+  user_conversation: User;
+
 
   messages: Message[] = [];
   users: User[] = [];
@@ -35,7 +43,11 @@ export class ConversationComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,
     private convesationSrv: ConversationService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router,
+    private sharedService: SharedService,
+
+
   ) {
     this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
       user => {
@@ -52,14 +64,24 @@ export class ConversationComponent implements OnInit {
   ngOnInit() {
       this.conversationForm = this.formBuilder.group({
         createUsername: this.currentUser.id,
-        participants: '',
+        title: [''],
+        participants: [''],
+        messages: [
+          {
+            author: this.currentUser.firstName + ' ' + this.currentUser.lastName,
+            text: 'La conversación ha sido creada con éxito',
+          }
+        ]
       });
 
       this.messageForm = this.formBuilder.group({
       text: [''],
-      author: this.currentUser.id,
+      author: this.currentUser.firstName + ' ' + this.currentUser.lastName,
       read: false });
-    //this.loadAllUsers();
+
+      this.cambio = this.formBuilder.group({
+        role: true
+      });
     this.loadAllPatients();
     this.getConversationsByUserId(this.currentUser.id);
   }
@@ -83,20 +105,27 @@ export class ConversationComponent implements OnInit {
       .subscribe(conversations => {
         console.log(conversations);
         this.conversations = conversations;
-        if (this.conversations.length > 0){
+        if (this.conversations.length > 0) {
+          this.conversation = this.conversations[0];
           this.messages = this.conversations[conversations.length-1].messages;
+          this.participants = this.conversation.participants;
+          this.last_message = this.messages[this.messages.length - 1];
+
         }
       });
   }
-  createConver(participant) {
-    this.conversationForm.value.participants = [participant, this.currentUser.id];
+
+
+  createConver() {
+    this.conversationForm.value.participants = [this.conversationForm.value.participants, this.currentUser.id];
     this.convesationSrv.createConversation(this.conversationForm.value)
       .pipe(first())
       .subscribe(
-        data => {
+        data => {this.conversations = data;
         },
         error => {
         });
+        this.getConversationsByUserId(this.currentUser.id);
   }
 
 
@@ -105,12 +134,16 @@ export class ConversationComponent implements OnInit {
       .getConversationsByUserId(this.currentUser.token, id)
       .pipe(first())
       .subscribe(conversations => {
-        console.log(conversations);
+        console.log('Conversaciones',conversations);
         this.conversations = conversations;
         if (this.conversations.length > 0) {
           this.messages = this.conversations[conversations.length - 1].messages;
         }
       });
+      this.router.navigate(['messages'], {
+        queryParams: {conver_p: this.conversations}
+      });
+
   }
 
 
@@ -134,17 +167,6 @@ console.log(conversation)
   }
 
 
-  private loadAllUsers() {
-    this.userService
-      .getAll(this.currentUser.token)
-      .pipe(first())
-      .subscribe(users => {
-        console.log(users);
-        this.users = users;
-      });
-    //this.openViduSrv.getSessions("https://138.4.10.65:4443", "gbttel");
-  }
-
   getById(id: string) {
     this.userService
       .getById(this.currentUser.token, id)
@@ -155,21 +177,19 @@ console.log(conversation)
       });
   }
 
-  submitNewM(id: string) {
-    this.submitted = true;
-    this.loading = true;
-    this.convesationSrv.addMessage(this.currentUser.token, id, this.messageForm.value)
-      .pipe(first())
-      .subscribe(
-        data => {
-        },
-        error => {
-          this.loading = false;
-        });
-    console.log('Hola caracola', this.messageForm);
-    }
+
+
+  goMessages(id) {
+    console.log('llega')
+    this.sharedService.changeMessages(this.conversation.messages)
+    this.router.navigate(['messages'], {
+      queryParams: { conver_p: id}
+    });
+    console.log(id)
+
+
+  }
+
 
 
 }
-
-
