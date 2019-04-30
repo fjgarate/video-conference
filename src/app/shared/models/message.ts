@@ -3,5 +3,5 @@ export class Message {
     createdDate: string;
     author: string;
     text: string;
-    read: string;
+    read: boolean;
        }

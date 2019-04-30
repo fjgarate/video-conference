@@ -18,6 +18,15 @@ export class AppComponent {
       x => (this.currentUser = x)
     );
   }
+
+  get isDoctor() {
+    return this.currentUser && this.currentUser.role === 'doctor';
+  }
+  get isPatient() {
+    return this.currentUser && this.currentUser.role === 'patient';
+  }
+
+
   logout() {
     this.authenticationService.logout();
     this.router.navigate(['']);

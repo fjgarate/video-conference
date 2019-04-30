@@ -20,7 +20,7 @@ const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'video', component: VideoconfComponent },
   { path: 'doctor', component: DoctorComponent, canActivate: [AuthGuard] },
-  { path: 'patient', component: VideoRoomComponent, canActivate: [AuthGuard] },
+  { path: 'patient', component: PatientComponent, canActivate: [AuthGuard] },
   { path: 'conversations', component: ConversationComponent, canActivate: [AuthGuard] },
   { path: 'messages', component: MessagesComponent, canActivate: [AuthGuard] },
   { path: 'videoconf', component: VideoRoomComponent, canActivate: [AuthGuard] },

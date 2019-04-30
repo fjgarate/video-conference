@@ -1,8 +1,9 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="currentUser">
   <div class="navbar-nav">
-    <a class="nav-item nav-link" routerLink="/doctor">Inicio</a>
-    <a class="nav-item nav-link" routerLink="/video">Videoconferencia</a>
+    <a class="nav-item nav-link" *ngIf="isDoctor" routerLink="/doctor">Inicio</a>
+    <a class="nav-item nav-link" *ngIf="isPatient" routerLink="/patient">Inicio</a>
+    <a class="nav-item nav-link" *ngIf="isDoctor" routerLink="/video">Videoconferencia</a>
     <a class="nav-item nav-link" routerLink="/conversations">Mensajes</a>
     <a class="nav-item nav-link right" (click)="logout()" >Cerrar sesión</a>
    </div>

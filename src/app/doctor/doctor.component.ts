@@ -50,7 +50,6 @@ export class DoctorComponent implements OnInit, OnDestroy {
     this.loadSessionsPrueba();
     this.getConversationsByUserId(this.currentUser.id);
 
-
   }
 
   ngOnDestroy() {

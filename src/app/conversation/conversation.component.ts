@@ -24,7 +24,6 @@ export class ConversationComponent implements OnInit {
   conversations: Conversation[] = [];
   messageForm: FormGroup;
   conversationForm: FormGroup;
-  cambio: FormGroup;
   loading = false;
   submitted = false;
   isCollapsed: boolean = true;
@@ -38,6 +37,7 @@ export class ConversationComponent implements OnInit {
   messages: Message[] = [];
   users: User[] = [];
   pacientes: User[] = [];
+  change: Conversation[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -54,6 +54,12 @@ export class ConversationComponent implements OnInit {
         this.currentUser = user;
       }
     );
+  }
+  get isDoctor() {
+    return this.currentUser && this.currentUser.role === 'doctor';
+  }
+  get isPatient() {
+    return this.currentUser && this.currentUser.role === 'patient';
   }
 
   toogleCollapse() {
@@ -79,9 +85,6 @@ export class ConversationComponent implements OnInit {
       author: this.currentUser.firstName + ' ' + this.currentUser.lastName,
       read: false });
 
-      this.cambio = this.formBuilder.group({
-        role: true
-      });
     this.loadAllPatients();
     this.getConversationsByUserId(this.currentUser.id);
   }
@@ -147,26 +150,6 @@ export class ConversationComponent implements OnInit {
   }
 
 
-  pruebacall(userName) {
-    console.log(userName);
-    let ciphertext = crypto.AES.encrypt(
-      JSON.stringify(userName),
-      "secret key 123"
-    ).toString();
-    console.log(ciphertext);
-    // Decrypt
-    let bytes = crypto.AES.decrypt(ciphertext, "secret key 123");
-    let decryptedData = JSON.parse(bytes.toString(crypto.enc.Utf8));
-
-    console.log(decryptedData); // [{id: 1}, {id: 2}]
-
-  }
-  createItem(conversation){
-    console.log('conversation')
-console.log(conversation)
-  }
-
-
   getById(id: string) {
     this.userService
       .getById(this.currentUser.token, id)
@@ -187,8 +170,9 @@ console.log(conversation)
     });
     console.log(id)
 
-
   }
+
+ 
 
 
 

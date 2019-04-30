@@ -161,7 +161,11 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
     this.localUser = null;
     this.OV = null;
     this.openviduLayout = null;
-    this.router.navigate(['videoconf']);
+    if (this.currentUser.role === 'doctor') {
+    this.router.navigate(['doctor']) } 
+    if (this.currentUser.role === 'patient') {
+    this.router.navigate(['patient'] )
+    }
     this.leaveSession.emit();
   }
 
@@ -215,7 +219,8 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
     if (this.currentUser.role === 'doctor') {
       this.mySessionId = this.user_p;
     }
-    this.mySessionId = this.currentUser.id;
+    if (this.currentUser.role === 'patient') {
+    this.mySessionId = this.currentUser.id; }
   }
 
   screenShare() {

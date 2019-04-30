@@ -23,6 +23,7 @@ export class MessagesComponent implements OnInit {
   currentUser: User;
   currentUserSubscription: Subscription;
   conversation: Conversation;
+  change: [];
   last_message: Message;
   user_conversation: User;
   conversations: Conversation[] = [];
@@ -61,6 +62,8 @@ export class MessagesComponent implements OnInit {
     });
   console.log('Conver', this.conver_p);
     this.getConversationsById();
+   // this.updateConver();
+
 
   }
   get f() { return this.messageForm.controls; }
@@ -76,8 +79,11 @@ export class MessagesComponent implements OnInit {
 
       });
 
-
   }
+
+ /* updateConver() {
+    this.convesationSrv.updateConversation(this.currentUser.token, '5cc7226aa5601d2e1c7d51fb', {'title':'Hola'})
+  }*/
 
 
     submitNewM() {
