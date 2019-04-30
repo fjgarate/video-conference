@@ -131,11 +131,7 @@ img {
   height:400px;
 	margin-top: 50px;
   margin-bottom: auto;
-  background-color:rgba(179, 180, 184, 0.38) !important;
-	padding: 20px;
-	border: 2px solid #343a40;
-  border-radius: 5px;
-  color:rgb(15, 15, 15);
+
 }
 
 .titulo{

@@ -1,32 +1,39 @@
 <body>
-  <div class="container">
-    <h1>Bienvenido paciente {{currentUser.firstName}}</h1>
+  <div class="jumbotron">
+    <div class="container">
+      <h1>Bienvenido paciente {{currentUser.firstName}}</h1>
+    </div>
+  </div>
 
 <div class="row">
-
-<div class="col-sm-6 inicio">
-      <span>Su próxima cita es de día: 12/15/2019, a las 10:30 </span>
-      <a routerLink="/videoconf" class="btn btn-outline-success" >Iniciar videoconferencia</a>
+  <div class="col-sm-2 inicio">
+  </div>
+  <div class="col-sm-4 inicio">
+    <h2>PRÓXIMAS CITAS:</h2>
+    <hr>
+      <span>Su próxima cita es de día: 12/15/2019, a las 10:30 </span> <br />
+      <a routerLink="/videoconf" class="btn btn-primary" role="button" >Iniciar videoconferencia</a>
     </div>
 
-<div class="col-sm-6 inicio">
-    <h4>NUEVOS MENSAJES:</h4>
+<div class="col-sm-4 inicio">
+      <h2>MENSAJES:</h2>
+        <hr>
 
       <div *ngFor="let conversation of conversations">
         Creada: {{conversation.createdDate| date:'medium'}}
         <div class="container contenido" *ngFor="let message of messages | isPresent">
           <span>{{message.text}}</span><br />
           <span>Leído: {{message.read}}</span><br />
-      
-      
-      
+
+
+
         </div>
       </div>
+
+
     </div>
-
-
-
+      <div class="col-sm-2 inicio">
+      </div>
   </div>
-</div>
-
+  <hr>
 </body>
