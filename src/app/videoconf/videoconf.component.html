@@ -1,27 +1,33 @@
 <body>
 <div class="container">
 <div class="row">
-<div class="col-sm grupo">
-<h5>LISTA PACIENTES</h5>
-<ul>
-  <li *ngFor="let user of users " >
-    {{user.username}} ({{user.firstName}} {{user.lastName}}
 
+<div class="col-sm-1 ">
+</div>
+<div class="col-sm-10 inicio">
+<h2>SESIONES ACTIVAS</h2>
+<span *ngIf="num"> No hay sesiones activas</span>
+
+<ul class="list-group">
+  <li *ngFor="let session of sessionprueba.content" class="list-group-item">
+    <span> {{session.sessionId}}</span>
+    <span>Conectado desde: {{session.createdAt | date:'medium'}}</span><br>
+    <a class="btn btn-primary" role="button" (click)="selectUser(session.sessionId)" class="text-primary">Iniciar videoconferencia</a>
   </li>
 </ul>
-<p></p>
 <br />
 
-
-<h5>SESIONES ACTIVAS</h5>
-<ul>
-  <li *ngFor="let session of sessionprueba.content">
-    <span> {{session.sessionId}}</span><br />
-    <span>Conectado desde: {{session.createdAt | date:'medium'}}</span><br>
-    <p class="btn btn-link" (click)="selectUser(session.sessionId)" class="text-success">Iniciar videoconferencia</p>
+ <h2>LISTA PACIENTES</h2>
+<ul class="list-group">
+  <li *ngFor="let user of users " class="list-group-item" >
+    <span> {{user.firstName}} {{user.lastName}} </span>
+      <a class="btn btn-link" (click)="selectUser(user.id)" class="text-primary" style="margin-left: 10px">Iniciar videoconferencia</a>
   </li>
 </ul>
 </div>
+<div class="col-sm-1">
+</div>
+
 </div>
 </div>
 </body>

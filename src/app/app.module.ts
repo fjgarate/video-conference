@@ -20,6 +20,11 @@ import {
   MatSliderModule
 } from '@angular/material';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { CommonModule } from '@angular/common';
+import { FullCalendarModule } from '@fullcalendar/angular'; // for FullCalendar!
+
+
+
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './/app-routing.module';
@@ -54,6 +59,7 @@ import { IsPresentPipe } from './is-present.pipe';
 import { IsReadPipe } from './is-read.pipe';
 import { IsDocPipe } from './is-doc.pipe';
 import { MessagesComponent } from './messages/messages.component';
+import { AppointmentComponent } from './appointment/appointment.component';
 
 
 @NgModule({
@@ -81,7 +87,8 @@ import { MessagesComponent } from './messages/messages.component';
     IsPresentPipe,
     IsReadPipe,
     IsDocPipe,
-    MessagesComponent
+    MessagesComponent,
+    AppointmentComponent
   ],
   imports: [
     FormsModule,
@@ -107,7 +114,9 @@ import { MessagesComponent } from './messages/messages.component';
     HttpClientModule,
     FlexLayoutModule,
     ScrollingModule,
-    NgxLinkifyjsModule.forRoot()
+    FullCalendarModule, // for FullCalendar!
+
+    NgxLinkifyjsModule.forRoot(),
   ],
   entryComponents: [DialogErrorComponent, WebComponentComponent],
   providers: [

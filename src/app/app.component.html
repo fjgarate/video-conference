@@ -6,6 +6,8 @@
     <a class="nav-item nav-link" *ngIf="isDoctor" routerLink="/video">Videoconferencia</a>
     <a class="nav-item nav-link" routerLink="/conversations">Mensajes</a>
     <a class="nav-item nav-link right" (click)="logout()" >Cerrar sesión</a>
-   </div>
+    <a class="nav-item nav-link" routerLink="/appointment">Calendario</a>
+
+  </div>
 </nav>
 <router-outlet></router-outlet>

@@ -19,6 +19,7 @@ export class VideoconfComponent implements OnInit {
   texto: string = "Conectar";
   esta: boolean = true;
   public sessionName: [];
+  num: boolean = false;
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -38,7 +39,6 @@ export class VideoconfComponent implements OnInit {
     this.loadSessionsPrueba();
   }
 
-  
 
   private loadSessionsPrueba() {
     this.openViduSrv
@@ -46,7 +46,12 @@ export class VideoconfComponent implements OnInit {
       .subscribe(response => {
         console.log('Funciona', response);
         this.sessionprueba = response;
+        if (response.numberOfElements === 0) {
+              this.num = true;
+      }
+      console.log('N', this.num)
       });
+
   }
 
   private loadAllPatients() {
