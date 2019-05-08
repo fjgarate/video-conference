@@ -7,11 +7,11 @@
   <div class="col-md">
     <div class="panel panel-primary">
     <div class="panel-heading">
-<span > {{conversations.title}} </span> 
+<span > {{conversation.title}} </span> 
     </div>
     <div class="panel-body" fullscreen="">
      <ul class="chat">
-<li class="left clearfix" *ngFor="let message of messages">
+<li class="left clearfix" *ngFor="let message of conversation.messages">
   <div class="chat-body clearfix">
     <div class="header">
       <strong class="primary-font">{{message.author}}</strong>
@@ -52,6 +52,8 @@
 
 </div>
 </div>
+    <a class="btn btn-primary" role="button" (click)="updateConver()" class="text-primary">Actualizar</a>
+
 </div>
 </div>
 </div>

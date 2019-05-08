@@ -1,12 +1,14 @@
-<p>
   appointment works!
-</p>
+  <ul class="list-group">
+    <li *ngFor="let event of event" class="list-group-item">
+      <span> {{event.title}}</span>
+    </li>
+  </ul>
+  <br />
 
 <full-calendar   defaultView="dayGridMonth" (dateClick)="handleDateClick($event)"
 #calendar 
 [plugins]="calendarPlugins" 
 [weekends]="false" 
-[events]="[
-    { title: 'event 1', date: '2019-05-01' },
-    { title: 'event 2', date: '2019-05-02' }
-  ]"></full-calendar>
+[events]= event >
+  </full-calendar>

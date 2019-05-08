@@ -24,6 +24,7 @@ export class ConversationComponent implements OnInit {
   conversations: Conversation[] = [];
   messageForm: FormGroup;
   conversationForm: FormGroup;
+  firstMForm: FormGroup;
   loading = false;
   submitted = false;
   isCollapsed: boolean = true;
@@ -72,24 +73,17 @@ export class ConversationComponent implements OnInit {
         createUsername: this.currentUser.id,
         title: [''],
         participants: [''],
-        messages: [
-          {
-            author: this.currentUser.firstName + ' ' + this.currentUser.lastName,
-            text: 'La conversación ha sido creada con éxito',
-          }
-        ]
-      });
+        text:['']
+      
+            });
 
-      this.messageForm = this.formBuilder.group({
-      text: [''],
-      author: this.currentUser.firstName + ' ' + this.currentUser.lastName,
-      read: false });
 
     this.loadAllPatients();
     this.getConversationsByUserId(this.currentUser.id);
   }
+  get f() { return this.conversationForm.controls; }
 
-  get f() { return this.messageForm.controls; }
+
 
 
   private loadAllPatients() {
@@ -121,6 +115,8 @@ export class ConversationComponent implements OnInit {
 
   createConver() {
     this.conversationForm.value.participants = [this.conversationForm.value.participants, this.currentUser.id];
+    this.conversationForm.value.messages = [{
+      author: this.currentUser.firstName + ' ' + this.currentUser.lastName, text:this.conversationForm.value.text}]
     this.convesationSrv.createConversation(this.conversationForm.value)
       .pipe(first())
       .subscribe(
@@ -164,11 +160,11 @@ export class ConversationComponent implements OnInit {
 
   goMessages(id) {
     console.log('llega')
-    this.sharedService.changeMessages(this.conversation.messages)
+    //this.sharedService.changeMessages(this.conversation.messages)
     this.router.navigate(['messages'], {
       queryParams: { conver_p: id}
     });
-    console.log(id)
+    console.log(id, 'mensajes', this.conversation.messages)
 
   }
 

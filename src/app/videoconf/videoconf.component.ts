@@ -6,6 +6,7 @@ import { UserService, AuthenticationService } from '../shared/services';
 import { OpenViduService } from '../shared/services/open-vidu.service';
 import { DoctorComponent} from '../doctor/doctor.component';
 import { RouterModule, Router } from "@angular/router";
+
 @Component({
   selector: "app-videoconf",
   templateUrl: "./videoconf.component.html"

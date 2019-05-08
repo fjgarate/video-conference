@@ -50,6 +50,8 @@ export class ConversationService {
 
   addMessage(token: string, id: string, newMessage: Message) {
     console.log('register');
+    console.log(newMessage);
+
     const options = {
       headers: new HttpHeaders({
         Authorization: "Bearer " + token,
@@ -85,8 +87,10 @@ newConversation, options
         "Content-Type": "application/json"
       }) 
     };
+    console.log(newConversation)
+
     return this.http.put<any>(
-      environment.api_url + '/conversations/update' + id,
+      environment.api_url + '/conversations/update/' + id,
       newConversation, options );
 
   }

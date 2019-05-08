@@ -27,8 +27,11 @@ export class MessagesComponent implements OnInit {
   last_message: Message;
   user_conversation: User;
   conversations: Conversation[] = [];
+  prueba: Conversation;
   conver_p = '';
   private sub: any;
+  participants: string[] = [];
+
 
 
   constructor(
@@ -48,7 +51,7 @@ export class MessagesComponent implements OnInit {
      }
 
   ngOnInit() {
-    this.sharedService.currentMessage.subscribe(message => this.messages = message);
+    //this.sharedService.currentMessage.subscribe(message => this.messages = message);
 
     console.log('Han llegado', this.messages);
     this.messageForm = this.formBuilder.group({
@@ -61,10 +64,8 @@ export class MessagesComponent implements OnInit {
       this.conver_p = params['conver_p'];
     });
   console.log('Conver', this.conver_p);
-    this.getConversationsById();
-   // this.updateConver();
-
-
+  this.getConversationsById();
+   //this.updateConver();
   }
   get f() { return this.messageForm.controls; }
 
@@ -73,30 +74,41 @@ export class MessagesComponent implements OnInit {
     this.convesationSrv
       .getById(this.currentUser.token, this.conver_p)
       .pipe(first())
-      .subscribe(conversations => {
-        console.log('Conversaciones', conversations);
-        this.conversations = conversations;
+      .subscribe(conversation => {
+        console.log('Conversaciones', conversation);
+        this.conversation = conversation;
+        this.prueba = this.conversation;
 
       });
 
-  }
 
- /* updateConver() {
-    this.convesationSrv.updateConversation(this.currentUser.token, '5cc7226aa5601d2e1c7d51fb', {'title':'Hola'})
-  }*/
+  }
 
 
     submitNewM() {
     this.convesationSrv.addMessage(this.currentUser.token, this.conver_p, this.messageForm.value)
       .pipe(first())
-      .subscribe(() => {
-        this.sharedService.currentMessage.subscribe(message => this.messages = message);
-
-        },
-        error => {
-        });
-    console.log('Hola caracola', this.messageForm);
-
+        .subscribe(
+          data => {
+            this.conversations = data;
+          },
+          error => {
+          });
+      this.getConversationsById();
+      console.log('ENviado')
     }
 
+   updateConver() {
+     this.convesationSrv
+       .getById(this.currentUser.token, this.conver_p)
+       .pipe(first())
+       .subscribe(conversation => {
+         console.log('Conversaciones', conversation);
+         this.conversation = conversation;
+         this.messages = this.conversation.messages.filter((item) => item.read = true);
+         console.log('P', this.messages)
+         this.convesationSrv.updateConversation(this.currentUser.token, this.conver_p, this.conversation)
+
+  });
+}
 }
