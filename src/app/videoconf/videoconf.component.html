@@ -9,7 +9,7 @@
 <span *ngIf="num"> No hay sesiones activas</span>
 
 <ul class="list-group">
-  <li *ngFor="let session of sessionprueba.content" class="list-group-item">
+  <li *ngFor="let session of sessionprueba" class="list-group-item">
     <span> {{session.sessionId}}</span>
     <span>Conectado desde: {{session.createdAt | date:'medium'}}</span><br>
     <a class="btn btn-primary" role="button" (click)="selectUser(session.sessionId)" class="text-primary">Iniciar videoconferencia</a>
@@ -21,7 +21,7 @@
 <ul class="list-group">
   <li *ngFor="let user of users " class="list-group-item" >
     <span> {{user.firstName}} {{user.lastName}} </span>
-      <a class="btn btn-link" (click)="selectUser(user.id)" class="text-primary" style="margin-left: 10px">Iniciar videoconferencia</a>
+      <button *ngIf="isActive(user.id)" class="btn btn-link" (click)="selectUser(user.id)" class="text-primary" style="margin-left: 10px">Iniciar videoconferencia</button>
   </li>
 </ul>
 </div>

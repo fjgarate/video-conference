@@ -6,6 +6,7 @@ import { UserService, AuthenticationService } from '../shared/services';
 import { OpenViduService } from '../shared/services/open-vidu.service';
 import { DoctorComponent} from '../doctor/doctor.component';
 import { RouterModule, Router } from "@angular/router";
+import { forEach } from '@angular/router/src/utils/collection';
 
 @Component({
   selector: "app-videoconf",
@@ -14,13 +15,20 @@ import { RouterModule, Router } from "@angular/router";
 export class VideoconfComponent implements OnInit {
   currentUser: User;
   currentUserSubscription: Subscription;
-  users: User[] = [];
+  users: User;
   sessionprueba: [];
-  variable: [];
+  variable: Object;
+  variable2: Object;
+
   texto: string = "Conectar";
   esta: boolean = true;
   public sessionName: [];
   num: boolean = false;
+  buttonDisabled: boolean = true;
+  sessionId: string;
+  sessionId2: string;
+  value: boolean = true;
+
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -36,38 +44,69 @@ export class VideoconfComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadAllPatients();
     this.loadSessionsPrueba();
+   // this.loadAllPatients();
   }
+
+public loadAllPatients() {
+   /* this.openViduSrv
+      .getSessionsPrueba('https://138.4.10.65:4443', 'gbttel')
+      .subscribe(response => {
+        this.sessionprueba = response.content;})*/
+    this.userService
+      .getPatients(this.currentUser)
+      .pipe(first())
+      .subscribe(users => {
+        this.users = users;
+        return this.users;
+    /* for (let i = 0; i < users.length ; i++ ){
+       this.variable2= this.users[i];
+       this.sessionId2= this.variable2["id"];
+       console.log('idUser',this.sessionId2);
+
+       for (let j = 0; j < this.sessionprueba.length; j++) {
+         this.variable = this.sessionprueba[j];
+         this.sessionId = this.variable["sessionId"]
+         console.log('idSession', this.sessionId)
+       {
+      if (this.sessionId2=== this.sessionId){
+        console.log('A work')
+        this.buttonDisabled=false;
+      } 
+    }
+  }
+  }*/
+      
+      });
+      
+  }
+
+
 
 
   private loadSessionsPrueba() {
     this.openViduSrv
       .getSessionsPrueba('https://138.4.10.65:4443', 'gbttel')
       .subscribe(response => {
-        console.log('Funciona', response);
-        this.sessionprueba = response;
-        if (response.numberOfElements === 0) {
+        this.sessionprueba = response.content;
+
+        console.log('Funciona', this.sessionprueba);
+
+         if (response.numberOfElements === 0) {
               this.num = true;
       }
-      console.log('N', this.num)
+      /*for (let i=0; i< this.sessionprueba.length; i++){
+        console.log('Array',this.sessionprueba[i])
+        this.variable= this.sessionprueba[i];
+          this.sessionId =  this.variable["sessionId"]
+          console.log('Pureba', this.sessionId)
+      }*/
+this.loadAllPatients()
       });
 
   }
 
-  private loadAllPatients() {
-    this.userService
-      .getPatients(this.currentUser)
-      .pipe(first())
-      .subscribe(users => {
-        console.log(users);
-        this.users = users;
-      });
-  }
-
-
-
-
+  
   public selectUser(user) {
     console.log(user);
     this.router.navigate(['videoconf'], {
@@ -75,4 +114,60 @@ export class VideoconfComponent implements OnInit {
     });
     this.sessionName = user;
   }
+
+  isActive(id){
+  for (let j = 0; j < this.sessionprueba.length; j++) {
+    this.variable = this.sessionprueba[j];
+    this.sessionId = this.variable["sessionId"]
+    console.log('id prueba', this.sessionId)
+  if (id === this.sessionId) {
+      console.log('id',id)
+          return true
+          break
+    }
+    if (id != this.sessionId) {
+      console.log('id', id)
+      return false
+    }
+  }
+    
+      /*for (let j = 0; j < this.sessionprueba.length; j++) {
+        this.variable = this.sessionprueba[j];
+        this.sessionId = this.variable["sessionId"]
+        console.log('id prueba', this.sessionId)
+        if (id === this.sessionId) {
+          this.value = false;
+          return tfrue
+          break
+        }
+        if (id != this.sessionId) {
+          this.value = false;
+              return false
+    }*/
+
+    
+    
+   /* this.openViduSrv
+      .getSessionsPrueba('https://138.4.10.65:4443', 'gbttel')
+      .subscribe(response => {
+        this.sessionprueba = response.content;})
+
+    for (let j = 0; j < this.sessionprueba.length; j++) {
+
+      this.variable = this.sessionprueba[j];
+      this.sessionId = this.variable["sessionId"]
+      console.log('id prueba', this.sessionId)
+      console.log(j)
+       if (id === this.sessionId) {
+        
+        return true
+        break
+        }
+        return false;
+    }*/
+  
+
+
+}
+
 }

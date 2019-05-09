@@ -21,13 +21,12 @@
     </div>
 
     <div class="col-sm-4 inicio">
-      <h2>MENSAJES:</h2>
+      <h2>MENSAJES: {{noread.length}}</h2>
         <hr>
-
-      <div *ngFor="let conversation of conversations">
-        Creada: {{conversation.createdDate| date:'medium'}}
-        <div class="container contenido" *ngFor="let message of messages | isPresent">
-          <span>{{message.text}}</span><br />
+      <div *ngFor="let conversation of conversations ">
+        <div class="container contenido" *ngFor="let message of conversation.messages | isPresent">
+          <span style="font-weight: bold" >{{conversation.title}}</span>
+          <span>{{message.text}} </span><br />
           <span>Leído: {{message.read}}</span><br />
 
 

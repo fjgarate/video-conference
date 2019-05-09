@@ -25,6 +25,7 @@ export class DoctorComponent implements OnInit, OnDestroy {
   public sessionName: [];
   conversations: Conversation[] = [];
   messages: Message[] = [];
+  noread: Message[] = [];
 
 
 
@@ -128,7 +129,12 @@ export class DoctorComponent implements OnInit, OnDestroy {
         if (this.conversations.length > 0) {
           this.messages = this.conversations[conversations.length - 1].messages;
         }
+        this.noread = this.messages.filter((item) => item.read === false);
+        console.log('M', this.messages)
+            console.log('N',this.noread)
+
       });
+    
   }
 
 }
