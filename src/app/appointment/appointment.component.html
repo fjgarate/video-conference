@@ -1,14 +1,12 @@
-  appointment works!
-  <ul class="list-group">
-    <li *ngFor="let event of event" class="list-group-item">
-      <span> {{event.title}}</span>
-    </li>
-  </ul>
-  <br />
 
+<div id="container">
 <full-calendar   defaultView="dayGridMonth" (dateClick)="handleDateClick($event)"
 #calendar 
+
 [plugins]="calendarPlugins" 
 [weekends]="false" 
+[aspectRatio]="1.5"
 [events]= event >
-  </full-calendar>
+</full-calendar>
+
+</div>

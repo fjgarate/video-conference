@@ -21,7 +21,6 @@ export class OpenViduService {
       video: true,
       audio: true,
       fullscreen: true,
-      screenShare: true,
       exit: true,
     },
   };

@@ -1,43 +1,66 @@
 
 <body>
   <div class="jumbotron">
+    <header class="masthead text-black text-center">
+
     <div class="container">
-      <h1>Bienvenido doctor {{currentUser.firstName}}</h1>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-sm-2 inicio">
-    </div>
-
-    <div class="col-sm-4 inicio">
-      <h2>PRÓXIMAS CITAS:</h2>
-        <hr>
-
-      <span>Paciente: Francisco</span><br />
-      <span>Fecha: 12/05/2019, 10:30</span><br />
-
-
-    </div>
-
-    <div class="col-sm-4 inicio">
-      <h2>MENSAJES: {{noread.length}}</h2>
-        <hr>
-      <div *ngFor="let conversation of conversations ">
-        <div class="container contenido" *ngFor="let message of conversation.messages | isPresent">
-          <span style="font-weight: bold" >{{conversation.title}}</span>
-          <span>{{message.text}} </span><br />
-          <span>Leído: {{message.read}}</span><br />
-
-
+          <div class="row">
+            <div class="col-xl-9 mx-auto">
+              <h1 class="mb-5" style="font-size: 3.5 rem">Te damos la bienvenida {{currentUser.firstName}}</h1>
+            </div>
+</div>
+</div>
+</header>
+  <section class="prueba2 text-center">
+    <div class="container">
+      <div class="row">
+        <div class="prueba2 col-lg-4 ">
+          <img margin-top="100" width="70" height="60" src="../../assets/images/Imagen1.png">
+        </div>
+        <div class="prueba2 col-lg-4 ">
+          <img margin-top="100" width="70" height="60" src="../../assets/images/Imagen2.png">
+        </div>
+        <div class="prueba2 col-lg-4 ">
+          <img margin-top="100" width="70" height="60" src="../../assets/images/Imagen3.png">
+        </div>
 
         </div>
-      </div>
-
-
     </div>
-      <div class="col-sm-2 inicio">
+  </section>
+
+  <section class="prueba text-center">
+    <div class="container">
+      <div class="row">
+    <div class="col-lg-4 ">
+    <h3 style="font-size: 2 rem">Próximas citas</h3>
+    <div *ngFor="let event of nextEvent ">
+        <span >{{event.title}}</span>
+        <span >  {{event.date | date:'short'}}</span>
+        </div>
+        <p></p>
+    <button routerLink="/appointment" class="btn btn-outline-primary" >Ver calendario </button>
+</div>
+
+    <div class="col-lg-4 ">
+      <h3 style="font-size: 2rem">Videoconferencia</h3>
+      <p></p>
+ 
+        <button class="btn btn-outline-primary"  routerLink="/video">Ver pacientes conectados</button>
+    </div>
+
+        <div class="col-lg-4 ">
+          <h3 style="font-size: 2rem">Mensajes</h3>
+            <span>Nuevas conversaciones:</span> 
+            <span class="badge badge-primary badge-pill">{{num}}</span>
+                  <p></p>
+            <button class="btn btn-outline-primary"  routerLink="/conversations">Ver conversaciones</button>
+        </div>
+
+
       </div>
+    </div>
+</section>
   </div>
-  <hr>
+
+  
 </body>

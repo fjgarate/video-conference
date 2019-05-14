@@ -23,8 +23,6 @@ var StreamComponent = /** @class */ (function () {
         this.nicknameClicked = new core_1.EventEmitter();
         this.micButtonClicked = new core_1.EventEmitter();
         this.camButtonClicked = new core_1.EventEmitter();
-        this.screenShareClicked = new core_1.EventEmitter();
-        this.screenShareDisabledClicked = new core_1.EventEmitter();
         this.exitButtonClicked = new core_1.EventEmitter();
         this.chatButtonClicked = new core_1.EventEmitter();
     }
@@ -72,12 +70,7 @@ var StreamComponent = /** @class */ (function () {
     StreamComponent.prototype.camStatusChanged = function () {
         this.camButtonClicked.emit();
     };
-    StreamComponent.prototype.screenShare = function () {
-        this.screenShareClicked.emit();
-    };
-    StreamComponent.prototype.screenShareDisabled = function () {
-        this.screenShareDisabledClicked.emit();
-    };
+
     StreamComponent.prototype.exitSession = function () {
         this.exitButtonClicked.emit();
     };
@@ -117,14 +110,6 @@ var StreamComponent = /** @class */ (function () {
         core_1.Output(),
         __metadata("design:type", Object)
     ], StreamComponent.prototype, "camButtonClicked", void 0);
-    __decorate([
-        core_1.Output(),
-        __metadata("design:type", Object)
-    ], StreamComponent.prototype, "screenShareClicked", void 0);
-    __decorate([
-        core_1.Output(),
-        __metadata("design:type", Object)
-    ], StreamComponent.prototype, "screenShareDisabledClicked", void 0);
     __decorate([
         core_1.Output(),
         __metadata("design:type", Object)

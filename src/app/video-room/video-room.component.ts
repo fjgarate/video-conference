@@ -52,7 +52,7 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
   myUserName: string;
   localUser: UserModel;
   remoteUsers: UserModel[];
-  messageList: { connectionId: string; nickname: string; message: string; userAvatar: string }[] = [];
+  messageList: { connectionId: string; nickname: string; message: string}[] = [];
   newMessages = 0;
   user_p = "";
   private sub: any;
@@ -307,9 +307,6 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
           if (data.isScreenShareActive !== undefined) {
             user.setScreenShareActive(data.isScreenShareActive);
           }
-          if (data.avatar !== undefined) {
-            user.setUserAvatar(data.avatar);
-          }
         }
       });
       this.checkSomeoneShareScreen();
@@ -335,7 +332,6 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
         isVideoActive: this.localUser.isVideoActive(),
         isScreenShareActive: this.localUser.isScreenShareActive(),
         nickname: this.localUser.getNickname(),
-        avatar: this.localUser.getAvatar()
       });
     });
   }
@@ -360,7 +356,6 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
             connectionId: event.from.connectionId,
             nickname: data.nickname,
             message: data.message,
-            userAvatar: messageOwner.getAvatar()
         });
 
         this.checkNotification();
@@ -407,7 +402,6 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
           isVideoActive: this.localUser.isVideoActive(),
           isScreenShareActive: this.localUser.isScreenShareActive(),
           nickname: this.localUser.getNickname(),
-          avatar: this.localUser.getAvatar()
         });
         this.joinSession.emit();
       }).catch((error) => console.error(error));

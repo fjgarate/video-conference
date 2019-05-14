@@ -2,7 +2,6 @@ import { Component, Input, OnInit, HostListener, ElementRef, ViewChild, Output, 
 import { UserModel } from '../../models/user-model';
 import { OpenViduLayout } from '../../layout/openvidu-layout';
 import { FormControl, Validators } from '@angular/forms';
-import { NicknameMatcher } from '../../forms-matchers/nickname';
 import { ApiService } from '../../services/api.service';
 
 @Component({
@@ -17,7 +16,6 @@ export class StreamComponent implements OnInit {
   isFullscreen: boolean;
 
   nicknameFormControl = new FormControl('', [Validators.maxLength(25), Validators.required]);
-  matcher = new NicknameMatcher();
 
   @Input() user: UserModel;
   @Input() localUser: UserModel;
@@ -27,8 +25,6 @@ export class StreamComponent implements OnInit {
   @Output() nicknameClicked = new EventEmitter<any>();
   @Output() micButtonClicked = new EventEmitter<any>();
   @Output() camButtonClicked = new EventEmitter<any>();
-  @Output() screenShareClicked = new EventEmitter<any>();
-  @Output() screenShareDisabledClicked = new EventEmitter<any>();
   @Output() exitButtonClicked = new EventEmitter<any>();
   @Output() chatButtonClicked = new EventEmitter<any>();
 
@@ -88,13 +84,7 @@ export class StreamComponent implements OnInit {
     this.camButtonClicked.emit();
   }
 
-  screenShare() {
-    this.screenShareClicked.emit();
-  }
 
-  screenShareDisabled() {
-    this.screenShareDisabledClicked.emit();
-  }
 
   exitSession() {
     this.exitButtonClicked.emit();

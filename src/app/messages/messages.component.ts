@@ -22,12 +22,12 @@ export class MessagesComponent implements OnInit {
   messageForm: FormGroup;
   currentUser: User;
   currentUserSubscription: Subscription;
-  conversation: Conversation;
+  conversation: Conversation[]=[];
   change: [];
   last_message: Message;
   user_conversation: User;
   conversations: Conversation[] = [];
-  prueba: Conversation;
+  conversation2: Conversation;
   conver_p = '';
   private sub: any;
   participants: string[] = [];
@@ -77,8 +77,8 @@ export class MessagesComponent implements OnInit {
       .subscribe(conversation => {
         console.log('Conversaciones', conversation);
         this.conversation = conversation;
-        this.prueba = this.conversation;
-
+        this.conversation2 = conversation;
+console.log('Con2',this.conversation2)
       });
 
 
@@ -99,16 +99,16 @@ export class MessagesComponent implements OnInit {
     }
 
    updateConver() {
-     this.convesationSrv
-       .getById(this.currentUser.token, this.conver_p)
-       .pipe(first())
-       .subscribe(conversation => {
-         console.log('Conversaciones', conversation);
-         this.conversation = conversation;
-         this.messages = this.conversation.messages.filter((item) => item.read = true);
-         console.log('P', this.messages)
-         this.convesationSrv.updateConversation(this.currentUser.token, this.conver_p, this.conversation)
+    this.messages = this.conversation2.messages.filter((item) => item.read = true);
+     this.convesationSrv.updateConversation(this.currentUser.token, this.conver_p, this.conversation2)
+        .pipe(first())
+        .subscribe(
+          data => {
+            this.conversation2 = data;
+          },
+          error => { console.log(error)
+          });
 
-  });
-}
+  }
+
 }

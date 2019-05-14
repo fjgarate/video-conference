@@ -52,14 +52,7 @@ var ApiService = /** @class */ (function () {
             return 'fullscreen_exit';
         }
     };
-    ApiService.prototype.getRandomAvatar = function () {
-        var _this = this;
-        return new Promise(function (resolve, reject) {
-            _this.http.get('https://randomuser.me/api/?lego').subscribe(function (data) {
-                resolve(data.results[0].picture.thumbnail);
-            });
-        });
-    };
+
     ApiService = __decorate([
         core_1.Injectable({
             providedIn: 'root'

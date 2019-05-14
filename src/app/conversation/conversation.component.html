@@ -1,18 +1,25 @@
-<body>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="jumbotron" id="prueba">  
+    <div class="page-header" >
+    <h1 style="text-align: center">CONVERSARCIONES </h1>
+  </div>  
+</div>
+  <body>
   <div class="container" *ngIf="isDoctor">
     <div class="row">
       <div class="col-sm-1 ">
       </div>
       <div class="col-sm-10 inicio">
-        <h2>CONVERSACIONES</h2>
         <ul class="list-group">
         <li *ngFor="let conversation of conversations" class="list-group-item">
             <span>{{conversation.title}}</span> 
-            <button (click)="goMessages(conversation.id)"  class="btn btn-outline-primary" style="margin-left: 20px"> 
-          <span>Ver</span> 
-          
-        </button>          
+            <button (click)="goMessages(conversation.id)"  class="btn btn-outline-primary float-right" style="margin-left: 20px"> 
+         Ver <i class="fa fa-arrow-right"></i> 
+        </button> <br />
+         <span *ngIf="newMessage(conversation.messages)" style="color:red">¡Nuevos mensajes!</span>
         </li>
+
       </ul>
       <br />
         <button (click)="toogleCollapse()" class="btn btn-primary">
@@ -45,7 +52,7 @@
 
           <div class="form-group">
             <span class="input-group-btn">
-              <button class="btn btn-warning btn-sm" id="btn-chat" >
+              <button class="btn btn-warning" >
                 Crear
               </button>
             </span>

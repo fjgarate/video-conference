@@ -55,7 +55,6 @@ var DialogChooseRoomComponent = /** @class */ (function () {
         this.generateNickname();
         this.setSessionName();
         this.setDevicesValue();
-        this.getRandomAvatar();
         this.columns = (window.innerWidth > 900) ? 2 : 1;
         this.sub = this.route.queryParams.subscribe(function (params) {
             // Defaults to 0 if no query param provided.
@@ -102,18 +101,6 @@ var DialogChooseRoomComponent = /** @class */ (function () {
         publisher.on('streamAudioVolumeChange', function (event) {
             _this.volumeValue = Math.round(Math.abs(event.value.newValue));
         });
-    };
-    DialogChooseRoomComponent.prototype.setAvatar = function (option) {
-        if ((option === 'random' && this.randomAvatar) || (option === 'video' && this.videoAvatar)) {
-            this.avatarSelected = option;
-            if (option === 'random') {
-                this.user.setUserAvatar(this.randomAvatar);
-            }
-        }
-    };
-    DialogChooseRoomComponent.prototype.takePhoto = function () {
-        this.user.setUserAvatar();
-        this.videoAvatar = this.user.getAvatar();
     };
     DialogChooseRoomComponent.prototype.generateNickname = function () {
         var nickname = this.userNickname ? this.userNickname : this.currentUser.firstName + ' ' + this.currentUser.lastName;
@@ -168,14 +155,6 @@ var DialogChooseRoomComponent = /** @class */ (function () {
         this.route.params.subscribe(function (params) {
             _this.mySessionId = _this.sessionName ? _this.sessionName : params.roomName;
         });
-    };
-    DialogChooseRoomComponent.prototype.getRandomAvatar = function () {
-        var _this = this;
-        this.apiSrv.getRandomAvatar().then(function (avatar) {
-            _this.randomAvatar = avatar;
-            _this.setAvatar('random');
-        })
-            .catch(function (err) { return console.error(err); });
     };
     DialogChooseRoomComponent.prototype.initPublisher = function () {
         var _this = this;

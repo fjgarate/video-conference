@@ -18,7 +18,6 @@ var ToolbarComponent = /** @class */ (function () {
         this.fullscreenIcon = 'fullscreen';
         this.micButtonClicked = new core_1.EventEmitter();
         this.camButtonClicked = new core_1.EventEmitter();
-        this.screenShareClicked = new core_1.EventEmitter();
         this.exitButtonClicked = new core_1.EventEmitter();
         this.chatButtonClicked = new core_1.EventEmitter();
         this.screenShareDisabledClicked = new core_1.EventEmitter();
@@ -39,12 +38,7 @@ var ToolbarComponent = /** @class */ (function () {
     ToolbarComponent.prototype.camStatusChanged = function () {
         this.camButtonClicked.emit();
     };
-    ToolbarComponent.prototype.screenShare = function () {
-        this.screenShareClicked.emit();
-    };
-    ToolbarComponent.prototype.screenShareDisabled = function () {
-        this.screenShareDisabledClicked.emit();
-    };
+
     ToolbarComponent.prototype.exitSession = function () {
         this.exitButtonClicked.emit();
     };
@@ -99,10 +93,6 @@ var ToolbarComponent = /** @class */ (function () {
     __decorate([
         core_1.Output(),
         __metadata("design:type", Object)
-    ], ToolbarComponent.prototype, "screenShareClicked", void 0);
-    __decorate([
-        core_1.Output(),
-        __metadata("design:type", Object)
     ], ToolbarComponent.prototype, "exitButtonClicked", void 0);
     __decorate([
         core_1.Output(),
@@ -111,12 +101,6 @@ var ToolbarComponent = /** @class */ (function () {
     __decorate([
         core_1.Output(),
         __metadata("design:type", Object)
-    ], ToolbarComponent.prototype, "screenShareDisabledClicked", void 0);
-    __decorate([
-        core_1.HostListener('window:resize', ['$event']),
-        __metadata("design:type", Function),
-        __metadata("design:paramtypes", [Object]),
-        __metadata("design:returntype", void 0)
     ], ToolbarComponent.prototype, "sizeChange", null);
     ToolbarComponent = __decorate([
         core_1.Component({

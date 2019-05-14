@@ -53,11 +53,8 @@ var UserModel = /** @class */ (function () {
         return this.streamManager;
     };
     /**
-     * Return the user avatar
      */
-    UserModel.prototype.getAvatar = function () {
-        return this.videoAvatar ? this.videoAvatar.toDataURL() : this.randomAvatar;
-    };
+
     /**
      * Return `true` if user has a local role and `false` if not
      */
@@ -122,32 +119,10 @@ var UserModel = /** @class */ (function () {
     /**
      * @hidden
      */
-    UserModel.prototype.setUserAvatar = function (img) {
-        var _this = this;
-        return new Promise(function (resolve) {
-            if (!img) {
-                _this.createVideoAvatar();
-                var video = document.getElementById('video-' + _this.getStreamManager().stream.streamId);
-                var avatar = _this.videoAvatar.getContext('2d');
-                avatar.drawImage(video, 200, 120, 285, 285, 0, 0, 100, 100);
-                console.log('Photo was taken: ', _this.videoAvatar);
-                resolve();
-            }
-            else {
-                _this.randomAvatar = img;
-                resolve();
-            }
-        });
-    };
     /**
      * @hidden
      */
-    UserModel.prototype.createVideoAvatar = function () {
-        this.videoAvatar = document.createElement('canvas');
-        this.videoAvatar.className = 'user-img';
-        this.videoAvatar.width = 100;
-        this.videoAvatar.height = 100;
-    };
+
     return UserModel;
 }());
 exports.UserModel = UserModel;

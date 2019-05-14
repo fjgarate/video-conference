@@ -1,40 +1,36 @@
 ﻿<body class="backgroung_login">
-  <div class="container">
+  <div class="jumbotron">
+  <div class="container" style="width: 30%" >
     <div class="row">
-      <div class="col-sm">
-        <div class="col-sm titulo">
-          <dl> INICIAR SESIÓN</dl>
-        </div> 
-      </div>
+ 
       <div class="col-sm login">
+        <h2 style="text-align: center">IDENTIFÍCATE</h2>
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
           <div class="form-group">
-            <label for="username">Usuario</label>
-            <input type="text" formControlName="username" class="form-control"
+            <input type="text" formControlName="username" placeholder="Usuario" class="form-control"
               [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
             <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
               <div *ngIf="f.username.errors.required">El usuario es obligatorio</div>
             </div>
           </div>
           <div class="form-group">
-            <label for="password">Contraseña</label>
-            <input type="password" formControlName="password" class="form-control"
+            <input type="password" formControlName="password" placeholder="Contraseña" class="form-control"
               [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
             <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
               <div *ngIf="f.password.errors.required">La contraseña es obligatoria</div>
             </div>
           </div>
           <div class="form-group">
-            <button [disabled]="loading" class="btn btn-success">Iniciar sesión</button>
+            <button [disabled]="loading" class="btn btn-primary btn-lg">Iniciar sesión</button> <br>
             <img *ngIf="loading" class="pl-3"
               src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-            <a routerLink="/register" class="btn btn-outline-success" style="margin-left: 110px" >Registrarse</a>
+            <p></p>
+              <a routerLink="/register" class="text-primary" style="margin-top: 15px">Registrarse</a>
           </div>
         </form>
       </div>
-      <div class="col-sm">
 
-      </div>
     </div>
   </div>
+</div>
 </body>

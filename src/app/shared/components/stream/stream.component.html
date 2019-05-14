@@ -2,7 +2,7 @@
 
     <app-toolbar *ngIf="isFullscreen" [lightTheme]="lightTheme" [newMessagesNum]="newMessagesNum" [mySessionId]="localUser.getStreamManager().stream.session.sessionId"
         [localUser]="localUser" [compact]="compact" (camButtonClicked)="camStatusChanged()" (micButtonClicked)="micStatusChanged()"
-        (exitButtonClicked)="exitSession()" (chatButtonClicked)="toggleChat()" (screenShareClicked)="screenShare()" (screenShareDisabledClicked)="screenShareDisabled()"></app-toolbar>
+        (exitButtonClicked)="exitSession()" (chatButtonClicked)="toggleChat()" ></app-toolbar>
 
     <div class="nickname pointer" [class.fullscreen]="isFullscreen">
         <span *ngIf="!editNickname" (click)="toggleNicknameForm()" id="nickname">{{this.user.getNickname()}}</span>

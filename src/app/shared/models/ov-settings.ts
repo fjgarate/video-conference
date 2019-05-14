@@ -4,7 +4,6 @@ export interface OvSettings {
   toolbarButtons: {
     audio: boolean;
     video: boolean;
-    screenShare: boolean;
     fullscreen: boolean;
     exit: boolean;
   };

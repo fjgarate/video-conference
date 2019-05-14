@@ -1,36 +1,44 @@
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
 
 <div class="container">
 <div class="row">
   <div class="col-md">
-    <div class="panel panel-primary">
-    <div class="panel-heading">
-<span > {{conversation.title}} </span> 
+  
+    <a routerLink="/conversations" class="text-primary" >
+      <i class="fa fa-arrow-left"></i>
+      Volver a las conversaciones</a>
+    <div class="panel panel-primary"  style="margin-top: 15px">
+    <div class="panel-heading text-center">
+       <h3 class="panel-title">{{conversation.title}}</h3>
     </div>
+
     <div class="panel-body" fullscreen="">
      <ul class="chat">
 <li class="left clearfix" *ngFor="let message of conversation.messages">
   <div class="chat-body clearfix">
     <div class="header">
-      <strong class="primary-font">{{message.author}}</strong>
+      <strong class="primary-font">{{message.author}}</strong><br>
       <small class="pull-right text-muted">
         <span class="glyphicon glyphicon-time"></span>{{message.createdDate| date:'short'}}</small>
-    </div>
- 
-  <p>
-    {{message.text}}
-  </p>
-<p>
-  Leído: {{message.read}}
-</p>
-<span class="tick"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" id="msg-dblcheck-ack" x="2063"
-    y="2076">
+   <p></p>
+        <span class="tick pull-right">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" id="msg-dblcheck-ack" x="2063"
+    y="2076" [ngStyle]="{'fill':message.read === true ? '#4fc3f7' : '#343a40'}">
     <path
       d="M15.01 3.316l-.478-.372a.365.365 0 0 0-.51.063L8.666 9.88a.32.32 0 0 1-.484.032l-.358-.325a.32.32 0 0 0-.484.032l-.378.48a.418.418 0 0 0 .036.54l1.32 1.267a.32.32 0 0 0 .484-.034l6.272-8.048a.366.366 0 0 0-.064-.512zm-4.1 0l-.478-.372a.365.365 0 0 0-.51.063L4.566 9.88a.32.32 0 0 1-.484.032L1.892 7.77a.366.366 0 0 0-.516.005l-.423.433a.364.364 0 0 0 .006.514l3.255 3.185a.32.32 0 0 0 .484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z">
     </path>
   </svg></span>
+      </div>
+
+    {{message.text}}
+<p></p>
+
  </div> 
 </li>
 </ul>
@@ -38,21 +46,18 @@
 <div class="panel-footer">
         <form [formGroup]="messageForm" (ngSubmit)="submitNewM()">
             <div class="form-group">
-              <label for="message">Mensaje</label>
-              <input id="btn-input" type="text" formControlName="text" class="form-control input-sm" placeholder="">
+              <input id="btn-input" type="text" formControlName="text" class="form-control " placeholder="Nuevo mensaje" style="text-align: left">
               </div>
-          <div class="form-group">
-          <span class="input-group-btn">
-            <button class="btn btn-warning btn-sm" id="btn-chat">
-              Enviar
+          <div class="form-group text-center">
+            <button type="button" class="btn btn-warning btn-lg">
+              Enviar mensaje
             </button>
-          </span>
           </div>
         </form>
 
 </div>
 </div>
-    <a class="btn btn-primary" role="button" (click)="updateConver()" class="text-primary">Actualizar</a>
+    <a class="btn btn-primary" (click)="updateConver()" class="text-primary">Actualizar</a>
 
 </div>
 </div>

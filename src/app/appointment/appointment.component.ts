@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { first, map } from 'rxjs/operators';
 import { User } from '../shared/models';
 import { Appointment} from '../shared/models/appointment';
+import { OptionsInput } from '@fullcalendar/core';
 
 
 @Component({
@@ -15,6 +16,7 @@ import { Appointment} from '../shared/models/appointment';
   styleUrls: ['./appointment.component.css']
 })
 export class AppointmentComponent implements OnInit {
+  options: OptionsInput;
   currentUser: User;
   currentUserSubscription: Subscription;
   event: Appointment;
@@ -32,6 +34,7 @@ export class AppointmentComponent implements OnInit {
     let calendarApi = this.calendarComponent.getApi();
     calendarApi.next();
   }
+  
 
 
   constructor(

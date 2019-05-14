@@ -1,10 +1,6 @@
 <mat-toolbar id="header" role="heading" [class.headerLight]="lightTheme">
 
   <div id="navSessionInfo">
-    <a>
-      <img id="header_img" *ngIf="!lightTheme" alt="OpenVidu Logo" src="https://raw.githubusercontent.com/OpenVidu/openvidu-call/master/front/openvidu-call/src/assets/images/openvidu_logo.png">
-      <img id="header_img" *ngIf="lightTheme" alt="OpenVidu Logo" src="https://raw.githubusercontent.com/OpenVidu/openvidu-call/master/front/openvidu-call/src/assets/images/openvidu_logo_grey.png">
-    </a>
     <div id="titleContent" *ngIf="!compact && mySessionId" [class.titleContentLight]="lightTheme">
       <span id="session-title">{{mySessionId}}</span>
     </div>
@@ -12,25 +8,18 @@
 
   <div id="navButtons" align="center">
     <button mat-icon-button (click)="micStatusChanged()" id="navMicButton"  *ngIf="!this.ovSettings || (this.ovSettings && this.ovSettings.toolbarButtons.audio)">
-      <mat-icon *ngIf="localUser && localUser.isAudioActive()" matTooltip="Unpublish your audio">mic</mat-icon>
-      <mat-icon *ngIf="localUser && !localUser.isAudioActive()" color="warn" matTooltip="Publish your audio">mic_off</mat-icon>
+      <mat-icon *ngIf="localUser && localUser.isAudioActive()" matTooltip="Desactivar micrófono">mic</mat-icon>
+      <mat-icon *ngIf="localUser && !localUser.isAudioActive()" color="warn" matTooltip="Activar micrófono">mic_off</mat-icon>
     </button>
     <button mat-icon-button (click)="camStatusChanged()" id="navCamButton" *ngIf="!this.ovSettings || (this.ovSettings && this.ovSettings.toolbarButtons.video)">
-      <mat-icon *ngIf="localUser && localUser.isVideoActive()" matTooltip="Unpublish your cam">videocam</mat-icon>
-      <mat-icon *ngIf="localUser && !localUser.isVideoActive()" color="warn" matTooltip="Publish your cam">videocam_off</mat-icon>
-    </button>
-    <button mat-icon-button (click)="screenShare()" id="navScreenButton" *ngIf="!this.ovSettings || (this.ovSettings && this.ovSettings.toolbarButtons.screenShare)">
-      <mat-icon matTooltip="Choose screen" *ngIf="localUser && localUser.isScreenShareActive()">picture_in_picture</mat-icon>
-      <mat-icon matTooltip="Screen share" *ngIf="localUser && !localUser.isScreenShareActive()">screen_share</mat-icon>
-    </button>
-    <button mat-icon-button (click)="screenShareDisabled()" *ngIf="localUser && localUser.isScreenShareActive()">
-      <mat-icon matTooltip="Stop sharing">desktop_windows</mat-icon>
+      <mat-icon *ngIf="localUser && localUser.isVideoActive()" matTooltip="Desactivar cámara">videocam</mat-icon>
+      <mat-icon *ngIf="localUser && !localUser.isVideoActive()" color="warn" matTooltip="Activar cámara">videocam_off</mat-icon>
     </button>
     <button mat-icon-button (click)="toggleFullscreen()" *ngIf="localUser && (!this.ovSettings || (this.ovSettings && this.ovSettings.toolbarButtons.fullscreen))">
-      <mat-icon matTooltip="Fullscreen">{{fullscreenIcon}}</mat-icon>
+      <mat-icon matTooltip="Pantalla completa">{{fullscreenIcon}}</mat-icon>
     </button>
     <button mat-icon-button (click)="exitSession()" id="navLeaveButton" *ngIf="!this.ovSettings || (this.ovSettings && this.ovSettings.toolbarButtons.exit)">
-      <mat-icon color="warn" matTooltip="Leave the session">power_settings_new</mat-icon>
+      <mat-icon color="warn" matTooltip="Abandonar videoconferencia">power_settings_new</mat-icon>
     </button>
     <button mat-icon-button id="navChatButton" (click)="toggleChat()" *ngIf="!compact && (!this.ovSettings || (this.ovSettings && this.ovSettings.chat))">
       <div *ngIf="showNotification" id="point" [class.pointLight]="lightTheme"></div>

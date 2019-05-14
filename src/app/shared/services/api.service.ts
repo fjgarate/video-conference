@@ -43,12 +43,5 @@ export class ApiService {
     }
   }
 
-  public  getRandomAvatar(): Promise<string> {
-    return new Promise((resolve, reject) => {
-      this.http.get('https://randomuser.me/api/?lego').subscribe((data: any) => {
-        resolve(data.results[0].picture.thumbnail);
-      });
-    });
 
-  }
 }

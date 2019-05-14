@@ -28,7 +28,6 @@ var OpenViduService = /** @class */ (function () {
                 video: true,
                 audio: true,
                 fullscreen: true,
-                screenShare: true,
                 exit: true,
             },
         };

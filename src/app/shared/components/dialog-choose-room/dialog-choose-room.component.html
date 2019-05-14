@@ -8,7 +8,7 @@
         <div class="" fxLayout="row" fxLayout.sm="column" fxLayout.lt-sm="column" fxFlexFill>
           <!--  left section -->
           <div fxFlex="45" fxFlex.sm="25" fxFlex.lt-sm="25" class="volume-theme">
-            <h3 id="sessionInfo">Sesión : {{ user_p }}</h3>
+            <h3 id="sessionInfo">Sala videoconferencia</h3>
             <mat-slider
               class="volumeSlider"
               [max]="0"
@@ -47,8 +47,8 @@
               <div fxLayout fxFlex>
                 <div class="one" fxFlex="20" fxLayoutAlign="center center">
                   <button mat-stroked-button (click)="toggleCam()" id="camDeviceButton">
-                    <mat-icon *ngIf="isVideoActive" matTooltip="Camera Enabled">videocam</mat-icon>
-                    <mat-icon *ngIf="!isVideoActive" color="warn" matTooltip="Camera Disabled">videocam_off</mat-icon>
+                    <mat-icon *ngIf="isVideoActive" matTooltip="Cámara activada">videocam</mat-icon>
+                    <mat-icon *ngIf="!isVideoActive" color="warn" matTooltip="Cámara desactivada">videocam_off</mat-icon>
                   </button>
                 </div>
                 <div class="two" fxFlex="80" fxLayoutAlign="center center">
@@ -70,8 +70,8 @@
               <div fxLayout fxFlex>
                 <div class="one" fxFlex="20" fxLayoutAlign="center center">
                   <button mat-stroked-button (click)="toggleMic()" id="micDeviceButton">
-                    <mat-icon *ngIf="isAudioActive" matTooltip="Microphone Enabled">mic</mat-icon>
-                    <mat-icon *ngIf="!isAudioActive" color="warn" matTooltip="Microphone Disabled">mic_off</mat-icon>
+                    <mat-icon *ngIf="isAudioActive" matTooltip="Micrófono activado">mic</mat-icon>
+                    <mat-icon *ngIf="!isAudioActive" color="warn" matTooltip="Micrófono desactivado">mic_off</mat-icon>
                   </button>
                 </div>
                 <div class="two" fxFlex="80" fxLayoutAlign="center center">
@@ -95,7 +95,7 @@
               <div fxLayout fxFlex>
                 <div class="one" fxFlex="20" fxLayoutAlign="center center">
                   <button mat-stroked-button (click)="generateNickname()" id="nicknameButton">
-                    <mat-icon matTooltip="Nickname">person</mat-icon>
+                    <mat-icon matTooltip="Usuario">person</mat-icon>
                   </button>
                 </div>
                 <div class="two" fxFlex="80" fxLayoutAlign="center center">
@@ -110,10 +110,10 @@
                         autocomplete="off"
                       />
                       <mat-error *ngIf="nicknameFormControl.hasError('required')">
-                        Nickname is <strong>required</strong>
+                        El nombre de usuario <strong>es obligatorio</strong>
                       </mat-error>
                       <mat-error *ngIf="nicknameFormControl.hasError('maxlength')">
-                        Nickname is <strong>too long!</strong>
+                        El nombre de usuario <strong>es demasiado largo</strong>
                       </mat-error>
                     </mat-form-field>
                   </form>
@@ -123,7 +123,7 @@
           </div>
         </div>
       </div>
-      <button mat-stroked-button (click)="accept()" id="joinButton">JOIN</button>
+      <button mat-stroked-button (click)="accept()" id="joinButton">Iniciar videoconferencia</button>
     </mat-card-content>
   </mat-card>
 </div>

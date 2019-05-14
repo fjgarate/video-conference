@@ -81,17 +81,19 @@ newConversation, options
 
   updateConversation(token: string, id: string, newConversation: Conversation) {
     console.log('Conversacion actualizada');
+    console.log('Con',newConversation);
+    console.log('id',id);
     const options = {
       headers: new HttpHeaders({
         Authorization: "Bearer " + token,
         "Content-Type": "application/json"
       }) 
     };
-    console.log(newConversation)
-
     return this.http.put<any>(
       environment.api_url + '/conversations/update/' + id,
-      newConversation, options );
+      newConversation,
+      options 
+      );
 
   }
 

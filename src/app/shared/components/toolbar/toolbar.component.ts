@@ -21,10 +21,8 @@ export class ToolbarComponent implements OnInit {
 
   @Output() micButtonClicked = new EventEmitter<any>();
   @Output() camButtonClicked = new EventEmitter<any>();
-  @Output() screenShareClicked = new EventEmitter<any>();
   @Output() exitButtonClicked = new EventEmitter<any>();
   @Output() chatButtonClicked = new EventEmitter<any>();
-  @Output() screenShareDisabledClicked = new EventEmitter<any>();
 
   constructor(private apiSrv: ApiService) {}
 
@@ -47,14 +45,6 @@ export class ToolbarComponent implements OnInit {
 
   camStatusChanged() {
     this.camButtonClicked.emit();
-  }
-
-  screenShare() {
-    this.screenShareClicked.emit();
-  }
-
-  screenShareDisabled() {
-    this.screenShareDisabledClicked.emit();
   }
 
   exitSession() {

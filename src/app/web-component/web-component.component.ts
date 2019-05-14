@@ -96,7 +96,6 @@ export class WebComponentComponent implements OnInit {
     'audio' in obj.toolbarButtons && typeof obj.toolbarButtons['audio'] === 'boolean' &&
     'audio' in obj.toolbarButtons && typeof obj.toolbarButtons['audio'] === 'boolean' &&
     'video' in obj.toolbarButtons && typeof obj.toolbarButtons['video'] === 'boolean' &&
-    'screenShare' in obj.toolbarButtons && typeof obj.toolbarButtons['screenShare'] === 'boolean' &&
     'fullscreen' in obj.toolbarButtons && typeof obj.toolbarButtons['fullscreen'] === 'boolean' &&
     'exit' in obj.toolbarButtons && typeof obj.toolbarButtons['exit'] === 'boolean';
   }

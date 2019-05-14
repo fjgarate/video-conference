@@ -269,9 +269,7 @@ var VideoRoomComponent = /** @class */ (function () {
                     if (data.isScreenShareActive !== undefined) {
                         user.setScreenShareActive(data.isScreenShareActive);
                     }
-                    if (data.avatar !== undefined) {
-                        user.setUserAvatar(data.avatar);
-                    }
+                    
                 }
             });
             _this.checkSomeoneShareScreen();
@@ -297,7 +295,6 @@ var VideoRoomComponent = /** @class */ (function () {
                 isVideoActive: _this.localUser.isVideoActive(),
                 isScreenShareActive: _this.localUser.isScreenShareActive(),
                 nickname: _this.localUser.getNickname(),
-                avatar: _this.localUser.getAvatar()
             });
         });
     };
@@ -320,7 +317,6 @@ var VideoRoomComponent = /** @class */ (function () {
                 connectionId: event.from.connectionId,
                 nickname: data.nickname,
                 message: data.message,
-                userAvatar: messageOwner.getAvatar()
             });
             _this.checkNotification();
             _this.chatComponent.scrollToBottom();
@@ -366,7 +362,6 @@ var VideoRoomComponent = /** @class */ (function () {
                     isVideoActive: _this.localUser.isVideoActive(),
                     isScreenShareActive: _this.localUser.isScreenShareActive(),
                     nickname: _this.localUser.getNickname(),
-                    avatar: _this.localUser.getAvatar()
                 });
                 _this.joinSession.emit();
             }).catch(function (error) { return console.error(error); });

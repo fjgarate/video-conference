@@ -17,8 +17,6 @@
       [ovSettings]="ovSettings"
       (camButtonClicked)="camStatusChanged()"
       (micButtonClicked)="micStatusChanged()"
-      (screenShareClicked)="screenShare()"
-      (screenShareDisabledClicked)="screenShareDisabled()"
       (exitButtonClicked)="exitSession()"
       (chatButtonClicked)="toggleChat($event)"
     ></app-toolbar>
@@ -48,8 +46,6 @@
           (micButtonClicked)="micStatusChanged()"
           (exitButtonClicked)="exitSession()"
           (chatButtonClicked)="toggleChat($event)"
-          (screenShareClicked)="screenShare()"
-          (screenShareDisabledClicked)="screenShareDisabled()"
         ></stream-component>
       </div>
 
@@ -70,8 +66,6 @@
           (micButtonClicked)="micStatusChanged()"
           (exitButtonClicked)="exitSession()"
           (chatButtonClicked)="toggleChat($event)"
-          (screenShareClicked)="screenShare()"
-          (screenShareDisabledClicked)="screenShareDisabled()"
         ></stream-component>
       </div>
 

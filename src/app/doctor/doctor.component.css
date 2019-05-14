@@ -1,0 +1,30 @@
+
+.image{
+    margin-top: 25%;
+    height:100px;
+
+    }
+
+.prueba{
+display: flex;
+justify-content: center; /* align horizontal */
+align-items: center; /* align vertical */
+}
+
+.prueba2{
+display: flex;
+justify-content: center; /* align horizontal */
+align-items: center; /* align vertical */
+height: 50px;
+margin-top:50px;
+}
+.images{
+    height: 200px;
+
+
+}
+
+
+
+
+    

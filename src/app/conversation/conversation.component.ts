@@ -33,7 +33,7 @@ export class ConversationComponent implements OnInit {
   conversation: Conversation;
   last_message: Message;
   user_conversation: User;
-
+variable: boolean;
 
   messages: Message[] = [];
   users: User[] = [];
@@ -83,9 +83,6 @@ export class ConversationComponent implements OnInit {
   }
   get f() { return this.conversationForm.controls; }
 
-
-
-
   private loadAllPatients() {
     this.userService
       .getPatients(this.currentUser)
@@ -95,6 +92,8 @@ export class ConversationComponent implements OnInit {
         this.users = users;
       });
   }
+
+
   private getConversationsByUserId(id: string) {
     this.convesationSrv
       .getConversationsByUserId(this.currentUser.token, id)
@@ -124,39 +123,21 @@ export class ConversationComponent implements OnInit {
         },
         error => {
         });
-        this.getConversationsByUserId(this.currentUser.id);
+      this.getConversationsByUserId(this.currentUser.id);
+      console.log('Hola')
   }
 
-
-  getConversationsById(id: string) {
-    this.convesationSrv
-      .getConversationsByUserId(this.currentUser.token, id)
-      .pipe(first())
-      .subscribe(conversations => {
-        console.log('Conversaciones',conversations);
-        this.conversations = conversations;
-        if (this.conversations.length > 0) {
-          this.messages = this.conversations[conversations.length - 1].messages;
-        }
-      });
-      this.router.navigate(['messages'], {
-        queryParams: {conver_p: this.conversations}
-      });
-
+newMessage(message){
+  for(let i = 0; i <message.length; i++) {
+    this.variable = message[i].read;
+  if (this.variable === false) {
+    return true
+    break
   }
+}
+  return false
 
-
-  getById(id: string) {
-    this.userService
-      .getById(this.currentUser.token, id)
-      .pipe(first())
-      .subscribe(pacientes => {
-        console.log('Pacientes', pacientes);
-        this.pacientes = pacientes;
-      });
-  }
-
-
+}
 
   goMessages(id) {
     console.log('llega')

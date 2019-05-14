@@ -122,52 +122,15 @@ this.loadAllPatients()
     console.log('id prueba', this.sessionId)
   if (id === this.sessionId) {
       console.log('id',id)
-          return true
+          return false
           break
     }
     if (id != this.sessionId) {
       console.log('id', id)
-      return false
+      return true
     }
   }
     
-      /*for (let j = 0; j < this.sessionprueba.length; j++) {
-        this.variable = this.sessionprueba[j];
-        this.sessionId = this.variable["sessionId"]
-        console.log('id prueba', this.sessionId)
-        if (id === this.sessionId) {
-          this.value = false;
-          return tfrue
-          break
-        }
-        if (id != this.sessionId) {
-          this.value = false;
-              return false
-    }*/
-
-    
-    
-   /* this.openViduSrv
-      .getSessionsPrueba('https://138.4.10.65:4443', 'gbttel')
-      .subscribe(response => {
-        this.sessionprueba = response.content;})
-
-    for (let j = 0; j < this.sessionprueba.length; j++) {
-
-      this.variable = this.sessionprueba[j];
-      this.sessionId = this.variable["sessionId"]
-      console.log('id prueba', this.sessionId)
-      console.log(j)
-       if (id === this.sessionId) {
-        
-        return true
-        break
-        }
-        return false;
-    }*/
-  
-
-
 }
 
 }

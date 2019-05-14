@@ -46,23 +46,44 @@ img {
     height: 100%;
 }
 .login{
-	height:350px;
-	margin-top: 200px;
-	margin-bottom: auto;
-	width: 500px;
-	background-color:rgba(145, 147, 155, 0.38) !important;
-	padding: 20px;
-	border: 2px solid #343a40;
-  border-radius: 10px;
-  color:rgb(15, 15, 15);
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    border-radius:5px;
+    -moz-box-shadow:0 0 10px #4e707c;
+    -webkit-box-shadow:0 0 10px #4e707c;
+    box-shadow:0 0 10px #4e707c;
+    text-align: center;
+    margin:5em auto;
+    background:#fff;
+    border:8px solid #eee;
+    padding: 10px;
+    height: 400px;
+    background: #FFFFFF;
+    border: 1px solid #CCCCCC;
 }
+
+.form-control{
+    background:#eee;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    border-radius:3px;
+    text-align:center;
+    position:relative;
+    height: 50px;
+    margin-bottom: 20px;
+    } 
+
+
+
+.prueba{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
 .register {
-  height:400px;
-	margin-top: 100px;
-  margin-bottom: auto;
-  margin-left: auto;
-  margin-right: 350px;
-  width:1000px;
+  height: relative;
+  background:#fff;
+
 }
 
 .infoP {
@@ -126,9 +147,7 @@ img {
 .noread{
   fill:#343a40;
 }
-.prueba{
-  font-size: 50 px;
-}
+
 
 .inicio {
   height:400px;

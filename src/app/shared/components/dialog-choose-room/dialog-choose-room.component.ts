@@ -1,7 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { UserModel } from '../../models/user-model';
-import { NicknameMatcher } from '../../forms-matchers/nickname';
 import { ApiService } from '../../services/api.service';
 import { OpenVidu, Publisher } from 'openvidu-browser';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -46,14 +45,10 @@ export class DialogChooseRoomComponent implements OnInit {
   volumeValue = 100;
 
   user: UserModel = new UserModel();
-  randomAvatar: string;
-  videoAvatar: string;
-  avatarSelected: string;
   columns: number;
   private OV: OpenVidu;
 
   nicknameFormControl = new FormControl('', [Validators.maxLength(25), Validators.required]);
-  matcher = new NicknameMatcher();
 
   constructor(private route: ActivatedRoute, private apiSrv: ApiService, private authenticationService: AuthenticationService,
     private userService: UserService, private router: Router) {
@@ -71,7 +66,6 @@ export class DialogChooseRoomComponent implements OnInit {
     this.generateNickname();
     this.setSessionName();
     this.setDevicesValue();
-    this.getRandomAvatar();
     this.columns = (window.innerWidth > 900) ? 2 : 1;
     this.sub = this.route.queryParams.subscribe(params => {
       // Defaults to 0 if no query param provided.
@@ -124,19 +118,6 @@ export class DialogChooseRoomComponent implements OnInit {
     });
   }
 
-  setAvatar(option: string) {
-    if ((option === 'random' && this.randomAvatar) || (option === 'video' && this.videoAvatar)) {
-      this.avatarSelected = option;
-      if (option === 'random') {
-        this.user.setUserAvatar(this.randomAvatar);
-      }
-    }
-  }
-
-  takePhoto() {
-    this.user.setUserAvatar();
-    this.videoAvatar = this.user.getAvatar();
-  }
 
   generateNickname() {
     const nickname = this.userNickname ? this.userNickname : this.currentUser.firstName +' '+ this.currentUser.lastName;
@@ -193,13 +174,7 @@ export class DialogChooseRoomComponent implements OnInit {
     });
   }
 
-  private getRandomAvatar() {
-    this.apiSrv.getRandomAvatar().then((avatar: string) => {
-        this.randomAvatar = avatar;
-        this.setAvatar('random');
-      })
-      .catch((err) => console.error(err));
-  }
+
 
   private initPublisher() {
     this.OV.initPublisherAsync(undefined, {

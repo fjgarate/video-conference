@@ -16,7 +16,7 @@ export class ChatComponent implements OnInit {
   @Input() user: UserModel;
   @Input() lightTheme: boolean;
   @Input()
-  messageList: { connectionId: string; nickname: string; message: string; userAvatar: string }[] = [];
+  messageList: { connectionId: string; nickname: string; message: string}[] = [];
 
   _chatDisplay: 'block' | 'none';
 
