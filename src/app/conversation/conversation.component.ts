@@ -34,6 +34,10 @@ export class ConversationComponent implements OnInit {
   last_message: Message;
   user_conversation: User;
 variable: boolean;
+  variable2: string[] = [];
+  name: string[] = [];
+
+
 
   messages: Message[] = [];
   users: User[] = [];
@@ -119,18 +123,18 @@ variable: boolean;
     this.convesationSrv.createConversation(this.conversationForm.value)
       .pipe(first())
       .subscribe(
-        data => {this.conversations = data;
-        },
         error => {
         });
       this.getConversationsByUserId(this.currentUser.id);
-      console.log('Hola')
   }
 
 newMessage(message){
   for(let i = 0; i <message.length; i++) {
     this.variable = message[i].read;
-  if (this.variable === false) {
+    this.variable2 = message[i].author;
+    this.name[0] = this.currentUser.firstName + ' ' + this.currentUser.lastName;
+
+  if ((this.variable === false) && (this.variable2 != this.name)) {
     return true
     break
   }
@@ -149,7 +153,20 @@ newMessage(message){
 
   }
 
- 
+  deleteConver(id) {
+    this.convesationSrv.deleteConver(this.currentUser.token, id)
+      .pipe(first())
+      .subscribe(
+        
+        error => {
+          console.log(error)
+        });
+    this.getConversationsByUserId(this.currentUser.id);
+
+  }
+
+
+
 
 
 

@@ -14,9 +14,14 @@
         <ul class="list-group">
         <li *ngFor="let conversation of conversations" class="list-group-item">
             <span>{{conversation.title}}</span> 
-            <button (click)="goMessages(conversation.id)"  class="btn btn-outline-primary float-right" style="margin-left: 20px"> 
+         <button (click)="deleteConver(conversation.id)"
+          class="btn btn-outline-danger float-right" style="margin-left: 20px">
+          Eliminar <i class="fa fa-trash"></i>
+        </button>    
+            <button (click)="goMessages(conversation.id)" class="btn btn-outline-primary float-right" style="margin-left: 20px" > 
          Ver <i class="fa fa-arrow-right"></i> 
-        </button> <br />
+        </button> 
+        <br />
          <span *ngIf="newMessage(conversation.messages)" style="color:red">¡Nuevos mensajes!</span>
         </li>
 

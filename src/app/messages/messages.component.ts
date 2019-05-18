@@ -23,11 +23,15 @@ export class MessagesComponent implements OnInit {
   currentUser: User;
   currentUserSubscription: Subscription;
   conversation: Conversation[]=[];
+  conversationParams: Conversation;
   change: [];
   last_message: Message;
   user_conversation: User;
   conversations: Conversation[] = [];
   conversation2: Conversation;
+  conversation3: Conversation;
+  messages3: Message[] = [];
+
   conver_p = '';
   private sub: any;
   participants: string[] = [];
@@ -53,7 +57,6 @@ export class MessagesComponent implements OnInit {
   ngOnInit() {
     //this.sharedService.currentMessage.subscribe(message => this.messages = message);
 
-    console.log('Han llegado', this.messages);
     this.messageForm = this.formBuilder.group({
       text: [''],
       author: this.currentUser.firstName + ' ' + this.currentUser.lastName,
@@ -63,9 +66,7 @@ export class MessagesComponent implements OnInit {
       // Defaults to 0 if no query param provided.
       this.conver_p = params['conver_p'];
     });
-  console.log('Conver', this.conver_p);
   this.getConversationsById();
-   //this.updateConver();
   }
   get f() { return this.messageForm.controls; }
 
@@ -77,11 +78,12 @@ export class MessagesComponent implements OnInit {
       .subscribe(conversation => {
         console.log('Conversaciones', conversation);
         this.conversation = conversation;
+        this.conversationParams = conversation;
         this.conversation2 = conversation;
-console.log('Con2',this.conversation2)
-      });
-
-
+        this.conversation3 = conversation;
+        this.messages3 = this.conversation3.messages.filter((item) => item.author != this.currentUser.firstName + ' ' + this.currentUser.lastName).filter((item)=> item.read = true) ;
+        this.updateConver();
+});
   }
 
 
@@ -95,16 +97,14 @@ console.log('Con2',this.conversation2)
           error => {
           });
       this.getConversationsById();
-      console.log('ENviado')
     }
 
    updateConver() {
-    this.messages = this.conversation2.messages.filter((item) => item.read = true);
-     this.convesationSrv.updateConversation(this.currentUser.token, this.conver_p, this.conversation2)
+     this.convesationSrv.updateConversation(this.currentUser.token, this.conver_p, this.conversation3)
         .pipe(first())
         .subscribe(
           data => {
-            this.conversation2 = data;
+            this.conversation3 = data;
           },
           error => { console.log(error)
           });

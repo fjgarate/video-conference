@@ -15,12 +15,12 @@
       Volver a las conversaciones</a>
     <div class="panel panel-primary"  style="margin-top: 15px">
     <div class="panel-heading text-center">
-       <h3 class="panel-title">{{conversation.title}}</h3>
+       <h3 class="panel-title">{{conversationParams.title}}</h3>
     </div>
 
     <div class="panel-body" fullscreen="">
      <ul class="chat">
-<li class="left clearfix" *ngFor="let message of conversation.messages">
+<li class="left clearfix" *ngFor="let message of conversationParams.messages">
   <div class="chat-body clearfix">
     <div class="header">
       <strong class="primary-font">{{message.author}}</strong><br>

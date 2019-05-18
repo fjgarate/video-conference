@@ -29,7 +29,6 @@ import { FullCalendarModule } from '@fullcalendar/angular'; // for FullCalendar!
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { VideoRoomComponent } from './video-room/video-room.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { OpenViduService } from './shared/services/open-vidu.service';
 import { StreamComponent } from './shared/components/stream/stream.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -47,7 +46,6 @@ import { LinkifyPipe } from './shared/pipes/linkfy';
 import { NgxLinkifyjsModule } from 'ngx-linkifyjs';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { JwtInterceptor, ErrorInterceptor } from './shared/helpers';
-import { HomeComponent } from './home';
 import { LoginComponent} from './login';
 import { RegisterComponent } from './register';
 import { AlertComponent } from './shared/components/alert';
@@ -66,7 +64,6 @@ import { AppointmentComponent } from './appointment/appointment.component';
   declarations: [
     AppComponent,
     VideoRoomComponent,
-    DashboardComponent,
     StreamComponent,
     ChatComponent,
     DialogExtensionComponent,
@@ -77,7 +74,6 @@ import { AppointmentComponent } from './appointment/appointment.component';
     ToolbarComponent,
     LinkifyPipe,
     AlertComponent,
-    HomeComponent,
     LoginComponent,
     RegisterComponent,
     DoctorComponent,

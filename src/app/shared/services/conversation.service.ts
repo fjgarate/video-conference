@@ -97,5 +97,19 @@ newConversation, options
 
   }
 
+  deleteConver (token: string, id: string){
+    console.log('Eliminada')
+    const options = {
+      headers: new HttpHeaders({
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json"
+      })
+    };
+    return this.http.delete<any>(
+      environment.api_url + '/conversations/' + id,
+      options
+    );
+  }
+
 
 }

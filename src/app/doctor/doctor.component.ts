@@ -36,8 +36,10 @@ export class DoctorComponent implements OnInit, OnDestroy {
   num: number;
   event: Appointment;
   nextEvent: Appointment[]=[];
-
-
+  event2: Appointment[] =[]
+  date = new Date();
+  event3: Appointment[] = []
+date2 = new Date();
 
 
   constructor(
@@ -105,7 +107,6 @@ export class DoctorComponent implements OnInit, OnDestroy {
         console.log(conversations);
         this.conversations = conversations;
         this.conversations2 = conversations;
-        //this.conversations2 = this.conversations.filter((item) => item.messages.filter((item) => item.read === true));
         let count = 0;
 
         console.log ('Prueba',this.conversations2);
@@ -131,6 +132,7 @@ export class DoctorComponent implements OnInit, OnDestroy {
 }
 
 
+
   private loadAllEvents() {
     this.appointmentService
       .getAll(this.currentUser.token)
@@ -138,7 +140,12 @@ export class DoctorComponent implements OnInit, OnDestroy {
       .subscribe(event => {
         console.log(event);
         this.event = event;
+        this.event2 = event;
+        console.log('D', this.date)
         for (let i=0; i <5; i++){
+        this.date2 = this.event[i].date;
+
+          console.log('Day',this.date2, this.date);
         this.nextEvent[i] = this.event[i];
         }
       });
