@@ -72,17 +72,24 @@
     <div class="row">
     <div class="col-sm-1 ">
     </div>
-    <div class="col-sm-10 inicio">
+      <div class="col-sm-10 inicio">
         <ul class="list-group">
-          <li *ngFor="let conversation of conversations" class="list-group-item">
-            <span>{{conversation.title}}</span>
-            <button (click)="goMessages(conversation.id)" class="btn btn-outline-success" style="margin-left: 20px">
-              <span>Ver</span>
-  
-            </button>
-          </li>
-        </ul>
-      </div>
+        <li *ngFor="let conversation of conversations" class="list-group-item">
+            <span>{{conversation.title}}</span> 
+         <button (click)="deleteConver(conversation.id)"
+          class="btn btn-outline-danger float-right" style="margin-left: 20px">
+          Eliminar <i class="fa fa-trash"></i>
+        </button>    
+            <button (click)="goMessages(conversation.id)" class="btn btn-outline-primary float-right" style="margin-left: 20px" > 
+         Ver <i class="fa fa-arrow-right"></i> 
+        </button> 
+        <br />
+         <span *ngIf="newMessage(conversation.messages)" style="color:red">¡Nuevos mensajes!</span>
+        </li>
+
+      </ul>
+      <br />
+    </div>
     </div>
   </div>
 

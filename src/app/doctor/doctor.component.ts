@@ -40,6 +40,8 @@ export class DoctorComponent implements OnInit, OnDestroy {
   date = new Date();
   event3: Appointment[] = []
 date2 = new Date();
+  variable2: string;
+  name: string;
 
 
   constructor(
@@ -114,9 +116,12 @@ date2 = new Date();
         for (let i = 0; i < this.conversations.length; i++) {
           this.conver = this.conversations[i];
           this.mes = this.conver.messages;
+         
           for (let j = 0; j< this.mes.length; j++){
-
-          if (this.mes[j].read ===false) 
+          this.variable2 = this.mes[j].author;
+          this.name = this.currentUser.firstName + ' ' + this.currentUser.lastName;
+           
+          if ((this.mes[j].read === false) && (this.variable2 != this.name))
           {
             count= count+1;
             break
@@ -140,9 +145,10 @@ date2 = new Date();
       .subscribe(event => {
         console.log(event);
         this.event = event;
-        this.event2 = event;
-        console.log('D', this.date)
+        this.event2 = this.event2.filter((item) => item.date === this.date)
+        console.log('D', this.event2)
         for (let i=0; i <5; i++){
+
         this.date2 = this.event[i].date;
 
           console.log('Day',this.date2, this.date);

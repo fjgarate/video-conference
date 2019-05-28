@@ -25,6 +25,12 @@ export class PatientComponent implements OnInit {
   public sessionName: [];
   conversations: Conversation[] = [];
   messages: Message[] = [];
+  conversations2: Conversation[] = [];
+  mes: Message[] = [];
+  num: number;
+  variable2: string;
+  name: string;
+  conver: Conversation;
 
 
   constructor(
@@ -54,10 +60,31 @@ export class PatientComponent implements OnInit {
       .subscribe(conversations => {
         console.log(conversations);
         this.conversations = conversations;
-        if (this.conversations.length > 0) {
-          this.messages = this.conversations[conversations.length - 1].messages;
-        }
-      });
+        this.conversations2 = conversations;
+        let count = 0;
+
+        console.log('Prueba', this.conversations2);
+
+        for (let i = 0; i < this.conversations.length; i++) {
+          this.conver = this.conversations[i];
+          this.mes = this.conver.messages;
+
+          for (let j = 0; j < this.mes.length; j++) {
+            this.variable2 = this.mes[j].author;
+            this.name = this.currentUser.firstName + ' ' + this.currentUser.lastName;
+
+            if ((this.mes[j].read === false) && (this.variable2 != this.name)) {
+              count = count + 1;
+              break
+
+            }
+          }
+
+        };
+        this.num = count;
+
+      })
+
   }
 
 }

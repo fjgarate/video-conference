@@ -1,38 +1,54 @@
 <body>
   <div class="jumbotron">
-    <div class="container">
-      <h1>Bienvenido paciente {{currentUser.firstName}}</h1>
-    </div>
-  </div>
+    <header class="masthead text-black text-center">
+    
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-9 mx-auto">
+            <h1 class="mb-5" style="font-size: 3.5 rem">Te damos la bienvenida {{currentUser.firstName}}</h1>
+          </div>
+        </div>
+      </div>
+    </header>
 
-<div class="row">
-  <div class="col-sm-2 inicio">
-  </div>
-  <div class="col-sm-4 inicio">
-    <h2>PRÓXIMAS CITAS:</h2>
-    <hr>
-      <span>Su próxima cita es de día: 12/15/2019, a las 10:30 </span> <br />
-      <a routerLink="/videoconf" class="btn btn-primary" role="button" >Iniciar videoconferencia</a>
-    </div>
-
-<div class="col-sm-4 inicio">
-      <h2>MENSAJES:</h2>
-        <hr>
-
-      <div *ngFor="let conversation of conversations">
-        Creada: {{conversation.createdDate| date:'medium'}}
-        <div class="container contenido" *ngFor="let message of messages | isPresent">
-          <span>{{message.text}}</span><br />
-          <span>Leído: {{message.read}}</span><br />
-
-
+    <section class="prueba2 text-center">
+      <div class="container">
+        <div class="row" style="margin-top:100px; margin-bottom: -20px;">
+          <div class="prueba2 col-lg-6 ">
+            <img margin-top="100" width="70" height="60" src="../../assets/images/Imagen2.png">
+          </div>
+          <div class="prueba2 col-lg-6 ">
+            <img margin-top="100" width="70" height="60" src="../../assets/images/Imagen3.png">
+          </div>
 
         </div>
       </div>
+    </section>
 
-    </div>
-      <div class="col-sm-2 inicio">
+    <section class="prueba text-center">
+      <div class="container">
+        <div class="row" >
+
+          <div class="col-lg-6 ">
+            <h3 style="font-size: 2rem">Proximas citas</h3>
+            <p></p>
+          <span>Su próxima cita es de día: 12/15/2019, a las 10:30 </span> <br />
+         <p></p>
+          <a routerLink="/videoconf" class="btn btn-outline-primary" role="button">Iniciar videoconferencia</a>
+          </div>
+    
+          <div class="col-lg-6 ">
+            <h3 style="font-size: 2rem">Mensajes</h3>
+            <span>Nuevas conversaciones:</span>
+            <span class="badge badge-primary badge-pill">{{num}}</span>
+            <p></p>
+            <button class="btn btn-outline-primary" routerLink="/conversations">Ver conversaciones</button>
+          </div>
+    
+    
+        </div>
       </div>
+    </section>
   </div>
-  <hr>
+
 </body>

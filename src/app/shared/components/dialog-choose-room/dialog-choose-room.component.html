@@ -1,5 +1,11 @@
 <div id="dialogChooseRoom" [ngStyle]="{ display: autopublish ? 'none' : 'block' }">
-  <mat-card *ngIf="user.getStreamManager()">
+  <mat-card *ngIf="user.getStreamManager()" style="-moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    border-radius:5px;
+    -moz-box-shadow:0 0 10px #4e707c;
+    -webkit-box-shadow:0 0 10px #4e707c;
+    box-shadow:0 0 10px #4e707c;
+    height:fit-content">
 
 
 
@@ -8,7 +14,6 @@
         <div class="" fxLayout="row" fxLayout.sm="column" fxLayout.lt-sm="column" fxFlexFill>
           <!--  left section -->
           <div fxFlex="45" fxFlex.sm="25" fxFlex.lt-sm="25" class="volume-theme">
-            <h3 id="sessionInfo">Sala videoconferencia</h3>
             <mat-slider
               class="volumeSlider"
               [max]="0"
@@ -19,28 +24,13 @@
             >
             </mat-slider>
             <ov-video [streamManager]="user.getStreamManager()" id="ovVideo" style="display: inline-block"></ov-video>
-
+ <button (click)="accept()" class="btn btn-primary" style="margin: 20px 200px;">Iniciar videoconferencia</button>
           </div>
+         
+
           <!--  right section -->
           <div fxFlex="55" fxFlex.sm="65" fxFlex.lt-sm="65" class="sec3">
-              <div fxLayout="row" fxFill id="infoPatient" *ngIf="isDoctor">
-                  <div class="info" fxFlex="100" fxLayoutAlign="center">
-                  <div class="container">
-                 <div class="row">
-                 <div class="col-sm">
-                <div class="col-sm titulo2">
-                    <h4>Información del paciente</h4>
-                    </div>
-                      <div class="col-sm infoP">
-                      El paciente es: {{pacientes.firstName}} {{pacientes.lastName}}
-                      <p>
-                      El motivo de la videoconferencia es: Revisión
-                      </div>
-                  </div>
-                  </div>
-                  </div>
-                  </div>
-              </div>
+
 
             <!-- Devices section / Camera-->
             <div fxLayout="row" fxFill id="devicesSection">
@@ -51,14 +41,14 @@
                     <mat-icon *ngIf="!isVideoActive" color="warn" matTooltip="Cámara desactivada">videocam_off</mat-icon>
                   </button>
                 </div>
-                <div class="two" fxFlex="80" fxLayoutAlign="center center">
-                  <mat-form-field class="alternate-theme">
+                <div class="two" fxFlex="100" fxLayoutAlign="left center">
+                  <mat-form-field id="matForm2" >
                     <mat-select
                       placeholder="Seleccionar cámara"
                       [ngModel]="isVideoActive ? camValue.label : 'Ninguna'"
                       (selectionChange)="camChanged($event.value)"
-                    >
-                      <mat-option *ngFor="let camera of cameras" [value]="camera.label">{{ camera.label }}</mat-option>
+                     id="matForm">
+                      <mat-option *ngFor="let camera of cameras" [value]="camera.label"  id="matForm">{{ camera.label }}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
@@ -74,8 +64,8 @@
                     <mat-icon *ngIf="!isAudioActive" color="warn" matTooltip="Micrófono desactivado">mic_off</mat-icon>
                   </button>
                 </div>
-                <div class="two" fxFlex="80" fxLayoutAlign="center center">
-                  <mat-form-field class="alternate-theme">
+                <div class="two" fxFlex="80" fxLayoutAlign="left center">
+                  <mat-form-field id="matForm2">
                     <mat-select
                       placeholder="Seleccionar micrófono"
                       [ngModel]="isAudioActive ? micValue.label : 'Ninguno'"
@@ -98,9 +88,9 @@
                     <mat-icon matTooltip="Usuario">person</mat-icon>
                   </button>
                 </div>
-                <div class="two" fxFlex="80" fxLayoutAlign="center center">
-                  <form id="nicknameDialog" class="alternate-theme">
-                    <mat-form-field>
+                <div class="two" fxFlex="80" fxLayoutAlign="left center">
+                  <form id="nicknameDialog" id="matForm2">
+                    <mat-form-field id="matForm2">
                       <input
                         matInput
                         placeholder="Usuario"
@@ -108,6 +98,7 @@
                         [errorStateMatcher]="matcher"
                         (keypress)="eventKeyPress($event)"
                         autocomplete="off"
+                        
                       />
                       <mat-error *ngIf="nicknameFormControl.hasError('required')">
                         El nombre de usuario <strong>es obligatorio</strong>
@@ -120,10 +111,30 @@
                 </div>
               </div>
             </div>
+              <div fxLayout="row" fxFill >
+                <div class="info" fxFlex="100" fxLayoutAlign="center">
+                  <div class="jumbotron" style="padding: 1rem 1rem; height:200px">
+                  <div class="container" style="width: 650px">
+                    <div class="row">
+                      <div class="col-sm">
+                        
+                        <div class="col-sm infoP">
+                          <h3>Información del paciente</h3>
+                          El paciente es: {{pacientes.firstName}} {{pacientes.lastName}}
+                          <p>
+                            El motivo de la videoconferencia es: Revisión
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </div>
+              </div>
+
+
           </div>
         </div>
       </div>
-      <button mat-stroked-button (click)="accept()" id="joinButton">Iniciar videoconferencia</button>
     </mat-card-content>
   </mat-card>
 </div>

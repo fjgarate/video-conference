@@ -56,6 +56,7 @@
 #devicesSection {
   height: fit-content !important;
   min-height: auto !important;
+  margin: 20px 0px;
 }
 
 #imgText {
@@ -75,16 +76,13 @@
   position: initial;
 }
 
-mat-form-field,
-#nicknameDialog {
-  width: 100%;
-}
+
 
 mat-card {
   max-width: 85% !important;
   position: absolute;
-  top: 0;
-  bottom: 0;
+  top: 20px;
+  bottom: 20px;
   left: 0;
   right: 0;
   max-width: fit-content;
@@ -92,6 +90,7 @@ mat-card {
   margin: auto;
   padding: 20px;
   overflow-y: auto;
+   font-family: Verdana,sans-serif;
 }
 
 @media only screen and (max-width: 959px) {
@@ -114,10 +113,3 @@ mat-card {
   width: 10px !important;
 }
 
-::-webkit-scrollbar {
-  width: 3px;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: #6b6b6b;
-}

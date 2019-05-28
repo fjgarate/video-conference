@@ -7,17 +7,17 @@
 <div class="col-sm register">
  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
-        <mat-form-field>
+        <mat-form-field id="matForm">
             <label for="role" >Tipo usuario </label>
-            <select matNativeControl required formControlName="role">
-                <option value="doctor">Doctor</option>
-                <option value="patient">Paciente</option>
-            </select>
+            <mat-select matNativeControl required formControlName="role" >
+                <mat-option value="doctor" id="matForm">Doctor</mat-option>
+                <mat-option value="patient" id="matForm">Paciente</mat-option>
+            </mat-select>
             <p></p>
         </mat-form-field>
  
         <div *ngIf="asignarDoctor()">
-            <mat-form-field>
+            <mat-form-field  id="matForm">
                 <label for="doctorIds">Id doctor asignado </label>
                 <input type="text" formControlName="doctorIds" class="form-control" />
                 <p></p>
