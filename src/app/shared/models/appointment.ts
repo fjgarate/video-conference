@@ -1,5 +1,5 @@
 export class Appointment {
-  id: string;
+  userId: string;
   title: string;
   date: Date;
 

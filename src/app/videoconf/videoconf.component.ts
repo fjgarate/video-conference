@@ -1,12 +1,11 @@
-import { Component, OnInit, OnDestroy, Input, ViewChild  } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { Subscription, Observable, interval } from 'rxjs';
 import { first, map } from 'rxjs/operators';
 import { User } from '../shared/models';
 import { UserService, AuthenticationService } from '../shared/services';
 import { OpenViduService } from '../shared/services/open-vidu.service';
 import { DoctorComponent} from '../doctor/doctor.component';
 import { RouterModule, Router } from "@angular/router";
-import { forEach } from '@angular/router/src/utils/collection';
 
 @Component({
   selector: "app-videoconf",
@@ -28,13 +27,14 @@ export class VideoconfComponent implements OnInit {
   sessionId: string;
   sessionId2: string;
   value: boolean = true;
+  updateSubscription: Subscription;
 
 
   constructor(
     private authenticationService: AuthenticationService,
     private userService: UserService,
     private openViduSrv: OpenViduService,
-    private router: Router
+    private router: Router,
   ) {
     this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
       user => {
@@ -44,8 +44,14 @@ export class VideoconfComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.updateSubscription = interval(30000).subscribe(
+      (val) => {
+        this.loadSessionsPrueba()
+      }
+    );
     this.loadSessionsPrueba();
    // this.loadAllPatients();
+
   }
 
 public loadAllPatients() {

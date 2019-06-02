@@ -1,3 +1,4 @@
+import { AppointmentCalendar } from './../shared/models/appointmentCalendar';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { FullCalendarComponent } from '@fullcalendar/angular';
@@ -7,6 +8,7 @@ import { Subscription } from 'rxjs';
 import { first, map } from 'rxjs/operators';
 import { User } from '../shared/models';
 import { Appointment} from '../shared/models/appointment';
+
 import { OptionsInput } from '@fullcalendar/core';
 
 
@@ -19,7 +21,7 @@ export class AppointmentComponent implements OnInit {
   options: OptionsInput;
   currentUser: User;
   currentUserSubscription: Subscription;
-  event: Appointment;
+  eventPrueba: AppointmentCalendar;
 
   @ViewChild('calendar') calendarComponent: FullCalendarComponent;
 
@@ -59,11 +61,12 @@ export class AppointmentComponent implements OnInit {
 
   private loadAllEvents() {
     this.appointmentService
-      .getAll(this.currentUser.token)
+      .getAllCalendar(this.currentUser.token, this.currentUser.id)
       .pipe(first())
-      .subscribe(event => {
-        console.log(event);
-        this.event = event;
+      .subscribe(eventPrueba => {
+        console.log(eventPrueba);
+        this.eventPrueba = eventPrueba;
+        console.log(this.eventPrueba)
       });
   }
 }

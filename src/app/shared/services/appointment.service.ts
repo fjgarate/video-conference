@@ -9,7 +9,7 @@ import { environment } from './../../../environments/environment';
 export class AppointmentService {
   constructor(private http: HttpClient) {}
 
-  getAll(token: string) {
+  getAll(token: string, userId: string) {
     const options = {
       headers: new HttpHeaders({
         Authorization: "Bearer " + token,
@@ -17,11 +17,36 @@ export class AppointmentService {
       })
     };
     return this.http.get<any>(
-      environment.api_url + "/appointments",
+      environment.api_url + "/appointments" + "/" + userId,
+      options
+    );
+  }
+
+  getToday(token: string, userId: string){
+    const options = {
+      headers: new HttpHeaders({
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json"
+      })
+    };
+    return this.http.get<any>(
+      environment.api_url + "/appointments/today" + "/" + userId,
       options
     );
   }
   
+  getAllCalendar(token: string, userId: string) {
+    const options = {
+      headers: new HttpHeaders({
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json"
+      })
+    };
+    return this.http.get<any>(
+      environment.api_url + "/appointments/calendar" + "/" + userId,
+      options
+    );
+  }  
   
   createEvent(newEvent: Appointment) {
     console.log('Evento creado');

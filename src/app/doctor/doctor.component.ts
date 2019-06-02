@@ -75,7 +75,6 @@ date2 = new Date();
 
 
   public selectUser(user) {
-    console.log(user);
     this.sessionName = user;
 
   }
@@ -85,7 +84,6 @@ date2 = new Date();
       .getPatients(this.currentUser)
       .pipe(first())
       .subscribe(users => {
-        console.log(users);
         this.users = users;
       });
   }
@@ -95,7 +93,6 @@ date2 = new Date();
     this.openViduSrv
       .getSessionsPrueba('https://138.4.10.65:4443', 'gbttel')
       .subscribe(response => {
-        console.log('Funciona', response);
         this.sessionprueba = response;
       });
   }
@@ -111,7 +108,6 @@ date2 = new Date();
         this.conversations2 = conversations;
         let count = 0;
 
-        console.log ('Prueba',this.conversations2);
 
         for (let i = 0; i < this.conversations.length; i++) {
           this.conver = this.conversations[i];
@@ -140,21 +136,16 @@ date2 = new Date();
 
   private loadAllEvents() {
     this.appointmentService
-      .getAll(this.currentUser.token)
+      .getToday(this.currentUser.token, this.currentUser.id)
       .pipe(first())
       .subscribe(event => {
-        console.log(event);
         this.event = event;
-        this.event2 = this.event2.filter((item) => item.date === this.date)
-        console.log('D', this.event2)
         for (let i=0; i <5; i++){
-
         this.date2 = this.event[i].date;
-
-          console.log('Day',this.date2, this.date);
         this.nextEvent[i] = this.event[i];
         }
       });
   }
+
 
 }

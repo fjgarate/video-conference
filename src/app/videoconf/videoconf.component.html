@@ -25,12 +25,16 @@
 </ul> 
 <br /> -->
 
- <h2>LISTA PACIENTES</h2>
 <ul class="list-group">
   <li *ngFor="let user of users " class="list-group-item" >
-    <span> {{user.firstName}} {{user.lastName}} </span>
-      <button [disabled]="isActive(user.id)" class="btn btn-primary" (click)="selectUser(user.id)"  style="margin-left: 10px" [ngStyle]="{'disabled':isActive(user.id) === true ? false : false}">Iniciar videoconferencia</button>
-  </li>
+    <span> {{user.firstName}} {{user.lastName}} </span> <span *ngIf="isActive(user.id)===false" style="color:limegreen">esta conectado!</span>
+      <button [disabled]="isActive(user.id)" class="btn btn-primary float-right" style="margin-left: 20px" (click)="selectUser(user.id)"  [ngStyle]="{'disabled':isActive(user.id) === true ? false : false}">Iniciar videoconferencia
+      <i class="fa fa-video-camera"></i>
+    </button>
+      <br />
+      
+
+    </li>
 </ul>
 </div>
 <div class="col-sm-1">

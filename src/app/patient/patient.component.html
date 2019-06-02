@@ -14,10 +14,13 @@
     <section class="prueba2 text-center">
       <div class="container">
         <div class="row" style="margin-top:100px; margin-bottom: -20px;">
-          <div class="prueba2 col-lg-6 ">
+          <div class="prueba2 col-lg-4 ">
+            <img margin-top="100" width="70" height="60" src="../../assets/images/Imagen1.png">
+          </div>
+          <div class="prueba2 col-lg-4 ">
             <img margin-top="100" width="70" height="60" src="../../assets/images/Imagen2.png">
           </div>
-          <div class="prueba2 col-lg-6 ">
+          <div class="prueba2 col-lg-4 ">
             <img margin-top="100" width="70" height="60" src="../../assets/images/Imagen3.png">
           </div>
 
@@ -28,8 +31,16 @@
     <section class="prueba text-center">
       <div class="container">
         <div class="row" >
-
-          <div class="col-lg-6 ">
+<div class="col-lg-4 ">
+  <h3 style="font-size: 2 rem">Próximas citas</h3>
+  <div *ngFor="let event of nextEvent ">
+    <span>{{event.title}}</span>
+    <span> {{event.date | date:'short'}}</span>
+  </div>
+  <p></p>
+  <button routerLink="/appointment" class="btn btn-outline-primary">Ver calendario </button>
+</div>
+          <div class="col-lg-4 ">
             <h3 style="font-size: 2rem">Proximas citas</h3>
             <p></p>
           <span>Su próxima cita es de día: 12/15/2019, a las 10:30 </span> <br />
@@ -37,7 +48,7 @@
           <a routerLink="/videoconf" class="btn btn-outline-primary" role="button">Iniciar videoconferencia</a>
           </div>
     
-          <div class="col-lg-6 ">
+          <div class="col-lg-4 ">
             <h3 style="font-size: 2rem">Mensajes</h3>
             <span>Nuevas conversaciones:</span>
             <span class="badge badge-primary badge-pill">{{num}}</span>
