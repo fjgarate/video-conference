@@ -65,7 +65,8 @@ export class RegisterComponent implements OnInit {
     }
 
     asignarDoctor(): boolean {
-        if (this.registerForm.value.role === 'patient') {return true;
+        if (this.registerForm.value.role === 'patient') {console.log('Paciente')
+            return true;
     } else {
         return false; }
     }
