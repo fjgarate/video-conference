@@ -4,9 +4,12 @@
 export class Conversation {
   id: string;
   title: string;
+  createUserId: string;
   createUsername: string;
+  createName: string;
   participants: [string];
   messages: [Message];
-  other_participant: string;
-
+  otherUsername: string;
+  otherName: string;
+  createdDate: string;
 }

@@ -6,15 +6,18 @@ import { UserService, AuthenticationService } from '../shared/services';
 import { OpenViduService } from '../shared/services/open-vidu.service';
 import { DoctorComponent} from '../doctor/doctor.component';
 import { RouterModule, Router } from "@angular/router";
+import { environment } from "../../environments/environment";
 
 @Component({
   selector: "app-videoconf",
-  templateUrl: "./videoconf.component.html"
+  templateUrl: "./videoconf.component.html",
+  styleUrls: ["./videoconf.component.css"]
 })
 export class VideoconfComponent implements OnInit {
   currentUser: User;
   currentUserSubscription: Subscription;
-  users: User;
+  users: User[]=[];
+  usersConected: User[] = [];
   sessionprueba: [];
   variable: Object;
   variable2: Object;
@@ -44,12 +47,14 @@ export class VideoconfComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.updateSubscription = interval(30000).subscribe(
       (val) => {
         this.loadSessionsPrueba()
       }
     );
     this.loadSessionsPrueba();
+
    // this.loadAllPatients();
 
   }
@@ -92,22 +97,33 @@ public loadAllPatients() {
 
   private loadSessionsPrueba() {
     this.openViduSrv
-      .getSessionsPrueba('https://138.4.10.65:4443', 'gbttel')
+      .getSessionsPrueba(environment.openvidu_url, environment.openvidu_secret)
       .subscribe(response => {
         this.sessionprueba = response.content;
-
+        this.users=[]
         console.log('Funciona', this.sessionprueba);
 
-         if (response.numberOfElements === 0) {
-              this.num = true;
+        if (response.numberOfElements === 0) {
+            this.num = true;
+        }else{
+
+          for (let i=0; i< this.sessionprueba.length; i++){
+            console.log('Array',this.sessionprueba[i])
+            this.variable= this.sessionprueba[i];
+              this.sessionId =  this.variable["sessionId"]
+            this.userService
+              .getById(this.currentUser.token, this.sessionId)
+              .pipe(first())
+              .subscribe(pacientes => {
+                console.log('Pacientes', pacientes);
+                let user: User = pacientes;
+                user.conected = this.variable["createdAt"]
+                this.users.push(user)
+              });
+              console.log('Pureba', this.sessionId)
+          }
       }
-      /*for (let i=0; i< this.sessionprueba.length; i++){
-        console.log('Array',this.sessionprueba[i])
-        this.variable= this.sessionprueba[i];
-          this.sessionId =  this.variable["sessionId"]
-          console.log('Pureba', this.sessionId)
-      }*/
-this.loadAllPatients()
+//this.loadAllPatients()
       });
 
   }
@@ -138,5 +154,11 @@ this.loadAllPatients()
   }
     
 }
-
+  get filterByActive() {
+    if(this.users){
+      return this.users.filter(x => !this.isActive(x.id));
+    }else{
+      return null;
+    }
+  }
 }

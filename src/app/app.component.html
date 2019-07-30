@@ -1,27 +1,3 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<nav class="navbar navbar-expand navbar-light bg-light" *ngIf="currentUser">
-   <ul class="navbar-nav mr-auto">
-    <div class="features-icons-icon d-flex">
-    <i class="fa fa-home m-auto" style="font-size:30px; margin-right: 10px"></i>
-    <a class="nav-item nav-link"  *ngIf="isDoctor" routerLink="/doctor">Inicio</a>
-    <a class="nav-item nav-link" style="margin-right: 10px;" *ngIf="isPatient" routerLink="/patient">Inicio</a>
-  </div>
-  <!--
-    <a class="nav-item nav-link" *ngIf="isDoctor" routerLink="/video">Videoconferencia</a>
-    <a class="nav-item nav-link" routerLink="/conversations">Mensajes</a>
-    <a class="nav-item nav-link" routerLink="/appointment">Calendario</a>
-  -->
-  </ul>
-  <div class="md-form my-0">
-        <div class="features-icons-icon d-flex">
-    <div class="features-icons-icon d-flex">
-<i class="fa fa-power-off" style="font-size:30px"></i>
-    <a class="nav-item nav-link right" style="margin-right: 10px;" (click)="logout()">Cerrar sesión</a>
-  </div>
-    </div>
-  </div>
-</nav>
+<app-header></app-header>
 <router-outlet></router-outlet>

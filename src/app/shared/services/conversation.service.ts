@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Message } from '../models/message';
 import { Conversation } from '../models/conversation';
 import { environment } from './../../../environments/environment';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Injectable({
   providedIn: "root"
@@ -75,7 +76,7 @@ export class ConversationService {
     };
     return this.http.post<any>(
     environment.api_url + '/conversations/register',
-newConversation, options
+    newConversation, options
     );
   }
 
@@ -110,6 +111,31 @@ newConversation, options
       options
     );
   }
+ /* deleteConversations(token: string, ids: SelectionModel<Conversation>){
+    let status='';
+    try {
+    const options = {
+      headers: new HttpHeaders({
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json"
+      })
+    };
+    ids.selected.forEach(row => {
+      console.log('borra: ',row.id)
+      this.http.delete<any>(
+        environment.api_url + '/conversations/' + row.id,
+        options
+     
+      )
+    });
+    
+    return 'true';
+    }
+    catch (error) {
+      console.error(error);
+      return 'false'
+    }
 
+  }*/
 
 }

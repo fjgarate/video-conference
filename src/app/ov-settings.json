@@ -1,6 +1,6 @@
 {
   "openviduCredentials": {
-    "openvidu_url": "https://138.4.10.63:4443",
+    "openvidu_url": "https://138.4.10.18:4443",
     "openvidu_secret": "gbttel"
   }
 }

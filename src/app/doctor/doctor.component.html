@@ -1,66 +1,102 @@
-
 <body>
   <div class="jumbotron">
-    <header class="masthead text-black text-center">
-
-    <div class="container">
-          <div class="row">
-            <div class="col-xl-9 mx-auto">
-              <h1 class="mb-5" style="font-size: 3.5 rem">Te damos la bienvenida {{currentUser.firstName}}</h1>
-            </div>
-</div>
-</div>
-</header>
-  <section class="prueba2 text-center">
-    <div class="container">
-      <div class="row">
-        <div class="prueba2 col-lg-4 ">
-          <img margin-top="100" width="70" height="60" src="../../assets/images/Imagen1.png">
+    <!--<header class="masthead text-black text-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-9 mx-auto">
+            <h1 class="mb-5" style="font-size: 3.5 rem">
+              Bienvenido {{ currentUser.firstName }}
+            </h1>
+          </div>
         </div>
-        <div class="prueba2 col-lg-4 ">
-          <img margin-top="100" width="70" height="60" src="../../assets/images/Imagen2.png">
-        </div>
-        <div class="prueba2 col-lg-4 ">
-          <img margin-top="100" width="70" height="60" src="../../assets/images/Imagen3.png">
-        </div>
-
-        </div>
-    </div>
-  </section>
-
-  <section class="prueba text-center">
-    <div class="container">
-      <div class="row">
-    <div class="col-lg-4 ">
-    <h3 style="font-size: 2 rem">Próximas citas</h3>
-    <div *ngFor="let event of nextEvent ">
-        <span >{{event.title}}</span>
-        <span >  {{event.date | date:'short'}}</span>
-        </div>
-        <p></p>
-    <button routerLink="/appointment" class="btn btn-outline-primary" >Ver calendario </button>
-</div>
-
-    <div class="col-lg-4 ">
-      <h3 style="font-size: 2rem">Videoconferencia</h3>
-      <p></p>
- 
-        <button class="btn btn-outline-primary"  routerLink="/video">Ver pacientes conectados</button>
-    </div>
-
-        <div class="col-lg-4 ">
-          <h3 style="font-size: 2rem">Mensajes</h3>
-            <span>Nuevas conversaciones:</span> 
-            <span class="badge badge-primary badge-pill">{{num}}</span>
-                  <p></p>
-            <button class="btn btn-outline-primary"  routerLink="/conversations">Ver conversaciones</button>
-        </div>
-
-
       </div>
-    </div>
-</section>
-  </div>
+    </header>
+  -->
+    <div class="row">
+      <div class="column">
+        <div class="card">
+          <img width="50" height="40" src="../../assets/images/Imagen1.png" />
+          <h3>Próximas citas</h3>
+          <p>Some text</p>
+          <p>Some text</p>
+        </div>
+        <button routerLink="/appointment" class="w3-button w3-block w3-dark-grey">Ver calendario</button>
+      </div>
+    
+      <div class="column">
+        <div class="card">
+          <img width="50" height="40" src="../../assets/images/Imagen2.png" />
+          <h3>Videoconsulta</h3>
+          <p>Some text</p>
+          <p>Some text</p>
+        </div>
+        <button routerLink="/video" class="w3-button w3-block w3-dark-grey">Ver pacioentes conectados</button>
+      </div>
+    
+      <div class="column">
+        <div class="card">
+          <img width="50" height="40" src="../../assets/images/Imagen3.png" />
+          <h3>Mensajes</h3>
+          <p>Some text</p>
+          <p>Some text</p>
+        </div>
+        <button routerLink="/appointment" class="w3-button w3-block w3-dark-grey">Ver conversaciones</button>
+      </div>
 
-  
+    </div>
+<!--
+    <section class="prueba2 text-center">
+      <div class="container">
+        <div class="row">
+          <div class="prueba2 col-lg-4 ">
+            <img margin-top="100" width="70" height="60" src="../../assets/images/Imagen1.png" />
+          </div>
+          <div class="prueba2 col-lg-4 ">
+            <img margin-top="100" width="70" height="60" src="../../assets/images/Imagen2.png" />
+          </div>
+          <div class="prueba2 col-lg-4 ">
+            <img margin-top="100" width="70" height="60" src="../../assets/images/Imagen3.png" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="prueba text-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 ">
+            <h3 style="font-size: 2 rem">Próximas citas</h3>
+            <div *ngFor="let event of nextEvent">
+              <span>{{ event.title }}</span>
+              <span> {{ event.date | date: "short" }}</span>
+            </div>
+            <p></p>
+            <button routerLink="/appointment" class="btn btn-outline-primary">
+              Ver calendario
+            </button>
+          </div>
+
+          <div class="col-lg-4 ">
+            <h3 style="font-size: 2rem">Videoconferencia</h3>
+            <p></p>
+
+            <button class="btn btn-outline-primary" routerLink="/video">
+              Ver pacientes conectados
+            </button>
+          </div>
+
+          <div class="col-lg-4 ">
+            <h3 style="font-size: 2rem">Mensajes</h3>
+            <span>Nuevas conversaciones:</span>
+            <span class="badge badge-primary badge-pill">{{ num }}</span>
+            <p></p>
+            <button class="btn btn-outline-primary" routerLink="/conversations">
+              Ver conversaciones
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  -->
+  </div>
 </body>

@@ -58,7 +58,7 @@ var ConversationComponent = /** @class */ (function () {
     };
     ConversationComponent.prototype.ngOnInit = function () {
         this.conversationForm = this.formBuilder.group({
-            createUsername: this.currentUser.id,
+            createUserId: this.currentUser.id,
             title: [''],
             participants: [''],
             text: ['']

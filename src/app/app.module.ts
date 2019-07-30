@@ -17,15 +17,16 @@ import {
   MatSelectModule,
   MatOptionModule,
   MatProgressSpinnerModule,
-  MatSliderModule
+  MatSliderModule,
+  MatPaginatorModule,
+  MatTableModule,
+  MatSortModule,
+  MatPaginatorIntl
 } from '@angular/material';
+
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
 import { FullCalendarModule } from '@fullcalendar/angular'; // for FullCalendar!
-
-
-
-
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { VideoRoomComponent } from './video-room/video-room.component';
@@ -58,6 +59,8 @@ import { IsReadPipe } from './is-read.pipe';
 import { IsDocPipe } from './is-doc.pipe';
 import { MessagesComponent } from './messages/messages.component';
 import { AppointmentComponent } from './appointment/appointment.component';
+import { HeaderComponent } from './shared/components/header/header.component';
+
 
 
 @NgModule({
@@ -84,7 +87,8 @@ import { AppointmentComponent } from './appointment/appointment.component';
     IsReadPipe,
     IsDocPipe,
     MessagesComponent,
-    AppointmentComponent
+    AppointmentComponent,
+    HeaderComponent
   ],
   imports: [
     FormsModule,
@@ -106,6 +110,9 @@ import { AppointmentComponent } from './appointment/appointment.component';
     MatOptionModule,
     MatProgressSpinnerModule,
     MatSliderModule,
+    MatPaginatorModule,
+    MatTableModule,
+    MatSortModule, 
     AppRoutingModule,
     HttpClientModule,
     FlexLayoutModule,
@@ -118,6 +125,7 @@ import { AppointmentComponent } from './appointment/appointment.component';
   providers: [
     OpenViduService,
     ApiService,
+    MatPaginatorIntl
 
 
   ],

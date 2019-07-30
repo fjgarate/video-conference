@@ -10,12 +10,21 @@ import { Subscription } from 'rxjs';
 import { AuthenticationService, UserService } from '../shared/services';
 import { ConversationService } from '../shared/services/conversation.service';
 import { first } from 'rxjs/operators';
-
+import { trigger, transition, animate, style } from '@angular/animations'
 
 @Component({
   selector: 'app-messages',
   templateUrl: './messages.component.html',
-  styleUrls: ['./messages.component.css']
+  styleUrls: ['./messages.component.css'],
+  animations: [
+    trigger('slideInOut', [
+      transition(':enter', [
+        style({
+          height: '0px' }),
+        animate('500ms ease-in', style({ height: '150px' }))
+      ])
+    ])
+  ]
 })
 export class MessagesComponent implements OnInit {
   messages: Message[] = [];
@@ -35,7 +44,7 @@ export class MessagesComponent implements OnInit {
   conver_p = '';
   private sub: any;
   participants: string[] = [];
-
+  show = false;
 
 
   constructor(
@@ -88,6 +97,9 @@ export class MessagesComponent implements OnInit {
 
 
     submitNewM() {
+      console.log('llega a submitNewM')
+      console.log(this.show)
+      this.show=false
     this.convesationSrv.addMessage(this.currentUser.token, this.conver_p, this.messageForm.value)
       .pipe(first())
         .subscribe(
@@ -110,5 +122,13 @@ export class MessagesComponent implements OnInit {
           });
 
   }
-
+  expanse(event){
+    console.log(event.srcElement.style.whiteSpace)
+    if (event.srcElement.style.whiteSpace == 'nowrap') {
+      event.srcElement.style.whiteSpace = 'normal';
+    } else {
+      event.srcElement.style.whiteSpace = 'nowrap';
+    }
+    
+  }
 }

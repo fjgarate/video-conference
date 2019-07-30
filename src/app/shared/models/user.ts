@@ -7,4 +7,6 @@
          role: string;
          doctorIds: string;
          token: string;
+         appointment: string;
+         conected: string;
        }

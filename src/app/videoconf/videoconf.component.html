@@ -1,18 +1,18 @@
-<div class="jumbotron" style="padding: 1rem 1rem">
-  <div class="page-header">
-    <h1 style="text-align: center">VIDEOCONFERENCIA </h1>
-  </div>
-</div>
-
 <body>
-<div class="container">
-<div class="row">
+  <div class="jumbotron" style="padding: 1rem 1rem">
+    <div class="page-header">
+      <span class="title">Sala de espera virtual </span>
+      <i matTooltip="En el listado apareceran los pacientes conectados y estan a la espera de realizar la consulta"
+        matTooltipPosition='above' id="info" class="fa fa-info-circle m-auto fa-2x"></i>
+    </div>
+    <div class="container">
+      <div class="row">
 
-<div class="col-sm-1 ">
-</div>
+        <div class="col-sm-1 ">
+        </div>
 
-<div class="col-sm-10 inicio">
-<!-- 
+        <div class="col-sm-10 inicio">
+          <!--        
   <h2>SESIONES ACTIVAS</h2>
 <span *ngIf="num"> No hay sesiones activas</span>
 
@@ -23,23 +23,53 @@
     <a class="btn btn-primary" role="button" (click)="selectUser(session.sessionId)" class="text-primary">Iniciar videoconferencia</a>
   </li>
 </ul> 
-<br /> -->
+<br /> 
+-->
+          <ul class="w3-ul w3-border list-group">
+            <div *ngIf="users.length > 0">
+              <li>
+                <h2>Usuarios conectados</h2>
+              </li>
+              <li *ngFor="let user of users " class="w3-bar list-group-item">
+                <span (click)="selectUser(user.id)" class="w3-bar-item w3-button w3-xlarge w3-right">
+                  <i class="fas fa-video "></i>
+                </span>
+                <i class="w3-bar-item w3-circle far fa-user-circle fa-3x"></i>
 
-<ul class="list-group">
-  <li *ngFor="let user of users " class="list-group-item" >
-    <span> {{user.firstName}} {{user.lastName}} </span> <span *ngIf="isActive(user.id)===false" style="color:limegreen">esta conectado!</span>
-      <button [disabled]="isActive(user.id)" class="btn btn-primary float-right" style="margin-left: 20px" (click)="selectUser(user.id)"  [ngStyle]="{'disabled':isActive(user.id) === true ? false : false}">Iniciar videoconferencia
-      <i class="fa fa-video-camera"></i>
-    </button>
-      <br />
-      
+                <div class="w3-bar-item">
+                  <span class="w3-large">{{user.firstName}} {{user.lastName}}</span><br>
+                  <span>Cita a las 12:30 horas </span><br>
+                  <span>Conectado desde: {{user.conected | date:'medium'}}</span>
+                </div>
+              </li>
+            </div>
+            <div *ngIf="users.length == 0">
+              <li>
+                <h2>No hay usuarios conectados</h2>
+              </li>
+            </div>
+          </ul>
 
-    </li>
-</ul>
-</div>
-<div class="col-sm-1">
-</div>
+          <!--        
+        <ul class="w3-ul list-group">
+          <li *ngFor="let user of users " class="list-group-item">
+            <span> {{user.firstName}} {{user.lastName}} </span> <span *ngIf="isActive(user.id)===false"
+              style="color:limegreen">esta conectado!</span>
+            <button [disabled]="isActive(user.id)" class="btn btn-primary float-right" style="margin-left: 20px"
+              (click)="selectUser(user.id)" [ngStyle]="{'disabled':isActive(user.id) === true ? false : false}">Iniciar
+              videoconferencia
+              <i class="fa fa-video-camera"></i>
+            </button>
+            <br />
+          </li>
+        </ul>
+      -->
+        </div>
+        <div class="col-sm-1">
+        </div>
 
-</div>
-</div>
+      </div>
+    </div>
+
+  </div>
 </body>

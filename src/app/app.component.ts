@@ -9,7 +9,7 @@ import { User } from "./shared/models";
 })
 export class AppComponent {
   currentUser: User;
-  title = "OpenVidu-call";
+  title = "Video Call";
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService

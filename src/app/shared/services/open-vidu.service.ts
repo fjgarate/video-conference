@@ -115,7 +115,7 @@ export class OpenViduService {
   }*/
 
   getSessionsPrueba(openviduServerUrl: string, openviduSecret: string) {
-      const options = {
+    const options = {
         headers: new HttpHeaders({
           Authorization: 'Basic ' + btoa('OPENVIDUAPP:' + openviduSecret),
           'Content-Type': 'application/json',

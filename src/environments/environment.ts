@@ -4,10 +4,10 @@
 
 export const environment = {
   production: false,
-  openvidu_url: '',
-  openvidu_secret: '',
+  openvidu_url: 'https://138.4.10.18:4443',
+  openvidu_secret: 'gbttel',
   api_url: 'https://login-videocall.herokuapp.com'
-
+  
 };
 
 /*

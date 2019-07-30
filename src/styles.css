@@ -11,11 +11,11 @@ body {
   height: 100%;
   width: 100%;
 }
-img {
+/*img {
   position: absolute;
   bottom: 50px;
   left: 44%;
-}
+}*/
 
 @font-face {
   font-family: 'Material Icons';
@@ -173,3 +173,9 @@ img {
   margin-bottom: auto;
 }
 
+.title{
+  font-size: 35px;
+}
+.page-header{
+  text-align: center;
+}

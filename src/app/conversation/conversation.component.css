@@ -1,4 +1,4 @@
-#prueba{
+/*#prueba{
     padding: 1rem 1rem;
 }
 
@@ -50,4 +50,67 @@
     font-weight: bold;
     border-radius: 2em;
     transition: all .3s ease-out;
+}*/
+.lastMessage{
+    font-style: oblique;
+    color:darkslategray;
+    font-size:11pt;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow: ellipsis;
+    max-width: 500px;
+}
+.importMessage{
+    font-weight: bold;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow: ellipsis;
+}
+.list{
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.messages{
+    padding-bottom: 10px;
+    border-bottom: 1px solid darkgray;
+    margin-bottom: 20px;
+}
+table{
+ width: 100%;
+}
+.mat-column-to{
+
+ width: 15%;
+
+}
+.mat-column-from{
+
+width: 15%;
+
+}
+.mat-column-date{
+
+width: 20%;
+
+}
+.mat-column-subject{
+
+width: 50%;
+
+}
+.encabezado{
+    font-weight: bold
+}
+.mat-column-select {
+  overflow: initial;
+}
+.example-header {
+  min-height: 64px;
+  max-width: 50%;
+  padding: 8px 24px 0;
+}
+.example-header input{
+        background: white;
+    margin-left: -20px;
 }

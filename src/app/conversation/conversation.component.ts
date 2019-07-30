@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthenticationService, UserService } from '../shared/services';
 import { User } from '../shared/models';
 import { Subscription } from 'rxjs';
@@ -6,12 +6,11 @@ import { ConversationService } from '../shared/services/conversation.service';
 import { first } from 'rxjs/operators';
 import { Conversation } from '../shared/models/conversation';
 import { Message } from "../shared/models/message";
-import * as crypto from "crypto-js";
-import { FormBuilder, FormGroup, Validators, FormControlName } from '@angular/forms';
-import { FlexAlignStyleBuilder } from '@angular/flex-layout';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SharedService } from '../shared/services/shared.service';
-
+import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
   selector: "app-conversation",
@@ -33,7 +32,7 @@ export class ConversationComponent implements OnInit {
   conversation: Conversation;
   last_message: Message;
   user_conversation: User;
-variable: boolean;
+  variable: boolean;
   variable2: string[] = [];
   name: string[] = [];
 
@@ -44,6 +43,12 @@ variable: boolean;
   pacientes: User[] = [];
   change: Conversation[] = [];
 
+
+  displayedColumns = ['from', 'otherName', 'title', 'createdDate', 'select'];
+  dataSource: MatTableDataSource<Conversation>;;
+  selection: any;
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator; 
   constructor(
     private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,
@@ -51,7 +56,6 @@ variable: boolean;
     private userService: UserService,
     private router: Router,
     private sharedService: SharedService,
-
 
   ) {
     this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
@@ -73,12 +77,19 @@ variable: boolean;
 
 
   ngOnInit() {
+    const initialSelection = [];
+    const allowMultiSelect = true;
+    this.selection = new SelectionModel<Conversation>(allowMultiSelect, initialSelection);
+
       this.conversationForm = this.formBuilder.group({
-        createUsername: this.currentUser.id,
-        title: [''],
+        createUserId: this.currentUser.id,
+        createUsername: this.currentUser.username,
+        createName: this.currentUser.firstName + ' ' + this.currentUser.lastName, 
+        title: '',
         participants: [''],
-        text:['']
-      
+        otherName:'',
+        text:''
+        
             });
 
 
@@ -99,33 +110,75 @@ variable: boolean;
 
 
   private getConversationsByUserId(id: string) {
+
     this.convesationSrv
       .getConversationsByUserId(this.currentUser.token, id)
       .pipe(first())
       .subscribe(conversations => {
-        console.log(conversations);
-        this.conversations = conversations;
-        if (this.conversations.length > 0) {
-          this.conversation = this.conversations[0];
-          this.messages = this.conversations[conversations.length-1].messages;
-          this.participants = this.conversation.participants;
-          this.last_message = this.messages[this.messages.length - 1];
+        this.dataSource = new MatTableDataSource();
+        this.dataSource.data = conversations;
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+       
+        console.log('datasource',this.dataSource.data)
+        this.conversations =[];
+        this.conversations=conversations
+         console.log('conversations: '+conversations.length)
+        for (let conv of conversations) {
+          let participants = conv.participants;
+          let otherUser
+          console.log('conversacion: ' + conv.title)
 
+          console.log('participants: ' + participants +' length: '+participants.length)
+          /*for (const participant of participants) {
+            console.log('participant: ' + participant)
+            if (this.currentUser.id !== participant) {
+             
+              this.userService
+                .getById(this.currentUser.token, participant)
+                .pipe(first())
+                .subscribe(pacientes => {
+                  otherUser = pacientes.firstName + ' ' + pacientes.lastName;
+                  conv.other_participant=otherUser
+                  this.conversations.push(conv)
+                });
+            }
+          }  */      
         }
+        console.log('conversations',this.conversations);
       });
   }
 
 
   createConver() {
     this.conversationForm.value.participants = [this.conversationForm.value.participants, this.currentUser.id];
-    this.conversationForm.value.messages = [{
-      author: this.currentUser.firstName + ' ' + this.currentUser.lastName, text:this.conversationForm.value.text}]
-    this.convesationSrv.createConversation(this.conversationForm.value)
+    
+    this.userService
+      .getById(this.currentUser.token, this.conversationForm.value.participants[0])
       .pipe(first())
-      .subscribe(
-        error => {
-        });
-      this.getConversationsByUserId(this.currentUser.id);
+      .subscribe(paciente => {
+        const otherName = paciente.firstName + ' ' + paciente.lastName;
+        this.conversationForm.value.otherName= otherName
+        this.conversationForm.value.messages = [{
+          author: this.currentUser.firstName + ' ' + this.currentUser.lastName, text: this.conversationForm.value.text
+        }]
+        this.convesationSrv.createConversation(this.conversationForm.value)
+          .pipe(first())
+          .subscribe(()=>{
+            this.getConversationsByUserId(this.currentUser.id);
+             console.log('conversaciones actualizadas; ' + this.conversations)
+            },
+            error => {
+              console.log('ERROR CREATE CONVERSATION',error)
+            });
+        
+      });
+
+
+
+
+
+    
   }
 
 newMessage(message){
@@ -156,18 +209,45 @@ newMessage(message){
   deleteConver(id) {
     this.convesationSrv.deleteConver(this.currentUser.token, id)
       .pipe(first())
-      .subscribe(
-        
-        error => {
+      .subscribe(error => {
           console.log(error)
         });
-    this.getConversationsByUserId(this.currentUser.id);
 
+    this.getConversationsByUserId(this.currentUser.id);
+    console.log('conversaciones actualizadas; '+this.conversations)
+  }
+  masterToggle() {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.dataSource.data.forEach(row => this.selection.select(row));
+  }
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected == numRows;
   }
 
 
+  deleteConversations(){
+    this.selection.selected.forEach(item => {
+      this.convesationSrv.deleteConver(this.currentUser.token, item.id)
+        .pipe(first())
+        .subscribe(() => {
+          let index: number = this.conversations.findIndex(d => d === item);
+          console.log(this.conversations.findIndex(d => d === item));
+          this.conversations.splice(index, 1)
+          this.dataSource = new MatTableDataSource<Conversation>(this.conversations);
+        },
+          error => {
+            console.log(error)
+          })
+    });
+    this.selection = new SelectionModel<Conversation>(true, []);
 
-
-
-
+    }
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
+  }
 }
