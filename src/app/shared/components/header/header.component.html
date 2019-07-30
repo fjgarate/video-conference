@@ -1,0 +1,41 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+  integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+<div *ngIf="currentUser">
+  <div class="w3-display-container w3-ligth" style="height: 80px">
+    <div class="w3-display-topleft">
+      <img src="../../assets/images/logo_GBT.png" height="60%" width="60%" class="w3-image"  />
+    </div>
+    <div class="w3-display-topmiddle header-text">Consulta Virtual</div>
+  </div>
+  <div class="w3-bar w3-blue-grey">
+
+    <a class="w3-bar-item w3-button" *ngIf="isDoctor" routerLink="/doctor">
+      <i class="fa fa-home m-auto"></i>
+      Inicio</a>
+    <a class="w3-bar-item w3-button" style="margin-right: 10px;" *ngIf="isPatient" routerLink="/patient">
+      <i class="fa fa-home m-auto"></i>
+      Inicio</a>
+    <a routerLink="/appointment" class="w3-bar-item w3-button">
+      <i class="fa fa-calendar"></i>
+      Calendario</a>
+    
+    <a routerLink="/video" class="w3-bar-item w3-button">
+      <i class="fas fa-chalkboard-teacher"></i>
+      Sala de espera</a>
+
+    <a routerLink="/conversations" class="w3-bar-item w3-button">
+      <i class="fa fa-comments"></i>
+      Conversaciones</a>
+    <a routerLink="#" class="w3-bar-item w3-button">
+      <i class="fa fa-users"></i>
+      Pacientes</a>
+
+    <a href="#" class="w3-bar-item w3-button w3-right">
+      {{ currentUser.firstName }} {{ currentUser.lastName }}
+      <i (click)="logout()" class="fa fa-sign-out-alt"></i>
+    </a>
+  </div>
+</div>
