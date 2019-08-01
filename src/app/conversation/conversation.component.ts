@@ -11,11 +11,23 @@ import { Router } from '@angular/router';
 import { SharedService } from '../shared/services/shared.service';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
+import { trigger, transition, style, animate, state } from '@angular/animations';
 
 @Component({
   selector: "app-conversation",
   templateUrl: "./conversation.component.html",
-  styleUrls: ["./conversation.component.css"]
+  styleUrls: ["./conversation.component.css"],
+  animations: [
+    trigger('slideInOut', [
+      transition(':enter', [
+        style({ transform: 'translateY(-100%)' }),
+        animate('400ms ease-in', style({ transform: 'translateY(0%)',opacity:0.1 }))
+      ]),
+      transition(':leave', [
+        animate('400ms ease-in', style({ transform: 'translateY(-100%)',opacity: 0.5  }))
+      ])
+    ])
+  ]
 })
 export class ConversationComponent implements OnInit {
   currentUser: User;
@@ -35,7 +47,7 @@ export class ConversationComponent implements OnInit {
   variable: boolean;
   variable2: string[] = [];
   name: string[] = [];
-
+  isOpen = true;
 
 
   messages: Message[] = [];
@@ -64,6 +76,7 @@ export class ConversationComponent implements OnInit {
       }
     );
   }
+
   get isDoctor() {
     return this.currentUser && this.currentUser.role === 'doctor';
   }
@@ -80,7 +93,11 @@ export class ConversationComponent implements OnInit {
     const initialSelection = [];
     const allowMultiSelect = true;
     this.selection = new SelectionModel<Conversation>(allowMultiSelect, initialSelection);
-
+    if(this.isPatient){
+      this.displayedColumns = ['from',  'title', 'createdDate'];
+    }else{
+      this.displayedColumns = [ 'otherName', 'title', 'createdDate', 'select'];
+    }
       this.conversationForm = this.formBuilder.group({
         createUserId: this.currentUser.id,
         createUsername: this.currentUser.username,
@@ -167,6 +184,7 @@ export class ConversationComponent implements OnInit {
           .subscribe(()=>{
             this.getConversationsByUserId(this.currentUser.id);
              console.log('conversaciones actualizadas; ' + this.conversations)
+            this.isCollapsed = !this.isCollapsed;
             },
             error => {
               console.log('ERROR CREATE CONVERSATION',error)

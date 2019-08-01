@@ -80,8 +80,8 @@
 
 mat-card {
   max-width: 85% !important;
-  position: absolute;
-  top: 20px;
+  /*position: absolute;*/
+  top: 10%; /*edit*/
   bottom: 20px;
   left: 0;
   right: 0;

@@ -14,19 +14,14 @@
         <div class="" fxLayout="row" fxLayout.sm="column" fxLayout.lt-sm="column" fxFlexFill>
           <!--  left section -->
           <div fxFlex="45" fxFlex.sm="25" fxFlex.lt-sm="25" class="volume-theme">
-            <mat-slider
-              class="volumeSlider"
-              [max]="0"
-              [min]="100"
-              [color]="updateVolumeColor()"
-              [ngModel]="volumeValue"
-              [vertical]="true"
-            >
+            <mat-slider class="volumeSlider" [max]="0" [min]="100" [color]="updateVolumeColor()" [ngModel]="volumeValue"
+              [vertical]="true">
             </mat-slider>
             <ov-video [streamManager]="user.getStreamManager()" id="ovVideo" style="display: inline-block"></ov-video>
- <button (click)="accept()" class="btn btn-primary" style="margin: 20px 200px;">Iniciar videoconferencia</button>
+            <button (click)="accept()" class="btn btn-primary" style="margin: 20px 200px;">Iniciar
+              videoconferencia</button>
           </div>
-         
+
 
           <!--  right section -->
           <div fxFlex="55" fxFlex.sm="65" fxFlex.lt-sm="65" class="sec3">
@@ -38,17 +33,16 @@
                 <div class="one" fxFlex="20" fxLayoutAlign="center center">
                   <button mat-stroked-button (click)="toggleCam()" id="camDeviceButton">
                     <mat-icon *ngIf="isVideoActive" matTooltip="Cámara activada">videocam</mat-icon>
-                    <mat-icon *ngIf="!isVideoActive" color="warn" matTooltip="Cámara desactivada">videocam_off</mat-icon>
+                    <mat-icon *ngIf="!isVideoActive" color="warn" matTooltip="Cámara desactivada">videocam_off
+                    </mat-icon>
                   </button>
                 </div>
                 <div class="two" fxFlex="100" fxLayoutAlign="left center">
-                  <mat-form-field id="matForm2" >
-                    <mat-select
-                      placeholder="Seleccionar cámara"
-                      [ngModel]="isVideoActive ? camValue.label : 'Ninguna'"
-                      (selectionChange)="camChanged($event.value)"
-                     id="matForm">
-                      <mat-option *ngFor="let camera of cameras" [value]="camera.label"  id="matForm">{{ camera.label }}</mat-option>
+                  <mat-form-field id="matForm2">
+                    <mat-select placeholder="Seleccionar cámara" [ngModel]="isVideoActive ? camValue.label : 'Ninguna'"
+                      (selectionChange)="camChanged($event.value)" id="matForm">
+                      <mat-option *ngFor="let camera of cameras" [value]="camera.label" id="matForm">{{ camera.label }}
+                      </mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
@@ -66,11 +60,9 @@
                 </div>
                 <div class="two" fxFlex="80" fxLayoutAlign="left center">
                   <mat-form-field id="matForm2">
-                    <mat-select
-                      placeholder="Seleccionar micrófono"
+                    <mat-select placeholder="Seleccionar micrófono"
                       [ngModel]="isAudioActive ? micValue.label : 'Ninguno'"
-                      (selectionChange)="micChanged($event.value)"
-                    >
+                      (selectionChange)="micChanged($event.value)">
                       <mat-option *ngFor="let microphone of microphones" [value]="microphone.label">{{
                         microphone.label
                       }}</mat-option>
@@ -91,15 +83,8 @@
                 <div class="two" fxFlex="80" fxLayoutAlign="left center">
                   <form id="nicknameDialog" id="matForm2">
                     <mat-form-field id="matForm2">
-                      <input
-                        matInput
-                        placeholder="Usuario"
-                        [formControl]="nicknameFormControl"
-                        [errorStateMatcher]="matcher"
-                        (keypress)="eventKeyPress($event)"
-                        autocomplete="off"
-                        
-                      />
+                      <input matInput placeholder="Usuario" [formControl]="nicknameFormControl"
+                        [errorStateMatcher]="matcher" (keypress)="eventKeyPress($event)" autocomplete="off" />
                       <mat-error *ngIf="nicknameFormControl.hasError('required')">
                         El nombre de usuario <strong>es obligatorio</strong>
                       </mat-error>
@@ -111,13 +96,13 @@
                 </div>
               </div>
             </div>
-              <div fxLayout="row" fxFill *ngIf=isDoctor>
-                <div class="info" fxFlex="100" fxLayoutAlign="center">
-                  <div class="jumbotron" style="padding: 1rem 1rem; height:200px">
+            <div fxLayout="row" fxFill *ngIf=isDoctor>
+              <div fxLayout fxFlex>
+                
                   <div class="container" style="width: 650px">
                     <div class="row">
                       <div class="col-sm">
-                        
+
                         <div class="col-sm infoP">
                           <h3>Información del paciente</h3>
                           El paciente es: {{pacientes.firstName}} {{pacientes.lastName}}
@@ -127,9 +112,9 @@
                       </div>
                     </div>
                   </div>
-                </div>
-                </div>
+                
               </div>
+            </div>
 
 
           </div>

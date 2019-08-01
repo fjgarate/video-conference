@@ -1,5 +1,5 @@
 <body>
-  <div class="jumbotron">
+ <!-- <div class="jumbotron">
     <header class="masthead text-black text-center">
     
       <div class="container">
@@ -60,6 +60,42 @@
         </div>
       </div>
     </section>
+  </div>-->
+  <div class="jumbotron">
+    <div class="row">
+      <div class="column">
+        <div class="card">
+          <img width="50" height="40" src="../../assets/images/Imagen1.png" />
+          <h3>Próximas citas</h3>
+          <p>Some text</p>
+          <p>Some text</p>
+        </div>
+        <button routerLink="/appointment" class="w3-button w3-block w3-dark-grey">Ver calendario</button>
+      </div>
+  
+      <div class="column">
+        <div class="card">
+          <img width="50" height="40" src="../../assets/images/Imagen2.png" />
+          <h3>Videoconsulta</h3>
+          <span>Tiene una cita a las 10:30 </span>
+          <span>Ya puede acceder a la consulta virual para ser atendido por su medico </span>
+        </div>
+        <button routerLink="/videoconf" class="w3-button w3-block w3-dark-grey">Consulta vitual</button>
+      </div>
+  
+      <div class="column">
+        <div class="card">
+          <img width="50" height="40" src="../../assets/images/Imagen3.png" />
+          <h3>Mensajes</h3>
+          <div>
+          <span>Nuevas conversaciones:</span>
+          <span class="badge badge-primary badge-pill">{{num}}</span>
+          </div>
+        </div>
+        <button routerLink="/conversationss" class="w3-button w3-block w3-dark-grey">Ver conversaciones</button>
+      </div>
+  
+    </div>
+  
   </div>
-
 </body>

@@ -60,6 +60,7 @@ import { IsDocPipe } from './is-doc.pipe';
 import { MessagesComponent } from './messages/messages.component';
 import { AppointmentComponent } from './appointment/appointment.component';
 import { HeaderComponent } from './shared/components/header/header.component';
+import { FooterComponent } from './shared/components/footer/footer.component';
 
 
 
@@ -88,7 +89,8 @@ import { HeaderComponent } from './shared/components/header/header.component';
     IsDocPipe,
     MessagesComponent,
     AppointmentComponent,
-    HeaderComponent
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     FormsModule,

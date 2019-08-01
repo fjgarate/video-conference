@@ -1,0 +1,14 @@
+
+.panel{
+  /*height: 10px;*/
+    background: #e9ecef;
+   /* border-top: 1px solid #607d8b;*/
+    border-bottom: 5px solid #607d8b;  
+}
+.text{
+    text-align: center;
+   /* padding-top: 25px;*/
+    font-size: small;
+    color: darkblue;
+    font-style: oblique;
+}

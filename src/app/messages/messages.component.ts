@@ -99,6 +99,7 @@ export class MessagesComponent implements OnInit {
     submitNewM() {
       console.log('llega a submitNewM')
       console.log(this.show)
+      console.log('message',this.messageForm.value)
       this.show=false
     this.convesationSrv.addMessage(this.currentUser.token, this.conver_p, this.messageForm.value)
       .pipe(first())

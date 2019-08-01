@@ -70,6 +70,10 @@
     width: 80%;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 40px;
+   /* border: 1px solid darkgray;*/
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 10px;
 }
 .messages{
     padding-bottom: 10px;
@@ -79,20 +83,19 @@
 table{
  width: 100%;
 }
-.mat-column-to{
+.mat-column-otherName{
 
- width: 15%;
+ width: 20%;
 
 }
 .mat-column-from{
 
-width: 15%;
-
-}
-.mat-column-date{
-
 width: 20%;
 
+}
+
+.asunto-patient{
+width: 70% !important;
 }
 .mat-column-subject{
 
@@ -113,4 +116,27 @@ width: 50%;
 .example-header input{
         background: white;
     margin-left: -20px;
+}
+.open-close-container {
+  border: 1px solid #dddddd;
+  margin-top: 1em;
+  padding: 20px 20px 0px 20px;
+  color: #000000;
+  font-weight: bold;
+  font-size: 20px;
+}
+textarea {
+  width: 100%;
+  height: 150px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  font-size: 16px;
+  resize: none;
+  transition: all linear 0.5s;
+}
+.noRead{
+ font-weight: bold;
 }

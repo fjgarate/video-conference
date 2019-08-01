@@ -12,19 +12,7 @@
         </div>
 
         <div class="col-sm-10 inicio">
-          <!--        
-  <h2>SESIONES ACTIVAS</h2>
-<span *ngIf="num"> No hay sesiones activas</span>
 
-<ul class="list-group">
-  <li *ngFor="let session of sessionprueba" class="list-group-item">
-    <span> {{session.sessionId}}</span>
-    <span>Conectado desde: {{session.createdAt | date:'medium'}}</span><br>
-    <a class="btn btn-primary" role="button" (click)="selectUser(session.sessionId)" class="text-primary">Iniciar videoconferencia</a>
-  </li>
-</ul> 
-<br /> 
--->
           <ul class="w3-ul w3-border list-group">
             <div *ngIf="users.length > 0">
               <li>
@@ -49,21 +37,6 @@
               </li>
             </div>
           </ul>
-
-          <!--        
-        <ul class="w3-ul list-group">
-          <li *ngFor="let user of users " class="list-group-item">
-            <span> {{user.firstName}} {{user.lastName}} </span> <span *ngIf="isActive(user.id)===false"
-              style="color:limegreen">esta conectado!</span>
-            <button [disabled]="isActive(user.id)" class="btn btn-primary float-right" style="margin-left: 20px"
-              (click)="selectUser(user.id)" [ngStyle]="{'disabled':isActive(user.id) === true ? false : false}">Iniciar
-              videoconferencia
-              <i class="fa fa-video-camera"></i>
-            </button>
-            <br />
-          </li>
-        </ul>
-      -->
         </div>
         <div class="col-sm-1">
         </div>
