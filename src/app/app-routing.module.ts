@@ -10,6 +10,7 @@ import { VideoconfComponent} from './videoconf/videoconf.component';
 import { ConversationComponent } from './conversation/conversation.component';
 import { MessagesComponent} from './messages/messages.component';
 import { AppointmentComponent} from './appointment/appointment.component';
+import { SessionComponent } from './session/session.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
@@ -21,6 +22,7 @@ const appRoutes: Routes = [
   { path: 'conversations', component: ConversationComponent, canActivate: [AuthGuard] },
   { path: 'messages', component: MessagesComponent, canActivate: [AuthGuard] },
   { path: 'appointment', component: AppointmentComponent, canActivate: [AuthGuard] },
+  { path: 'sessions', component: SessionComponent, canActivate: [AuthGuard] },
   { path: 'videoconf', component: VideoRoomComponent, canActivate: [AuthGuard] },
   { path: ':roomName', component: VideoRoomComponent, canActivate: [AuthGuard]  },
   // otherwise redirect to home

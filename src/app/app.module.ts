@@ -61,6 +61,9 @@ import { MessagesComponent } from './messages/messages.component';
 import { AppointmentComponent } from './appointment/appointment.component';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
+import { InitVideoconferenceComponent } from './shared/components/init-videoconference/init-videoconference.component';
+import { SessionComponent } from './session/session.component';
+import { UserComponent } from './user/user.component';
 
 
 
@@ -90,7 +93,10 @@ import { FooterComponent } from './shared/components/footer/footer.component';
     MessagesComponent,
     AppointmentComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    InitVideoconferenceComponent,
+    SessionComponent,
+    UserComponent
   ],
   imports: [
     FormsModule,

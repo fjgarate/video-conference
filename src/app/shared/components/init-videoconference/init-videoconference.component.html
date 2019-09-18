@@ -1,0 +1,126 @@
+<div id="dialogChooseRoom" [ngStyle]="{ display: autopublish ? 'none' : 'block' }">
+  <mat-card *ngIf="user.getStreamManager()" style="-moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    border-radius:5px;
+    -moz-box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    height:fit-content">
+
+
+
+    <mat-card-content align="center" id="card-content">
+      <div class="">
+        <div class="" fxLayout="row" fxLayout.sm="column" fxLayout.lt-sm="column" fxFlexFill>
+          <!--  left section -->
+          <div fxFlex="45" fxFlex.sm="25" fxFlex.lt-sm="25" class="volume-theme">
+            <mat-slider class="volumeSlider" [max]="0" [min]="100" [color]="updateVolumeColor()" [ngModel]="volumeValue"
+              [vertical]="true">
+            </mat-slider>
+            <ov-video [streamManager]="user.getStreamManager()" id="ovVideo" style="display: inline-block"></ov-video>
+            <!--<button (click)="accept()" class="btn btn-primary" style="margin: 20px 200px;">Iniciar
+              videoconferencia</button>-->
+          </div>
+
+
+          <!--  right section -->
+          <div fxFlex="55" fxFlex.sm="65" fxFlex.lt-sm="65" class="sec3">
+
+
+            <!-- Devices section / Camera-->
+            <div fxLayout="row" fxFill id="devicesSection">
+              <div fxLayout fxFlex>
+                <div class="one" fxFlex="20" fxLayoutAlign="center center">
+                  <button mat-stroked-button (click)="toggleCam()" id="camDeviceButton">
+                    <mat-icon *ngIf="isVideoActive" matTooltip="Cámara activada">videocam</mat-icon>
+                    <mat-icon *ngIf="!isVideoActive" color="warn" matTooltip="Cámara desactivada">videocam_off
+                    </mat-icon>
+                  </button>
+                </div>
+                <div class="two" fxFlex="100" fxLayoutAlign="left center">
+                  <mat-form-field id="matForm2">
+                    <mat-select placeholder="Seleccionar cámara" [ngModel]="isVideoActive ? camValue.label : 'Ninguna'"
+                      (selectionChange)="camChanged($event.value)" id="matForm">
+                      <mat-option *ngFor="let camera of cameras" [value]="camera.label" id="matForm">{{ camera.label }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+
+            <!-- Devices section / Microphone-->
+            <div fxLayout="row" fxFill id="devicesSection">
+              <div fxLayout fxFlex>
+                <div class="one" fxFlex="20" fxLayoutAlign="center center">
+                  <button mat-stroked-button (click)="toggleMic()" id="micDeviceButton">
+                    <mat-icon *ngIf="isAudioActive" matTooltip="Micrófono activado">mic</mat-icon>
+                    <mat-icon *ngIf="!isAudioActive" color="warn" matTooltip="Micrófono desactivado">mic_off</mat-icon>
+                  </button>
+                </div>
+                <div class="two" fxFlex="80" fxLayoutAlign="left center">
+                  <mat-form-field id="matForm2">
+                    <mat-select placeholder="Seleccionar micrófono"
+                      [ngModel]="isAudioActive ? micValue.label : 'Ninguno'"
+                      (selectionChange)="micChanged($event.value)">
+                      <mat-option *ngFor="let microphone of microphones" [value]="microphone.label">{{
+                        microphone.label
+                      }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+
+            <!-- Devices section / Microphone-->
+            <div fxLayout="row" fxFill id="devicesSection">
+              <div fxLayout fxFlex>
+                <div class="one" fxFlex="20" fxLayoutAlign="center center">
+                  <button mat-stroked-button (click)="generateNickname()" id="nicknameButton">
+                    <mat-icon matTooltip="Usuario">person</mat-icon>
+                  </button>
+                </div>
+                <div class="two" fxFlex="80" fxLayoutAlign="left center">
+                  <form id="nicknameDialog" id="matForm2">
+                    <mat-form-field id="matForm2">
+                      <input matInput placeholder="Usuario" [formControl]="nicknameFormControl"
+                        [errorStateMatcher]="matcher" (keypress)="eventKeyPress($event)" autocomplete="off" />
+                      <mat-error *ngIf="nicknameFormControl.hasError('required')">
+                        El nombre de usuario <strong>es obligatorio</strong>
+                      </mat-error>
+                      <mat-error *ngIf="nicknameFormControl.hasError('maxlength')">
+                        El nombre de usuario <strong>es demasiado largo</strong>
+                      </mat-error>
+                    </mat-form-field>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <!--<div fxLayout="row" fxFill *ngIf=isDoctor>
+              <div fxLayout fxFlex>
+
+                <div class="container" style="width: 650px">
+                  <div class="row">
+                    <div class="col-sm">
+
+                      <div class="col-sm infoP">
+                        <h3>Información del paciente</h3>
+                        El paciente es: {{pacientes.firstName}} {{pacientes.lastName}}
+                        <p>
+                          El motivo de la videoconferencia es: Revisión
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>-->
+
+          <button (click)="accept()" class="btn btn-primary" style="margin: 20px 200px;">Iniciar
+            videoconferencia</button>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

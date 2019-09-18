@@ -1,11 +1,16 @@
-<div id="videoRoomNavBar">
-  <app-dialog-choose-room
+<body>
+  <div class="jumbotron" id="prueba">
+<div id="videoRoomNavBar" style="display: flex;">
+  <div class="page-header config">
+    <span class="title">Configuracion </span>
+  </div>
+  <app-init-videoconference
     *ngIf="showDialogChooseRoom"
     [userNickname]="user"
     [sessionName]="sessionName"
     [autopublish]="ovSettings && ovSettings.autopublish"
     (join)="toggleDialogChooseRoom($event)"
-  ></app-dialog-choose-room>
+  ></app-init-videoconference>
 
   <div *ngIf="localUser">
     <app-toolbar
@@ -87,3 +92,5 @@
     </div>
   </div>
 </div>
+</div>
+</body>

@@ -867,3 +867,7 @@
   height: 100%;
   margin-top: 40px;
 }
+.config{
+  position: absolute;
+  width: 100%;
+}

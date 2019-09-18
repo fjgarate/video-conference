@@ -40,10 +40,12 @@
     <a routerLink="/conversations" class="w3-bar-item w3-button">
       <i class="fa fa-comments"></i>
       Conversaciones</a>
-    <a routerLink="#" class="w3-bar-item w3-button">
+    <a *ngIf="isDoctor" routerLink="#" class="w3-bar-item w3-button">
       <i class="fa fa-users"></i>
       Pacientes</a>
-
+    <a *ngIf="isDoctor" routerLink="/sessions" class="w3-bar-item w3-button">
+      <i class="fa fa-history"></i>
+      Sesiones</a>
     <a matTooltip="Cerrar Sesion" (click)="logout()" class="w3-bar-item w3-button w3-right">
       {{ currentUser.firstName }} {{ currentUser.lastName }}
       <i (click)="logout()" class="fa fa-sign-out-alt"></i>

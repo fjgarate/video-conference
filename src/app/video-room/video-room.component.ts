@@ -8,10 +8,15 @@ import { UserModel } from '../shared/models/user-model';
 import { OpenViduService } from '../shared/services/open-vidu.service';
 import { ChatComponent } from '../shared/components/chat/chat.component';
 import { OvSettings } from '../shared/models/ov-settings';
+import { SessionEvent } from '../shared/models/sessionEvent';
 import { User } from "../shared/models";
 import { Subscription } from "rxjs";
 import { UserService, AuthenticationService } from "../shared/services";
 import { first } from "rxjs/operators";
+import { SessionEventService } from '../shared/services/sessionEvent.service';
+import { HttpParams } from "@angular/common/http";
+import { VirtualAppointment } from '../shared/models/virtualAppointment';
+import { SessionService } from '../shared/services/session.service';
 
 @Component({
   selector: 'app-video-room',
@@ -46,6 +51,7 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
   showDialogExtension = false;
   showDialogChooseRoom = true;
   session: Session;
+  sessionEvent: SessionEvent;
   openviduLayout: OpenViduLayout;
   openviduLayoutOptions: OpenViduLayoutOptions;
   mySessionId: string;
@@ -55,9 +61,12 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
   messageList: { connectionId: string; nickname: string; message: string}[] = [];
   newMessages = 0;
   user_p = "";
+  startAt:Date;
+  endAt:Date;
   private sub: any;
   private OV: OpenVidu;
   private bigElement: HTMLElement;
+  sus;
 
   constructor(
     private openViduSrv: OpenViduService,
@@ -65,8 +74,13 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     public dialog: MatDialog,
     private authenticationService: AuthenticationService,
-    private userService: UserService
+    private sessionEventService: SessionEventService,
+    private sessionService : SessionService
+
+ 
   ) {
+    this.sessionEvent=new SessionEvent();
+    console.log('pasa')
     this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
       this.currentUser = user;
     });
@@ -153,8 +167,45 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
   }
 
   exitSession() {
+    let save=true;
     if (this.session) {
       this.session.disconnect();
+      if (this.session.streamManagers != null && this.session.streamManagers.length > 0) {
+        console.log(' streamManagers: ' + this.session.streamManagers[0])
+        save=false;
+       // this.saveSession(this.sessionEvent)
+      }
+      console.log('-------------------------------------------------------------------');
+      console.log('disconnect -------------------------------------------------------------------');
+      console.log('sessionId: ' + this.mySessionId);
+      console.log('userId: ' + this.currentUser.username);
+      console.log('connectionId: ' + this.session.connection.connectionId)
+      console.log('sus connectionId: ' + this.sus);
+    
+     
+      console.log('-------------------------------------------------------------------');
+
+      this.sessionEvent.userId = this.currentUser.id;
+      this.sessionEvent.connectionId = this.session.connection.connectionId;
+      this.sessionEvent.susConnectionId = this.sus
+      this.sessionEvent.time = new Date();
+      this.sessionEvent.comments = ''
+      this.sessionEvent.event = 'disconnect'
+      this.sessionEvent.sessionId = this.mySessionId;
+      this.sessionEventService.register(this.sessionEvent)
+        .pipe(first())
+        .subscribe(
+          data => {
+            console.log('EVENTO DISCOCONNECT  ALMACENADO');
+            //se salava la session cuando el primero cuelga
+            if(save){
+              this.saveSession(this.sessionEvent)
+            }
+          },
+          error => {
+            console.log('ERROR AL ALMACENAR EL EVENTO DISCONNET');
+          });
+     
     }
     this.remoteUsers = [];
     this.session = null;
@@ -321,9 +372,17 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
         (<HTMLElement>subscriber.videos[0].video).parentElement.classList.remove('custom-class');
       });
       const newUser = new UserModel();
+
+
       newUser.setStreamManager(subscriber);
       newUser.setConnectionId(event.stream.connection.connectionId);
+      console.log('-------------------------------------------------------------------');
+      console.log('subscriber: ' + event.stream.connection.connectionId)
+      this.sus = event.stream.connection.connectionId;
       const nickname = (event.stream.connection.data).split('%')[0];
+      console.log('nickname: ' + nickname)
+      console.log('-------------------------------------------------------------------');
+   
       newUser.setNickname(JSON.parse(nickname).clientData);
       newUser.setType('remote');
       this.remoteUsers.push(newUser);
@@ -383,6 +442,34 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
     this.session.connect(token, { clientData: this.localUser.getNickname() })
       .then(() => {
         this.connectWebCam();
+        console.log('-------------------------------------------------------------------');
+        console.log('connect -------------------------------------------------------------------');
+        console.log('token: ' + token);
+        console.log('sessionId: '+this.mySessionId);
+        console.log('userId: ' + this.currentUser.username);
+        console.log('connectionId: ' + this.session.connection.connectionId)
+        console.log('sus connectionId: ' +this.sus);
+        console.log('-------------------------------------------------------------------');
+      //  this.sessionTelehealth = new SessionTelehealth();
+     
+        this.sessionEvent.userId = this.currentUser.id;
+        this.sessionEvent.connectionId = this.session.connection.connectionId;
+        this.sessionEvent.susConnectionId = this.sus
+        this.sessionEvent.time = new Date();
+        this.sessionEvent.comments = ''
+        this.sessionEvent.event = 'connect'
+        this.sessionEvent.sessionId = this.mySessionId;
+        this.sessionEventService.register(this.sessionEvent)
+          .pipe(first())
+          .subscribe(
+            data => {
+              console.log('EVENTO CONNECT  ALMACENADO');
+              //this.saveVirtualAppintment(this.sessionTelehealth)
+            },
+            error => {
+              console.log('ERROR  AL ALMACENAR EL EVENTO CONNECT');
+            });
+
       })
       .catch((error) => {
         this.error.emit({ error: error.error, messgae: error.message, code: error.code, status: error.status });
@@ -393,7 +480,8 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
 
   private connectWebCam(): void {
     this.localUser.setConnectionId(this.session.connection.connectionId);
-
+    console.log('session: ' + this.session);
+    console.log('connectionId: ' + this.session.connection.connectionId);
     if (this.session.capabilities.publish) {
       this.session.publish(<Publisher>this.localUser.getStreamManager()).then(() => {
         this.localUser.setScreenShareActive(false);
@@ -439,5 +527,114 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
 
   private checkTheme() {
     this.lightTheme = this.theme === 'light';
+  }
+  private saveSession(sessionEvent: SessionEvent){
+   
+    this.endAt = sessionEvent.time;
+    let filter = new HttpParams().set('susConnectionId', sessionEvent.connectionId).set('connectionId', sessionEvent.susConnectionId).set('event', "connect")
+    let doctorId;
+    let patientId;
+    this.sessionEventService
+      .getByFilter(this.currentUser.token, filter)
+      .pipe(first())
+      .subscribe(sessionEvens => {
+        if (sessionEvens.length>0){
+          let event = sessionEvens[0];
+          this.startAt = event.time;
+          console.log('ROL: ' + this.currentUser.role)
+          console.log('sessionEvent' + sessionEvent.userId)
+          console.log('event' + event.userId)
+          if(this.currentUser.role == 'doctor'){
+             doctorId = sessionEvent.userId;
+             patientId = event.userId;
+          }else{
+             doctorId = event.userId; 
+             patientId = sessionEvent.userId;
+          }
+          let session = new VirtualAppointment();
+          session.doctorId = doctorId;
+          session.patientId = patientId;
+          session.startAt = this.startAt;
+          session.endAt = this.endAt;
+          console.log("session: "+session )
+          let duration = ''
+          var time = ((new Date(this.endAt)).valueOf() - (new Date(this.startAt)).valueOf()) / 1000 //seg
+          console.log('time: ' + time)
+          if (time < 60) {
+            duration = Math.round(time) + 'sec'
+          } else {
+            var minutes = Math.floor(time / 60);
+            var seconds = time - minutes * 60;
+            duration = Math.round(minutes) + ' min ' + Math.round(seconds) + ' sec'
+          }
+          session.duration = duration;
+          console.log('duration: ' + duration)
+          this.sessionService.register(session)
+            .pipe(first())
+            .subscribe(
+              data => {
+                console.log('SESSION ALMACENADA');
+                //this.saveVirtualAppintment(this.sessionTelehealth)
+              },
+              error => {
+                console.log('ERROR  AL ALMACENAR LA SESSION');
+              });
+        }else{
+          let filter = new HttpParams().set('connectionId', sessionEvent.connectionId).set('susConnectionId', sessionEvent.susConnectionId).set('event', "connect")
+
+          this.sessionEventService
+            .getByFilter(this.currentUser.token, filter)
+            .pipe(first())
+            .subscribe(sessionEvens => {
+              if (sessionEvens.length > 0) {
+                let event = sessionEvens[0];
+                this.startAt = event.time;
+                console.log('ROL: '+this.currentUser.role)
+                console.log('sessionEvent' + sessionEvent.userId)
+                console.log('event' + event.userId)
+
+
+                if (this.currentUser.role == 'doctor') {
+                  doctorId = sessionEvent.userId;
+                  patientId = event.userId;
+                } else {
+                  doctorId = event.userId;
+                  patientId = sessionEvent.userId;
+                }
+                let session = new VirtualAppointment();
+                session.doctorId = doctorId;
+                session.patientId = sessionEvent.sessionId;
+                session.startAt = this.startAt;
+                session.endAt = this.endAt;
+                console.log("session2: " + session)
+                let duration=''
+                var time = ((new Date(this.endAt)).valueOf() - (new Date(this.startAt)).valueOf())/1000 //seg
+                console.log('time: ' + time)
+                if(time<60){
+                  duration = Math.round(time) + 'sec'
+                }else{
+                  var minutes = Math.floor(time / 60);
+                  var seconds = time - minutes * 60;
+                  duration = Math.round(minutes) + ' min ' + Math.round(seconds) + ' sec'
+                }
+                session.duration=duration;
+                console.log('duration: ' + duration)
+                this.sessionService.register(session)
+                  .pipe(first())
+                  .subscribe(
+                    data => {
+                      console.log('SESSION ALMACENADA');
+                      //this.saveVirtualAppintment(this.sessionTelehealth)
+                    },
+                    error => {
+                      console.log('ERROR  AL ALMACENAR LA SESSION ' +error);
+                    });
+              }
+
+
+            });
+
+        }
+      });
   }
 }

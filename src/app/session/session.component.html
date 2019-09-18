@@ -1,0 +1,57 @@
+<body>
+  <div class="jumbotron" id="prueba">
+    <div class="page-header">
+      <span class="title">Historico sesiones </span>
+    </div>
+
+    <div class=" container">
+
+
+      <div class=" w3-row list card">
+        <div class="example-header">
+          <input class="w3-input  w3-padding" matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+
+        </div>
+        <table mat-table [dataSource]="dataSource" matSort matSortActive="startAt" matSortDirection="desc">
+          <ng-container matColumnDef="patient">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Patient </th>
+            <td mat-cell *matCellDef="let element">
+              <li class="w3-bar list-group-item">
+                <i class="w3-bar-item w3-circle far fa-user-circle fa-3x"></i>
+                <div class="w3-bar-item">
+                  <span class="w3-large">{{element.users[0].firstName}} {{element.users[0].lastName}}</span><br>
+                  <span>{{element.users[0].username}} </span><br>
+                  <span>{{element.duration}}</span>
+                </div>
+              </li>
+            </td>
+          </ng-container>
+          <!--  Columna TO-->
+          <ng-container matColumnDef="startAt">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Inicio </th>
+            <td mat-cell *matCellDef="let element"> {{element.startAt| date:'short'}} </td>
+          </ng-container>
+
+          <!-- Columna SUBJECT -->
+          <ng-container matColumnDef="endAt">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Fin </th>
+            <td mat-cell *matCellDef="let element"> {{element.endAt| date:'short'}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns" class="encabezado"></tr>
+          <tr style="cursor:pointer" mat-row *matRowDef="let row; columns: displayedColumns;"
+            (click)="goToSession(row.id)">
+          </tr>
+        </table>
+        <!-- To use pagination in DataTable  -->
+
+        <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]">
+        </mat-paginator>
+      </div>
+
+    </div>
+
+
+
+  </div>
+</body>
