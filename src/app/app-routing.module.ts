@@ -11,11 +11,12 @@ import { ConversationComponent } from './conversation/conversation.component';
 import { MessagesComponent} from './messages/messages.component';
 import { AppointmentComponent} from './appointment/appointment.component';
 import { SessionComponent } from './session/session.component';
+import { UserComponent } from './user/user.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+  { path: 'register', component: RegisterComponent, canActivate: [AuthGuard] },
   { path: 'video', component: VideoconfComponent },
   { path: 'doctor', component: DoctorComponent, canActivate: [AuthGuard] },
   { path: 'patient', component: PatientComponent, canActivate: [AuthGuard] },
@@ -24,7 +25,9 @@ const appRoutes: Routes = [
   { path: 'appointment', component: AppointmentComponent, canActivate: [AuthGuard] },
   { path: 'sessions', component: SessionComponent, canActivate: [AuthGuard] },
   { path: 'videoconf', component: VideoRoomComponent, canActivate: [AuthGuard] },
+  { path: 'users', component: UserComponent, canActivate: [AuthGuard] },
   { path: ':roomName', component: VideoRoomComponent, canActivate: [AuthGuard]  },
+
   // otherwise redirect to home
   { path: '**', redirectTo: '' }
 ];

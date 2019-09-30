@@ -60,58 +60,7 @@ export class SessionComponent implements OnInit {
         this.dataSource.data = sessions;
       });
   }
-  /*private loadAllVirtualAppointments() {
-    let filter = new HttpParams().set('userId', this.currentUser.username).set('action', "connect")
-    this.sessionnSrv
-      .getByFilter(this.currentUser.token, filter)
-      .pipe(first())
-      .subscribe(sessionEvens => {
-        for (let event of sessionEvens) {
-          
-          let susConnectionId = event.susConnectionId;
-          let connectionId = event.connectionId;
-          let starAt = event.time;
-          console.log('startAt: '+starAt)
-          console.log("doctor: " + this.currentUser.username)
-          filter = new HttpParams().set('connectionId', susConnectionId).set('action', "connect")
-          console.log('sessionEvens', event.connectionId);
-          this.sessionnSrv
-            .getByFilter(this.currentUser.token, filter)
-            .pipe(first())
-            .subscribe(sessionEvens => {
 
-              if(sessionEvens.length > 0){
-                let event = sessionEvens[0];
-                let patient = event.userId;
-                console.log("paciente: " + patient)
-                filter = new HttpParams().set('userId', this.currentUser.username).set('connectionId', connectionId).set('susConnectionId', susConnectionId).set('action', "disconnect")
-                this.sessionnSrv
-                  .getByFilter(this.currentUser.token, filter)
-                  .pipe(first())
-                  .subscribe(sessionEvens => {
-                    if (sessionEvens.length > 0) {
-                      let event = sessionEvens[0];
-                      console.log('endAt: '+event.time)
-                     
-                      let virtual=  new VirtualAppointment();
-                      virtual.doctor = this.currentUser.username
-                      virtual.patient = patient;
-                      virtual.startAt = starAt;
-                      virtual.endAt = event.time;
-                      this.virtualAppintments.push(virtual)
-                     
-                    }
-
-                    console.log('virtualAppintments: ' + this.virtualAppintments)
-            
-                  });
-              }
-            });
-          
-        }
-      });
-    
-  }*/
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches

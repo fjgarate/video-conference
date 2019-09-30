@@ -21,6 +21,9 @@ export class AlertService {
             }
         });
     }
+    getAlert(): Observable<any> {
+        return this.subject.asObservable();
+    }
 
     success(message: string, keepAfterNavigationChange = false) {
         this.keepAfterNavigationChange = keepAfterNavigationChange;
@@ -28,11 +31,17 @@ export class AlertService {
     }
 
     error(message: string, keepAfterNavigationChange = false) {
+        console.log('errro')
         this.keepAfterNavigationChange = keepAfterNavigationChange;
         this.subject.next({ type: 'error', text: message });
     }
 
     getMessage(): Observable<any> {
         return this.subject.asObservable();
+    }
+
+    clear() {
+        // clear by calling subject.next() without parameters
+        this.subject.next();
     }
 }

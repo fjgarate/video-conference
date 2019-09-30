@@ -5,8 +5,8 @@
 
 <div *ngIf="currentUser">
   <div class="w3-row">
-    <div class="w3-container w3-quarter">
-      <img src="../../assets/images/logo_GBT.png" height="77px" width="145px" class="w3-image" />
+    <div class="w3-container w3-quarter w3-hide-small">
+      <img src="../../assets/images/logo_GBT.png"  class="img-responsive" />
     </div>
     <div class="w3-ligth w3-container w3-threequarter header-text">
       <span>Consulta Virtual</span>
@@ -40,7 +40,7 @@
     <a routerLink="/conversations" class="w3-bar-item w3-button">
       <i class="fa fa-comments"></i>
       Conversaciones</a>
-    <a *ngIf="isDoctor" routerLink="#" class="w3-bar-item w3-button">
+    <a *ngIf="isDoctor" routerLink="/users" class="w3-bar-item w3-button">
       <i class="fa fa-users"></i>
       Pacientes</a>
     <a *ngIf="isDoctor" routerLink="/sessions" class="w3-bar-item w3-button">
