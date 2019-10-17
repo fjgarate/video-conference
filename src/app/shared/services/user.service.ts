@@ -37,7 +37,20 @@ export class UserService {
       options
     );
   }
-
+  getDoctors(user: User) {
+    //return this.http.get<User[]>(`https://login-videocall.herokuapp.com/users`);
+    console.log("getDoctors")
+    const options = {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + user.token,
+        'Content-Type': 'application/json'
+      })
+    };
+    return this.http.get<any>(
+      environment.api_url + `/users/doctors/${user.id}`,
+      options
+    );
+  }
 
   getById(token: string, id: string) {
     const options = {

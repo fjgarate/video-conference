@@ -20,7 +20,7 @@ export class AppComponent {
   }
 
   get isDoctor() {
-    return this.currentUser && this.currentUser.role === 'doctor';
+    return this.currentUser && this.currentUser.role === 'clinical';
   }
   get isPatient() {
     return this.currentUser && this.currentUser.role === 'patient';

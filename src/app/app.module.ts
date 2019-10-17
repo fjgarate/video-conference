@@ -64,7 +64,7 @@ import { FooterComponent } from './shared/components/footer/footer.component';
 import { InitVideoconferenceComponent } from './shared/components/init-videoconference/init-videoconference.component';
 import { SessionComponent } from './session/session.component';
 import { UserComponent } from './user/user.component';
-
+import { MatSidenavModule, MatListModule} from "@angular/material";
 
 
 @NgModule({
@@ -126,7 +126,8 @@ import { UserComponent } from './user/user.component';
     FlexLayoutModule,
     ScrollingModule,
     FullCalendarModule, // for FullCalendar!
-
+    MatSidenavModule,
+    MatListModule,
     NgxLinkifyjsModule.forRoot(),
   ],
   entryComponents: [DialogErrorComponent, WebComponentComponent],

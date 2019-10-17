@@ -40,12 +40,12 @@ export class MessagesComponent implements OnInit {
   conversation2: Conversation;
   conversation3: Conversation;
   messages3: Message[] = [];
-
+  isCollapsed: boolean = true;
   conver_p = '';
   private sub: any;
   participants: string[] = [];
   show = false;
-
+  submitted=false;
 
   constructor(
     private sharedService: SharedService,
@@ -67,7 +67,7 @@ export class MessagesComponent implements OnInit {
     //this.sharedService.currentMessage.subscribe(message => this.messages = message);
 
     this.messageForm = this.formBuilder.group({
-      text: [''],
+      text: ['', Validators.required],
       author: this.currentUser.firstName + ' ' + this.currentUser.lastName,
       read: false
     });
@@ -97,9 +97,10 @@ export class MessagesComponent implements OnInit {
 
 
     submitNewM() {
-      console.log('llega a submitNewM')
-      console.log(this.show)
-      console.log('message',this.messageForm.value)
+      this.submitted = true;
+      if (this.messageForm.invalid) {
+        return;
+      }
       this.show=false
     this.convesationSrv.addMessage(this.currentUser.token, this.conver_p, this.messageForm.value)
       .pipe(first())
@@ -131,5 +132,21 @@ export class MessagesComponent implements OnInit {
       event.srcElement.style.whiteSpace = 'nowrap';
     }
     
+  }
+  isToday(day: Date) {
+    const today = new Date()
+    const someDate = new Date(day)
+    return someDate.getDate() == today.getDate() &&
+      someDate.getMonth() == today.getMonth() &&
+      someDate.getFullYear() == today.getFullYear()
+  }
+  toogleCollapse() {
+    this.messageForm = this.formBuilder.group({
+      text: ['', Validators.required],
+      author: this.currentUser.firstName + ' ' + this.currentUser.lastName,
+      read: false
+    });
+    this.submitted = false;
+    this.isCollapsed = !this.isCollapsed;
   }
 }

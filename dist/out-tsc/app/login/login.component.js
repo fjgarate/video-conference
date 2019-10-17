@@ -55,7 +55,7 @@ var LoginComponent = /** @class */ (function () {
             .subscribe(function (data) {
             console.log(data.role);
             var role = data.role;
-            if (role == 'doctor') {
+            if (role == 'clinical') {
                 _this.router.navigate(['/doctor']);
             }
             else {

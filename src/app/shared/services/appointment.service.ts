@@ -8,7 +8,7 @@ import { environment } from './../../../environments/environment';
 })
 export class AppointmentService {
   constructor(private http: HttpClient) {}
-
+  
   getAll(token: string, userId: string) {
     const options = {
       headers: new HttpHeaders({

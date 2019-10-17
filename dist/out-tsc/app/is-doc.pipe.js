@@ -11,7 +11,7 @@ var IsDocPipe = /** @class */ (function () {
     function IsDocPipe() {
     }
     IsDocPipe.prototype.transform = function (values, args) {
-        return values.filter(function (item) { return item.role === 'doctor'; });
+        return values.filter(function (item) { return item.role === 'clinical'; });
     };
     IsDocPipe = __decorate([
         core_1.Pipe({

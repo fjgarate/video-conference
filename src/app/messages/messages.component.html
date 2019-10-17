@@ -1,71 +1,75 @@
-<!--<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
--->
-
 <body>
   <div class="jumbotron">
-  <!--<a routerLink="/conversations" class="text-primary">
-      <i class="fa fa-arrow-left"></i>
-      Volver a las conversaciones</a>-->
-
-    <div class=" w3-container">
-      <div class="list">
-      <button routerLink="/conversations" class="w3-btn w3-white w3-border w3-border-blue-grey w3-round-xlarge"> 
-      <i class="fas fa-chevron-left" style="color:darkblue"></i>
-      conversaciones</button>
+    <div class=" w3-row">
+      <div class="w3-col l1 w3-container w3-hide-small">
       </div>
-      <div class=" w3-row w3-white list border">
-        <ul class="w3-ul  list-group messages">
-          <li class="w3-light-grey">
-            <h2>{{conversationParams.title}}</h2>
-          </li>
-          <li class="w3-bar list-group-item" *ngFor="let message of conversationParams.messages">
-            <div class=" w3-row">
-              <span class="w3-bar-item w3-left importMessage">{{message.author}}</span>
-              <span class="w3-bar-item  w3-right">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" id="msg-dblcheck-ack" x="2063" y="2076"
-                  [ngStyle]="{'fill':message.read === true ? '#4fc3f7' : '#343a40'}">
-                  <path
-                    d="M15.01 3.316l-.478-.372a.365.365 0 0 0-.51.063L8.666 9.88a.32.32 0 0 1-.484.032l-.358-.325a.32.32 0 0 0-.484.032l-.378.48a.418.418 0 0 0 .036.54l1.32 1.267a.32.32 0 0 0 .484-.034l6.272-8.048a.366.366 0 0 0-.064-.512zm-4.1 0l-.478-.372a.365.365 0 0 0-.51.063L4.566 9.88a.32.32 0 0 1-.484.032L1.892 7.77a.366.366 0 0 0-.516.005l-.423.433a.364.364 0 0 0 .006.514l3.255 3.185a.32.32 0 0 0 .484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z">
-                  </path>
-                </svg>
-              </span>
-              <span class="w3-bar-item  w3-right">
-                <small class="lastMessage">
-                  <i class="far fa-clock" style="margin-right: 5px;"></i>{{message.createdDate| date:'short'}}</small>
-              </span>
-            </div>
-
-            <div class="chat-body lastMessage" style="white-space:nowrap; cursor:pointer" (click)="expanse($event)">
-              {{message.text}}
-            </div>
-          </li>
-
-        </ul>
-        <button *ngIf="!show" (click)="show = !show"  class="w3-btn w3-white w3-border w3-border-blue-grey w3-round-xlarge">
-          <i class="fas fa-edit " style="color:darkblue"></i>
-          Escribir</button>
-
-        <div id="message" *ngIf="show"  >
-          <form class="w3-container" [formGroup]="messageForm" (ngSubmit)="submitNewM()">
-        
-            <textarea formControlName="text" class="w3-input w3-border w3-light-grey" type="text" [@slideInOut]></textarea>
-        
-            <button class="w3-btn w3-white w3-border w3-border-blue-grey w3-round-xlarge">
-            <i class="fas fa-paper-plane " style="color:darkblue"></i>
-            Enviar</button>
-                  <span (click)="show = !show" class="w3-bar-item w3-button w3-xlarge w3-right">
-            <i class="fas fa-trash-alt" style="color:darkblue"></i>
-          </span>
-          </form>
+      <div class="w3-col l10 w3-container ">
+        <button routerLink="/conversations" class="w3-btn w3-white w3-border w3-border-blue-grey w3-round-xlarge">
+          <i class="fas fa-chevron-left" style="color:darkblue"></i>
+          conversaciones</button>
+        <div class=" w3-white list border">
+          <ul class="w3-ul  list-group messages">
+            <li class="w3-light-grey">
+              <h2>{{conversationParams.title}}</h2>
+            </li>
+            <li class="w3-bar list-group-item" *ngFor="let message of conversationParams.messages">
+              <div class=" w3-row">
+                <span class="w3-bar-item w3-left importMessage">{{message.author}}</span>
+                <span class="w3-bar-item  w3-right">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" id="msg-dblcheck-ack" x="2063" y="2076"
+                    [ngStyle]="{'fill':message.read === true ? '#4fc3f7' : '#343a40'}">
+                    <path
+                      d="M15.01 3.316l-.478-.372a.365.365 0 0 0-.51.063L8.666 9.88a.32.32 0 0 1-.484.032l-.358-.325a.32.32 0 0 0-.484.032l-.378.48a.418.418 0 0 0 .036.54l1.32 1.267a.32.32 0 0 0 .484-.034l6.272-8.048a.366.366 0 0 0-.064-.512zm-4.1 0l-.478-.372a.365.365 0 0 0-.51.063L4.566 9.88a.32.32 0 0 1-.484.032L1.892 7.77a.366.366 0 0 0-.516.005l-.423.433a.364.364 0 0 0 .006.514l3.255 3.185a.32.32 0 0 0 .484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z">
+                    </path>
+                  </svg>
+                </span>
+                <div *ngIf="isToday(message.createdDate);else otherDay" class="w3-bar-item  w3-right">
+                  <small class="lastMessage">
+                    <i class="far fa-clock" style="margin-right: 5px;"></i>{{message.createdDate| date:'HH:mm'}}</small>
+                </div>
+                <ng-template #otherDay>
+                  <div class="w3-bar-item  w3-right">
+                    <small class="lastMessage">
+                      <i class="far fa-clock"
+                        style="margin-right: 5px;"></i>{{message.createdDate| date:'dd/MM/yyyy'}}</small>
+                  </div>
+                </ng-template>
+              </div>
+              <div class=" w3-row">
+                <div class="chat-body lastMessage" style="white-space:nowrap; cursor:pointer" (click)="expanse($event)">
+                  {{message.text}}
+                </div>
+              </div>
+            </li>
+          </ul>
+          <button *ngIf="isCollapsed" (click)="toogleCollapse()"
+            class="w3-btn w3-white w3-border w3-border-blue-grey w3-round-xlarge">
+            <i class="fas fa-edit " style="color:darkblue"></i>
+            <span class="btn_text">Escribir</span>
+          </button>
+          <div id="message" *ngIf="!isCollapsed">
+            <form class="w3-container" [formGroup]="messageForm" (ngSubmit)="submitNewM()">
+              <div class="form-group">
+                <label class="text_label" for="title">Mensaje:</label>
+                <textarea id="text" type="text" formControlName="text" class="form-control input-sm"
+                  [ngClass]="{ 'is-invalid': submitted && f.text.errors }"></textarea>
+                <div *ngIf="submitted && f.text.errors.required" class="invalid-feedback">
+                  <div *ngIf="f.text.errors.required">El mensaje es obligatorio</div>
+                </div>
+              </div>
+              <button class="w3-btn w3-white w3-border w3-border-blue-grey w3-round-xlarge">
+                <i class="fas fa-paper-plane " style="color:darkblue"></i>
+                <span class="btn_text">Enviar</span></button>
+              <button (click)="toogleCollapse()" class="w3-bar-item w3-button w3-xlarge w3-right">
+                <i class="fas fa-trash-alt" style="color:darkblue"></i>
+              </button>
+            </form>
+          </div>
         </div>
       </div>
+      <div class="w3-col l1 w3-container w3-hide-small">
+      </div>
+    </div>
 
-    </div>
-    <div class=" w3-container w3-white list">
-      
-    </div>
   </div>
 </body>

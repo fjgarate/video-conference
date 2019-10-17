@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
   currentUser: User;
+  navbarOpen = false;
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService
@@ -21,7 +22,7 @@ export class HeaderComponent implements OnInit {
      );
   }
   get isDoctor() {
-    return this.currentUser && this.currentUser.role === "doctor";
+    return this.currentUser && this.currentUser.role === "clinical";
   }
   get isPatient() {
     return this.currentUser && this.currentUser.role === "patient";
@@ -29,6 +30,13 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this.authenticationService.logout();
-    this.router.navigate([""]);
+    this.router.navigate([""]).then(() => {
+      window.location.reload();
+    });;
+  }
+  
+
+  toggleNavbar() {
+    this.navbarOpen = !this.navbarOpen;
   }
 }

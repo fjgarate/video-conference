@@ -79,11 +79,7 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
 
  
   ) {
-    this.sessionEvent=new SessionEvent();
-    console.log('pasa')
-    this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
-      this.currentUser = user;
-    });
+  
   }
   @HostListener('window:beforeunload')
   beforeunloadHandler() {
@@ -97,6 +93,14 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.sessionEvent = new SessionEvent();
+    console.log('pasa')
+    this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => {
+      this.currentUser = user;
+      console.warn(this.currentUser)
+    });
+
+
     this.sub = this.route.queryParams.subscribe(params => {
       // Defaults to 0 if no query param provided.
       this.user_p = params["user_p"];
@@ -110,6 +114,7 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.currentUserSubscription.unsubscribe();
+    console.warn("ondestroy")
     this.exitSession();
   }
 
@@ -212,11 +217,12 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
     this.localUser = null;
     this.OV = null;
     this.openviduLayout = null;
-    if (this.currentUser.role === 'doctor') {
-    this.router.navigate(['doctor']) } 
+   /* console.warn(this.currentUser)
+    if (this.currentUser.role === 'clinical') {
+    this.router.navigate(['clinical']) } 
     if (this.currentUser.role === 'patient') {
     this.router.navigate(['patient'] )
-    }
+    }*/
     this.leaveSession.emit();
   }
 
@@ -267,7 +273,7 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
     //this.mySessionId = this.currentUser.username;
    
     this.initApp();
-    if (this.currentUser.role === 'doctor') {
+    if (this.currentUser.role === 'clinical') {
       this.mySessionId = this.user_p;
     }
     if (this.currentUser.role === 'patient') {
@@ -544,7 +550,7 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
           console.log('ROL: ' + this.currentUser.role)
           console.log('sessionEvent' + sessionEvent.userId)
           console.log('event' + event.userId)
-          if(this.currentUser.role == 'doctor'){
+          if(this.currentUser.role == 'clinical'){
              doctorId = sessionEvent.userId;
              patientId = event.userId;
           }else{
@@ -589,12 +595,12 @@ export class VideoRoomComponent implements OnInit, OnDestroy {
               if (sessionEvens.length > 0) {
                 let event = sessionEvens[0];
                 this.startAt = event.time;
-                console.log('ROL: '+this.currentUser.role)
+                //console.log('ROL: '+this.currentUser.role)
                 console.log('sessionEvent' + sessionEvent.userId)
                 console.log('event' + event.userId)
 
 
-                if (this.currentUser.role == 'doctor') {
+                if (this.currentUser.role == 'clinical') {
                   doctorId = sessionEvent.userId;
                   patientId = event.userId;
                 } else {

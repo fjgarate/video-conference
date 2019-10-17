@@ -6,14 +6,16 @@ import { first } from 'rxjs/operators';
 import { AlertService, AuthenticationService } from '../shared/services';
 
 @Component(
-  {templateUrl: './login.component.html'}
+  {templateUrl: './login.component.html',
+   styleUrls: ['./login.component.css'],
+  },
   )
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
     loading = false;
     submitted = false;
     returnUrl: string;
-
+    loginError = 0;
     constructor(
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
@@ -56,7 +58,7 @@ export class LoginComponent implements OnInit {
                 data => {
                 console.log(data.role);
                 let role = data.role;
-                if (role == 'doctor'){
+                if (role == 'clinical'){
                   this.router.navigate(['/doctor']);
                 } else{
                   this.router.navigate(['/patient']);
@@ -66,7 +68,9 @@ export class LoginComponent implements OnInit {
                 //this.router.navigate(["/", roomName]);
                 },
                 error => {
-                    this.alertService.error(error);
+                  console.log("Login ERROR")
+                  //this.alertService.error("Login ERROR");
+                  this.loginError=1;
                     this.loading = false;
                 });
     }

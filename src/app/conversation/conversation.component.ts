@@ -6,7 +6,7 @@ import { ConversationService } from '../shared/services/conversation.service';
 import { first } from 'rxjs/operators';
 import { Conversation } from '../shared/models/conversation';
 import { Message } from "../shared/models/message";
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SharedService } from '../shared/services/shared.service';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
@@ -49,7 +49,6 @@ export class ConversationComponent implements OnInit {
   name: string[] = [];
   isOpen = true;
 
-
   messages: Message[] = [];
   users: User[] = [];
   pacientes: User[] = [];
@@ -78,53 +77,74 @@ export class ConversationComponent implements OnInit {
   }
 
   get isDoctor() {
-    return this.currentUser && this.currentUser.role === 'doctor';
+    return this.currentUser && this.currentUser.role === 'clinical';
   }
   get isPatient() {
     return this.currentUser && this.currentUser.role === 'patient';
   }
 
   toogleCollapse() {
+    this.conversationForm = this.formBuilder.group({
+      createUserId: this.currentUser.id,
+      createUsername: this.currentUser.username,
+      createName: this.currentUser.firstName + ' ' + this.currentUser.lastName,
+      title: ['', Validators.required],
+      participants: ['', Validators.required],
+      otherName: '',
+      text: ['', Validators.required]
+
+    });
+    this.submitted=false;
     this.isCollapsed = !this.isCollapsed;
   }
 
 
   ngOnInit() {
+
     const initialSelection = [];
     const allowMultiSelect = true;
     this.selection = new SelectionModel<Conversation>(allowMultiSelect, initialSelection);
+   
     if(this.isPatient){
-      this.displayedColumns = ['from',  'title', 'createdDate'];
+      this.displayedColumns = ['from', 'title', 'createdDate', 'select'];
+      this.loadAllDoctor();
     }else{
-      this.displayedColumns = [ 'otherName', 'title', 'createdDate', 'select'];
+      this.displayedColumns = ['from', 'title', 'createdDate','select'];
+      this.loadAllPatients();
     }
+    
       this.conversationForm = this.formBuilder.group({
         createUserId: this.currentUser.id,
         createUsername: this.currentUser.username,
         createName: this.currentUser.firstName + ' ' + this.currentUser.lastName, 
-        title: '',
-        participants: [''],
+        title: ['', Validators.required],
+        participants: ['', Validators.required],
         otherName:'',
-        text:''
+        text: ['', Validators.required]
         
             });
-
-
-    this.loadAllPatients();
     this.getConversationsByUserId(this.currentUser.id);
   }
+  
   get f() { return this.conversationForm.controls; }
 
   private loadAllPatients() {
     this.userService
       .getPatients(this.currentUser)
       .pipe(first())
-      .subscribe(users => {
-        console.log(users);
-        this.users = users;
+      .subscribe(patients => {
+        this.users = patients;
       });
   }
-
+  
+  private loadAllDoctor() {
+    this.userService
+      .getDoctors(this.currentUser)
+      .pipe(first())
+      .subscribe(doctors => {
+        this.users = doctors;
+      });
+  }
 
   private getConversationsByUserId(id: string) {
 
@@ -136,17 +156,12 @@ export class ConversationComponent implements OnInit {
         this.dataSource.data = conversations;
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-       
-        console.log('datasource',this.dataSource.data)
         this.conversations =[];
         this.conversations=conversations
-         console.log('conversations: '+conversations.length)
+  
         for (let conv of conversations) {
           let participants = conv.participants;
           let otherUser
-          console.log('conversacion: ' + conv.title)
-
-          console.log('participants: ' + participants +' length: '+participants.length)
           /*for (const participant of participants) {
             console.log('participant: ' + participant)
             if (this.currentUser.id !== participant) {
@@ -168,6 +183,10 @@ export class ConversationComponent implements OnInit {
 
 
   createConver() {
+    this.submitted = true;
+    if (this.conversationForm.invalid) {
+      return;
+    }
     this.conversationForm.value.participants = [this.conversationForm.value.participants, this.currentUser.id];
     
     this.userService
@@ -215,7 +234,6 @@ newMessage(message){
 }
 
   goMessages(id) {
-    console.log('llega')
     //this.sharedService.changeMessages(this.conversation.messages)
     this.router.navigate(['messages'], {
       queryParams: { conver_p: id}
@@ -227,12 +245,13 @@ newMessage(message){
   deleteConver(id) {
     this.convesationSrv.deleteConver(this.currentUser.token, id)
       .pipe(first())
-      .subscribe(error => {
+      .subscribe(() => { 
+        this.getConversationsByUserId(this.currentUser.id);
+      },
+      error => {
           console.log(error)
         });
-
-    this.getConversationsByUserId(this.currentUser.id);
-    console.log('conversaciones actualizadas; '+this.conversations)
+   
   }
   masterToggle() {
     this.isAllSelected() ?
@@ -252,7 +271,7 @@ newMessage(message){
         .pipe(first())
         .subscribe(() => {
           let index: number = this.conversations.findIndex(d => d === item);
-          console.log(this.conversations.findIndex(d => d === item));
+          //console.log(this.conversations.findIndex(d => d === item));
           this.conversations.splice(index, 1)
           this.dataSource = new MatTableDataSource<Conversation>(this.conversations);
         },
@@ -267,5 +286,12 @@ newMessage(message){
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
     this.dataSource.filter = filterValue;
+  }
+  isToday(day: Date){
+    const today = new Date()
+    const someDate = new Date(day)
+    return someDate.getDate() == today.getDate() &&
+           someDate.getMonth() == today.getMonth() &&
+           someDate.getFullYear() == today.getFullYear()
   }
 }

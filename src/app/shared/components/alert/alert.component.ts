@@ -27,7 +27,6 @@ export class AlertComponent implements OnInit, OnDestroy {
             }
 
             this.message = message;
-            console.log("mensaje; " + this.message.cssClass)
         });
     }
 

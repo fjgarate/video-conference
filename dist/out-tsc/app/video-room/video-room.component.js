@@ -130,7 +130,7 @@ var VideoRoomComponent = /** @class */ (function () {
         this.localUser = null;
         this.OV = null;
         this.openviduLayout = null;
-        if (this.currentUser.role === 'doctor') {
+        if (this.currentUser.role === 'clinical') {
             this.router.navigate(['doctor']);
         }
         if (this.currentUser.role === 'patient') {
@@ -179,7 +179,7 @@ var VideoRoomComponent = /** @class */ (function () {
         }*/
         //this.mySessionId = this.currentUser.username;
         this.initApp();
-        if (this.currentUser.role === 'doctor') {
+        if (this.currentUser.role === 'clinical') {
             this.mySessionId = this.user_p;
         }
         if (this.currentUser.role === 'patient') {

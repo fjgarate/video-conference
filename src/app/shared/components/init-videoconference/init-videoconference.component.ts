@@ -59,7 +59,7 @@ export class InitVideoconferenceComponent implements OnInit {
   }
 
   get isDoctor() {
-    return this.currentUser && this.currentUser.role === 'doctor';
+    return this.currentUser && this.currentUser.role === 'clinical';
   }
 
   ngOnInit() {

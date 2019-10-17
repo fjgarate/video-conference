@@ -41,7 +41,7 @@ var ConversationComponent = /** @class */ (function () {
     }
     Object.defineProperty(ConversationComponent.prototype, "isDoctor", {
         get: function () {
-            return this.currentUser && this.currentUser.role === 'doctor';
+            return this.currentUser && this.currentUser.role === 'clinical';
         },
         enumerable: true,
         configurable: true

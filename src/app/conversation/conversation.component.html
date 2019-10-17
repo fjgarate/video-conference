@@ -1,122 +1,133 @@
 <body>
-  <div class="jumbotron" id="prueba">
+  <div class="jumbotron">
     <div class="page-header">
       <span class="title">Conversaciones </span>
     </div>
+    <div class="w3-row">
+      <div class="w3-col l1 w3-container w3-hide-small">
+      </div>
+      <div class="w3-col l10 w3-container ">
+        <div *ngIf="isCollapsed" class="card list">
+          <div class="example-header">
+            <input class="w3-input  w3-padding" matInput (keyup)="applyFilter($event.target.value)"
+              placeholder="Filter">
+          </div>
+          <table mat-table [dataSource]="dataSource" matSort matSortActive="createdDate" matSortDirection="asc">
+            <ng-container matColumnDef="select">
+              <th mat-header-cell *matHeaderCellDef>
+                <mat-checkbox (change)="$event ? masterToggle() : null"
+                  [checked]="selection.hasValue() && isAllSelected()"
+                  [indeterminate]="selection.hasValue() && !isAllSelected()">
+                </mat-checkbox>
+              </th>
+              <td mat-cell *matCellDef="let row">
+                <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                  [checked]="selection.isSelected(row)">
+                </mat-checkbox>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="from">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> From </th>
+              <td mat-cell *matCellDef="let row">
+                {{row.createName}}
+              </td>
+            </ng-container>
 
 
-    <div class=" w3-container" >
+            <ng-container matColumnDef="title">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Asunto </th>
+              <td mat-cell *matCellDef="let row">
+                <span [ngStyle]="{'font-weight':newMessage(row.messages) ? 'bold' : 'normal' }"
+                  class="importMessage">{{row.title}}</span><br>
 
-      <div class=" w3-row list card">
-        <div class="example-header">
-          <input class="w3-input  w3-padding" matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+                <div class="lastMessage">
+                  {{row.messages[row.messages.length-1].text}}
+                </div>
+              </td>
 
+            </ng-container>
+
+            <ng-container matColumnDef="createdDate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
+              <td mat-cell *matCellDef="let row">
+                <div *ngIf="isToday(row.messages[row.messages.length-1].createdDate);else otherDay">
+                  <span [ngStyle]="{'font-weight':newMessage(row.messages) ? 'bold' : 'normal' }"
+                    class="">{{row.messages[row.messages.length-1].createdDate| date:'HH:mm'}}</span>
+                </div>
+                <ng-template #otherDay>
+                  <span [ngStyle]="{'font-weight':newMessage(row.messages) ? 'bold' : 'normal' }"
+                    class="">{{row.messages[row.messages.length-1].createdDate| date:'dd/MM/yyyy'}}</span>
+                </ng-template>
+
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns" class="encabezado"></tr>
+            <tr style="cursor:pointer" mat-row *matRowDef="let row; columns: displayedColumns;"
+              (click)="goMessages(row.id)">
+            </tr>
+          </table>
+
+
+
+          <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]">
+          </mat-paginator>
+
+          <div class="w3-container btn_conversation">
+
+            <button (click)="toogleCollapse()" class="w3-btn w3-white w3-border w3-border-blue-grey w3-round-xlarge"
+              style="margin-right:20px">
+              <i class="fas fa-plus-circle" style="color:darkblue;margin-right: 5px"></i>
+              <span class="btn_text">Nueva conversación</span>
+            </button>
+
+
+            <button (click)="deleteConversations()" class=" w3-btn w3-white w3-border w3-border-red w3-round-xlarge">
+              <i class="fas fa-trash" style="color:darkred;margin-right: 5px"></i>
+              <span class="btn_text">Elimar conversación</span>
+            </button>
+
+          </div>
         </div>
-        <table mat-table [dataSource]="dataSource" matSort matSortActive="createdDate" matSortDirection="asc">
-          <ng-container matColumnDef="select" *ngIf="isDoctor">
-            <th mat-header-cell *matHeaderCellDef>
-              <mat-checkbox (change)="$event ? masterToggle() : null"
-                [checked]="selection.hasValue() && isAllSelected()"
-                [indeterminate]="selection.hasValue() && !isAllSelected()">
-              </mat-checkbox>
-            </th>
-            <td mat-cell *matCellDef="let row">
-              <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
-                [checked]="selection.isSelected(row)">
-              </mat-checkbox>
-            </td>
-          </ng-container>
-          <!--  Columna FROM-->
-          <ng-container matColumnDef="from" *ngIf="isPatient">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>De </th>
-            <td mat-cell *matCellDef="let row"> <span [ngStyle]="{'font-weight':newMessage(row.messages) ? 'bold' : 'normal' }"  class="importMessage">
-                {{row.createName}}</span> </td>
-          </ng-container>
-          <!--  Columna TO-->
-          <ng-container matColumnDef="otherName"*ngIf="isDoctor">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Para </th>
-            <td mat-cell *matCellDef="let row">
-              <span [ngStyle]="{'font-weight':newMessage(row.messages) ? 'bold' : 'normal' }"  class="importMessage">{{row.otherName}}</span> </td>
-          </ng-container>
-
-          <!-- Columna SUBJECT -->
-          <ng-container matColumnDef="title">
-            <th  mat-header-cell *matHeaderCellDef mat-sort-header> Asunto </th>
-            <td mat-cell *matCellDef="let row">
-              <span [ngStyle]="{'font-weight':newMessage(row.messages) ? 'bold' : 'normal' }" class="importMessage">{{row.title}}</span><br>
-             <!-- <span *ngIf="newMessage(row.messages)" style="color:red">¡Nuevos mensajes!</span>-->
-              <div class="lastMessage w3-small">
-                {{row.messages[row.messages.length-1].text}} 
+        <div *ngIf="!isCollapsed" class="w3-container list w3-white" [@slideInOut]>
+          <div class="new_conversation">
+            <span class="w3-xlarge">Nueva conversación</span>
+            <form [formGroup]="conversationForm" (ngSubmit)="createConver()" style="margin-top: 20px;">
+              <div class="form-group">
+                <label for="participants">Selecione destinatario</label>
+                <select class="form-control input-sm w3-select" style="width: 50%" formControlName="participants">
+                  <option value="" disabled selected>Selecione</option>
+                  <option *ngFor="let patient of users" [value]="patient.id">{{patient.firstName}}
+                    {{patient.lastName}}
+                  </option>
+                </select>
               </div>
-            </td>
-          </ng-container>
-
-          <!-- Columna Nombre-->
-          <ng-container matColumnDef="createdDate">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
-            <td mat-cell *matCellDef="let row">
-              <span [ngStyle]="{'font-weight':newMessage(row.messages) ? 'bold' : 'normal' }"  class="">{{row.messages[row.messages.length-1].createdDate| date:'short'}}</span>
-            </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns" class="encabezado"></tr>
-          <tr style="cursor:pointer" mat-row *matRowDef="let row; columns: displayedColumns;"
-            (click)="goMessages(row.id)">
-          </tr>
-        </table>
-        <!-- To use pagination in DataTable  -->
-
-        <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]">
-        </mat-paginator>
-        <div class="w3-container" style="margin-top:20px" *ngIf="isDoctor">
-
-          <button (click)="toogleCollapse()" class="w3-btn w3-white w3-border w3-border-blue-grey w3-round-xlarge"
-            style="margin-right:20px">
-            <i class="fas fa-plus-circle" style="color:darkblue;margin-right: 5px"></i>
-            <span>Nueva conversación</span>
-          </button>
-
-
-          <button (click)="deleteConversations()" class=" w3-btn w3-white w3-border w3-border-red w3-round-xlarge">
-            <i class="fas fa-trash" style="color:darkred;margin-right: 5px"></i>
-            <span>Elimar conversación</span>
-          </button>
-
+              <div class="form-group">
+                <label for="title">Asunto</label>
+                <input id="title" type="text" formControlName="title" class="form-control input-sm" placeholder="Asunto"
+                  [ngClass]="{ 'is-invalid': submitted && f.title.errors }">
+                <div *ngIf="submitted && f.title.errors.required" class="invalid-feedback">
+                  <div *ngIf="f.title.errors.required">El asunto es obligatorio</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="title">Mensaje</label>
+                <textarea id="text" type="text" formControlName="text" class="form-control input-sm"
+                  placeholder="mensaje" [ngClass]="{ 'is-invalid': submitted && f.text.errors }"></textarea>
+                <div *ngIf="submitted && f.text.errors.required" class="invalid-feedback">
+                  <div *ngIf="f.text.errors.required">El mensaje es obligatorio</div>
+                </div>
+              </div>
+              <button class="w3-btn w3-white w3-border w3-border-blue-grey w3-round-xlarge">
+                <i class="fas fa-paper-plane " style="color:darkblue"></i>
+                Enviar</button>
+              <span (click)="toogleCollapse()" class="w3-bar-item w3-button w3-xlarge w3-right">
+                <i class="fas fa-trash-alt" style="color:darkblue"></i>
+              </span>
+            </form>
+          </div>
         </div>
       </div>
-
-      <div *ngIf="!isCollapsed" class="w3-container list w3-white"  [@slideInOut]>
-        <span class="w3-xlarge" >Nueva conversación</span>
-        <form [formGroup]="conversationForm" (ngSubmit)="createConver()" style="margin-top: 20px;">
-          <div class="form-group">
-            <select class="w3-select" style="width: 50%"  required formControlName="participants">
-              <option value="" disabled selected>Seleccione paciente</option>
-              <option *ngFor="let patient of users" [value]="patient.id">{{patient.firstName}}
-                {{patient.lastName}}
-              </option>
-            </select>
-
-          </div>
-          <div class="form-group">
-            <label for="title">Asunto</label>
-            <input id="btn-input" type="text" formControlName="title" class="form-control input-sm"
-              placeholder="Paciente:Francisco, Problema:Diabetes">
-          </div>
-
-          <div class="form-group">
-            <label for="text">Mensaje</label>
-            <!--<input id="btn-input" type="text" formControlName="text" class="form-control input-sm"
-              placeholder="Mensaje">
-          -->
-                <textarea formControlName="text" class="w3-input w3-border w3-light-grey" type="text" placeholder="Mensaje"></textarea>
-          </div>
-          <button class="w3-btn w3-white w3-border w3-border-blue-grey w3-round-xlarge">
-            <i class="fas fa-paper-plane " style="color:darkblue"></i>
-            Enviar</button>
-          <span (click)="toogleCollapse()" class="w3-bar-item w3-button w3-xlarge w3-right">
-            <i class="fas fa-trash-alt" style="color:darkblue"></i>
-          </span>
-        </form>
+      <div class="w3-col l1 w3-container w3-hide-small">
       </div>
     </div>
   </div>

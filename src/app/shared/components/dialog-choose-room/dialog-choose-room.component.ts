@@ -58,7 +58,7 @@ export class DialogChooseRoomComponent implements OnInit {
     }
 
    get isDoctor() {
-     return this.currentUser && this.currentUser.role === 'doctor';
+     return this.currentUser && this.currentUser.role === 'clinical';
    }
 
   ngOnInit() {
