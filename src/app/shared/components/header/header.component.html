@@ -54,44 +54,61 @@
 
 
   <div>
-    <mat-toolbar color="primary" class="w3-blue-grey">
+    <mat-toolbar style="height: 40px;min-height: 40px;" color="primary" class="w3-blue-grey">
       <mat-toolbar-row>
 
         <button mat-icon-button (click)="toggleNavbar()" fxShow="true" fxHide.gt-sm>
           <mat-icon>menu</mat-icon> <span style="font-size: 25px;margin-left: 15px;">Consulta Virtual</span>
         </button>
 
-        <div class="w3-bar w3-blue-grey" style="font-size:18px; width: 100%;" fxShow="true" fxHide.lt-md>
+        <div class="w3-bar w3-blue-grey header_items" fxShow="true" fxHide.lt-md>
           <!-- The following menu items will be hidden on both SM and XS screen sizes -->
-          <a class="w3-bar-item w3-button" *ngIf="isDoctor" routerLink="/doctor">
+          <span class="header_item" *ngIf="isDoctor">
+          <a routerLink="/doctor">
             <i class="fa fa-home m-auto"></i>
             <span class="header_text">Inicio</span></a>
-          <a class="w3-bar-item w3-button" style="margin-right: 10px;" *ngIf="isPatient" routerLink="/patient">
-            <i class="fa fa-home m-auto"></i>
-            <span class="header_text">Inicio</span></a>
-          <a routerLink="/appointment" class="w3-bar-item w3-button">
-            <i class="fa fa-calendar"></i>
-            <span class="header_text">Calendario</span></a>
-
-          <a *ngIf="isDoctor" routerLink="/video" class="w3-bar-item w3-button">
-            <i class="fas fa-chalkboard-teacher"></i>
-            <span class="header_text">Sala de espera</span></a>
-          <a *ngIf="isPatient" routerLink="/videoconf" class="w3-bar-item w3-button">
-            <i class="fas fa-chalkboard-teacher"></i>
-            <span class="header_text">consulta virtual</span></a>
-          <a routerLink="/conversations" class="w3-bar-item w3-button">
-            <i class="fa fa-comments"></i>
-            <span class="header_text">Conversaciones</span></a>
-          <a *ngIf="isDoctor" routerLink="/users" class="w3-bar-item w3-button">
-            <i class="fa fa-users"></i>
-            <span class="header_text">Pacientes</span></a>
-          <a *ngIf="isDoctor" routerLink="/sessions" class="w3-bar-item w3-button">
-            <i class="fa fa-history"></i>
-            <span class="header_text">Sesiones</span></a>
-          <a matTooltip="Cerrar Sesion" (click)="logout()" class="w3-bar-item w3-button w3-right">
-            {{ currentUser.firstName }} {{ currentUser.lastName }}
-            <i (click)="logout()" class="fa fa-sign-out-alt"></i>
-          </a>
+          </span>
+          <span *ngIf="isPatient" class="header_item">
+            <a  routerLink="/patient">
+              <i class="fa fa-home m-auto"></i>
+              <span class="header_text">Inicio</span></a>
+          </span>
+          <span class="header_item">
+            <a routerLink="/appointment">
+              <i class="fa fa-calendar"></i>
+              <span class="header_text">Calendario</span></a>
+          </span>
+          <span class="header_item" *ngIf="isDoctor">
+            <a routerLink="/video">
+              <i class="fas fa-chalkboard-teacher"></i>
+              <span class="header_text">Sala de espera</span></a>
+          </span>
+          <span class="header_item" *ngIf="isPatient">
+            <a  routerLink="/videoconf">
+              <i class="fas fa-chalkboard-teacher"></i>
+              <span class="header_text">consulta virtual</span></a>
+          </span>
+          <span class="header_item">
+            <a routerLink="/conversations">
+              <i class="fa fa-comments"></i>
+              <span class="header_text">Conversaciones</span></a>
+          </span>
+          <span class="header_item" *ngIf="isDoctor">
+            <a routerLink="/users">
+              <i class="fa fa-users"></i>
+              <span class="header_text">Pacientes</span></a>
+          </span>
+          <span class="header_item" *ngIf="isDoctor">
+            <a routerLink="/sessions">
+              <i class="fa fa-history"></i>
+              <span class="header_text">Sesiones</span></a>
+          </span>
+          <span class="header_item">
+            <a matTooltip="Cerrar Sesion" (click)="logout()" class="w3-right">
+              {{ currentUser.firstName }} {{ currentUser.lastName }}
+              <i (click)="logout()" class="fa fa-sign-out-alt"></i>
+            </a>
+          </span>
         </div>
       </mat-toolbar-row>
     </mat-toolbar>
@@ -104,41 +121,41 @@
           </a>
         </li>
         <li class="nav-item" *ngIf="isDoctor">
-          <a class="w3-bar-item w3-button"  routerLink="/doctor">
+          <a class="w3-bar-item w3-button" routerLink="/doctor">
             <i class="fa fa-home m-auto"></i>
             <span class="header_text">Inicio</span></a>
         </li>
-        <li class="nav-item" *ngIf="isPatient">
-          <a class="w3-bar-item w3-button" style="margin-right: 10px;"  routerLink="/patient">
+        <li class="nav-item" *ngIf="isPatient"  (click)="toggleNavbar()">
+          <a class="w3-bar-item w3-button" style="margin-right: 10px;" routerLink="/patient">
             <i class="fa fa-home m-auto"></i>
             <span class="header_text">Inicio</span></a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item"   (click)="toggleNavbar()">
           <a routerLink="/appointment" class="w3-bar-item w3-button">
             <i class="fa fa-calendar"></i>
             <span class="header_text">Calendario</span></a>
         </li>
-        <li class="nav-item" *ngIf="isDoctor">
-          <a  routerLink="/video" class="w3-bar-item w3-button">
+        <li class="nav-item" *ngIf="isDoctor"   (click)="toggleNavbar()">
+          <a routerLink="/video" class="w3-bar-item w3-button">
             <i class="fas fa-chalkboard-teacher"></i>
             <span class="header_text">Sala de espera</span></a>
         </li>
-        <li class="nav-item" *ngIf="isPatient">
-          <a  routerLink="/videoconf" class="w3-bar-item w3-button">
+        <li class="nav-item" *ngIf="isPatient"   (click)="toggleNavbar()">
+          <a routerLink="/videoconf" class="w3-bar-item w3-button">
             <i class="fas fa-chalkboard-teacher"></i>
             <span class="header_text">consulta virtual</span></a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item"   (click)="toggleNavbar()">
           <a routerLink="/conversations" class="w3-bar-item w3-button">
             <i class="fa fa-comments"></i>
             <span class="header_text">Conversaciones</span></a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item"   (click)="toggleNavbar()">
           <a *ngIf="isDoctor" routerLink="/users" class="w3-bar-item w3-button">
             <i class="fa fa-users"></i>
             <span class="header_text">Pacientes</span></a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item"   (click)="toggleNavbar()">
           <a *ngIf="isDoctor" routerLink="/sessions" class="w3-bar-item w3-button">
             <i class="fa fa-history"></i>
             <span class="header_text">Sesiones</span></a>

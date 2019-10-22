@@ -94,7 +94,7 @@ textarea {
 }
 
 
-@media screen and (min-width: 601px) {
+@media screen and (min-width: 701px) {
 .lastMessage{
     font-style: oblique;
     color:darkslategray;
@@ -107,7 +107,7 @@ textarea {
 }
 
 /* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 700px) {
   td.mat-cell {
     font-size: x-small;
   }
@@ -118,7 +118,7 @@ textarea {
     overflow:hidden;
     white-space:nowrap;
     text-overflow: ellipsis;
-    max-width: 150px;
+    max-width: 250px;
 }
 .btn_text{
     display: none;
@@ -138,5 +138,16 @@ button .fas{
 .new_conversation{
    padding: 10px;
  
+}
+}
+@media screen and (max-width: 361px) {
+.lastMessage{
+    font-style: oblique;
+    color:darkslategray;
+    font-size:10pt;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow: ellipsis;
+    max-width: 150px;
 }
 }

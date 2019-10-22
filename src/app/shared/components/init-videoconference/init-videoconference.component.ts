@@ -167,7 +167,10 @@ export class InitVideoconferenceComponent implements OnInit {
       this.camValue = this.cameras[1] ? this.cameras[1] : this.cameras[0];
       this.micValue = this.microphones[1] ? this.microphones[1] : this.microphones[0];
       this.initPublisher();
-    }).catch((error) => console.error(error));
+    }).catch((error) =>{ 
+      console.error(error)
+      alert("no se han encontrado dispositivos para realizar la video conferencia, compruebe que la webcam esta correctamente instalada")
+    });
   }
   private setSessionName() {
     this.route.params.subscribe((params: Params) => {

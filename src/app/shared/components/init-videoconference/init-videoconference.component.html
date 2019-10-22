@@ -24,10 +24,10 @@
 
 
           <!--  right section -->
-          <div fxFlex="55" fxFlex.sm="65" fxFlex.lt-sm="65" class="sec3">
+          <div fxFlex="55" fxFlex.sm="65" fxFlex.lt-sm="45" class="sec3">
 
 
-            <!-- Devices section / Camera-->
+
             <div fxLayout="row" fxFill id="devicesSection">
               <div fxLayout fxFlex>
                 <div class="one" fxFlex="20" fxLayoutAlign="center center">
@@ -49,7 +49,7 @@
               </div>
             </div>
 
-            <!-- Devices section / Microphone-->
+
             <div fxLayout="row" fxFill id="devicesSection">
               <div fxLayout fxFlex>
                 <div class="one" fxFlex="20" fxLayoutAlign="center center">
@@ -72,7 +72,7 @@
               </div>
             </div>
 
-            <!-- Devices section / Microphone-->
+
             <div fxLayout="row" fxFill id="devicesSection">
               <div fxLayout fxFlex>
                 <div class="one" fxFlex="20" fxLayoutAlign="center center">
@@ -96,28 +96,21 @@
                 </div>
               </div>
             </div>
-            <!--<div fxLayout="row" fxFill *ngIf=isDoctor>
+            <div fxLayout="row" fxFill id="devicesSection">
               <div fxLayout fxFlex>
+                <div class="one" fxFlex="20" fxLayoutAlign="center center">
 
-                <div class="container" style="width: 650px">
-                  <div class="row">
-                    <div class="col-sm">
-
-                      <div class="col-sm infoP">
-                        <h3>Información del paciente</h3>
-                        El paciente es: {{pacientes.firstName}} {{pacientes.lastName}}
-                        <p>
-                          El motivo de la videoconferencia es: Revisión
-                      </div>
-                    </div>
-                  </div>
                 </div>
-
+                <div class="two" fxFlex="80" fxLayoutAlign="left center">
+                  <button style="padding: 10px;" (click)="accept()" class="btn btn-primary">Iniciar
+                    videoconferencia</button>
+                </div>
               </div>
-            </div>-->
+            </div>
 
-          <button (click)="accept()" class="btn btn-primary" style="margin: 20px 200px;">Iniciar
-            videoconferencia</button>
+
+
+
           </div>
         </div>
       </div>

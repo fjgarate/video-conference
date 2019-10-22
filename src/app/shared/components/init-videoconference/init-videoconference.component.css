@@ -98,8 +98,15 @@ mat-card {
     max-width: 80% !important;
     max-height: 80% !important;
   }
+  
 }
-
+@media only screen and (max-width: 600px) {
+  mat-card {
+    max-width: 100% !important;
+    max-height: 80% !important;
+  }
+  
+}
 ::ng-deep .mat-option-text {
   color: black !important;
 }
