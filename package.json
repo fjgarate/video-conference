@@ -61,7 +61,7 @@
         "typedoc": "^0.14.0",
         "typescript": "3.1.6"
     },
-    "name": "openvidu-call",
+    "name": "video-conference",
     "private": true,
     "scripts": {
         "build": "./node_modules/@angular/cli/bin/ng build",

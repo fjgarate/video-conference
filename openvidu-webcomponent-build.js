@@ -10,16 +10,16 @@ var VERSION = process.argv[2];
 
 async function buildElement() {
   const files = [
-    './dist/openvidu-call/runtime.js',
-    './dist/openvidu-call/polyfills.js',
-    './dist/openvidu-call/scripts.js',
-    './dist/openvidu-call/main.js',
+    './dist/video-conference/runtime.js',
+    './dist/video-conference/polyfills.js',
+    './dist/video-conference/scripts.js',
+    './dist/video-conference/main.js',
   ];
 
   try {
     await fs.ensureDir('openvidu-webcomponent');
     await concat(files, './openvidu-webcomponent/openvidu-webcomponent-' + VERSION + '.js')
-    await fs.copy('./dist/openvidu-call/styles.css', './openvidu-webcomponent/openvidu-webcomponent-' + VERSION + '.css');
+    await fs.copy('./dist/video-conference/styles.css', './openvidu-webcomponent/openvidu-webcomponent-' + VERSION + '.css');
   } catch (err) {
     console.error('Error executing build funtion in webcomponent-builds.js', err);
   }

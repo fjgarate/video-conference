@@ -17,7 +17,7 @@ var AppComponent = /** @class */ (function () {
         var _this = this;
         this.router = router;
         this.authenticationService = authenticationService;
-        this.title = "OpenVidu-call";
+        this.title = "video-conference";
         this.authenticationService.currentUser.subscribe(function (x) { return (_this.currentUser = x); });
     }
     Object.defineProperty(AppComponent.prototype, "isDoctor", {
