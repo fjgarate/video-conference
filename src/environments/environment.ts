@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  openvidu_url: 'https://138.4.10.18:video-conference',
+  openvidu_url: 'https://video.emerge-mhealth.com:4443',
   openvidu_secret: 'gbttel',
   api_url: 'http://localhost:4000'
   
