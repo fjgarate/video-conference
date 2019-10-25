@@ -10,7 +10,7 @@ import { OvSettings } from '../models/ov-settings';
   providedIn: 'root',
 })
 export class OpenViduService {
-  private URL_OV = 'https://138.4.10.65:4443';
+  private URL_OV = 'https://video.emerge-mhealth.com:4443/';
   private prueba = [];
   private MY_SECRET = 'gbttel';
   private SETTINGS_FILE_NAME = 'ov-settings.json';
