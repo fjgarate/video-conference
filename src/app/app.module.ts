@@ -65,8 +65,12 @@ import { InitVideoconferenceComponent } from './shared/components/init-videoconf
 import { SessionComponent } from './session/session.component';
 import { UserComponent } from './user/user.component';
 import { MatSidenavModule, MatListModule} from "@angular/material";
-
-
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from '../environments/environment';
+import { MessagingService } from './shared/services/messaging.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -129,12 +133,17 @@ import { MatSidenavModule, MatListModule} from "@angular/material";
     MatSidenavModule,
     MatListModule,
     NgxLinkifyjsModule.forRoot(),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
+    AngularFireMessagingModule,
+    AngularFireModule.initializeApp(environment.firebase)
   ],
   entryComponents: [DialogErrorComponent, WebComponentComponent],
   providers: [
     OpenViduService,
     ApiService,
-    MatPaginatorIntl
+    MatPaginatorIntl,
+    MessagingService
 
 
   ],
