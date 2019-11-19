@@ -71,6 +71,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 import { MessagingService } from './shared/services/messaging.service';
+import { AsyncPipe } from '../../node_modules/@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
@@ -143,9 +144,7 @@ import { MessagingService } from './shared/services/messaging.service';
     OpenViduService,
     ApiService,
     MatPaginatorIntl,
-    MessagingService
-
-
+    MessagingService,AsyncPipe
   ],
   bootstrap: [AppComponent],
   schemas: [
