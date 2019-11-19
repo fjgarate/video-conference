@@ -144,7 +144,8 @@ import { AsyncPipe } from '../../node_modules/@angular/common';
     OpenViduService,
     ApiService,
     MatPaginatorIntl,
-    MessagingService,AsyncPipe
+    MessagingService,
+    AsyncPipe
   ],
   bootstrap: [AppComponent],
   schemas: [
