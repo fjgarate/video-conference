@@ -92,8 +92,9 @@ export class MessagingService {
     console.log("-----------")
     console.log(this.items)
     this.items.forEach(function (value) {
-    console.log(value);
+    console.log(value.values());
 });
+
    
 
   }
