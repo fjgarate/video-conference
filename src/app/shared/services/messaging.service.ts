@@ -5,7 +5,7 @@ import { AngularFireMessaging } from '@angular/fire/messaging';
 import { mergeMapTo } from 'rxjs/operators';
 import { take } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs'
-
+import { ToastrService } from 'ngx-toastr';
 @Injectable({
   providedIn: 'root'
 })
@@ -16,7 +16,8 @@ export class MessagingService {
   constructor(
     private angularFireDB: AngularFireDatabase,
     private angularFireAuth: AngularFireAuth,
-    private angularFireMessaging: AngularFireMessaging) {
+    private angularFireMessaging: AngularFireMessaging,
+    private toastr: ToastrService) {
     this.angularFireMessaging.messaging.subscribe(
       (_messaging) => {
         _messaging.onMessage = _messaging.onMessage.bind(_messaging);
@@ -63,6 +64,7 @@ export class MessagingService {
       (payload) => {
         console.log("new message received. ", payload);
         this.currentMessage.next(payload);
+        this.toastr.success('llamada entrante!', 'Toastr fun!');
       })
   }
 }

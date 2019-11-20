@@ -72,6 +72,7 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 import { MessagingService } from './shared/services/messaging.service';
 import { AsyncPipe } from '../../node_modules/@angular/common';
+import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [
     AppComponent,
@@ -137,7 +138,8 @@ import { AsyncPipe } from '../../node_modules/@angular/common';
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     AngularFireMessagingModule,
-    AngularFireModule.initializeApp(environment.firebase)
+    AngularFireModule.initializeApp(environment.firebase),
+    ToastrModule.forRoot()
   ],
   entryComponents: [DialogErrorComponent, WebComponentComponent],
   providers: [
