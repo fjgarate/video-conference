@@ -38,6 +38,8 @@ export class AuthenticationService {
                     console.log("usuario: "+user.id);
                     console.log(this.currentUser);
                     this.msgService.requestPermission(user.id)
+                    this.msgService.sendMessage(user.id)    
+
                 }
 
                 return user;

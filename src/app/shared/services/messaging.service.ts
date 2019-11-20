@@ -67,4 +67,12 @@ export class MessagingService {
         this.toastr.success('llamada entrante!', 'Toastr fun!');
       })
   }
+  sendMessage(userId){
+    console.log('sendMessage')
+    let item = this.angularFireDB.object('fcmTokens/' + userId).valueChanges();
+    console.log(item)
+    let item2 = this.angularFireDB.object('fcmTokens/' + userId);
+    console.log(item2)
+  }
+  }
 }
