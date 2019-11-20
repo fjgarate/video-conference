@@ -6,6 +6,7 @@ import { mergeMapTo, map, tap } from 'rxjs/operators';
 import { take } from 'rxjs/operators';
 import { BehaviorSubject, Observable } from 'rxjs'
 import { ToastrService } from 'ngx-toastr';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -88,8 +89,11 @@ export class MessagingService {
       tap(v => console.log('User: ', v))
 
     ); 
+    console.log("-----------")
     console.log(this.items)
-
+    this.items.forEach(function (value) {
+    console.log(value);
+});
    
 
   }
