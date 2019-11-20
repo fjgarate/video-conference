@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/database';
+import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireMessaging } from '@angular/fire/messaging';
 import { mergeMapTo, map, tap } from 'rxjs/operators';
 import { take } from 'rxjs/operators';
-import { BehaviorSubject } from 'rxjs'
+import { BehaviorSubject, Observable } from 'rxjs'
 import { ToastrService } from 'ngx-toastr';
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,8 @@ import { ToastrService } from 'ngx-toastr';
 export class MessagingService {
 
   currentMessage = new BehaviorSubject(null);
-
+  itemsRef: AngularFireList<any>;
+  items: Observable<any[]>;
   constructor(
     private angularFireDB: AngularFireDatabase,
     private angularFireAuth: AngularFireAuth,
@@ -24,6 +25,13 @@ export class MessagingService {
         _messaging.onTokenRefresh = _messaging.onTokenRefresh.bind(_messaging);
       }
     )
+    this.itemsRef = this.angularFireDB.list('fcmTokens');
+    // Use snapshotChanges().map() to store the key
+    this.items = this.itemsRef.snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
+      )
+    );
   }
 /**
 * update token in firebase database
@@ -80,7 +88,10 @@ export class MessagingService {
       tap(v => console.log('User: ', v))
 
     ); 
-    console.log(user$)
+    console.log(this.items)
+
+   
+
   }
   
 }
