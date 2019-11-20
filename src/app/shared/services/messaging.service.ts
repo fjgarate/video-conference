@@ -74,5 +74,5 @@ export class MessagingService {
     let item2 = this.angularFireDB.object('fcmTokens/' + userId);
     console.log(item2)
   }
-  }
+  
 }
