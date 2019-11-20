@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { AuthenticationService } from './shared/services';
 import { User } from "./shared/models";
+import { MessagingService } from './shared/services/messaging.service';
 
 @Component({
   selector: "app-root",
@@ -15,6 +16,7 @@ export class AppComponent implements OnInit{
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService,
+    private msgService: MessagingService
   ) {
     
   }
@@ -25,7 +27,8 @@ export class AppComponent implements OnInit{
       }
       
     );
-    
+    this.msgService.receiveMessage()
+    this.message = this.msgService.currentMessage
   }
   get isDoctor() {
     return this.currentUser && this.currentUser.role === 'clinical';
