@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireMessaging } from '@angular/fire/messaging';
-import { mergeMapTo } from 'rxjs/operators';
+import { mergeMapTo, map, tap } from 'rxjs/operators';
 import { take } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs'
 import { ToastrService } from 'ngx-toastr';
@@ -68,11 +68,19 @@ export class MessagingService {
       })
   }
   sendMessage(userId){
-    console.log('sendMessage')
+    console.log('sendMessage '+userId)
     let item = this.angularFireDB.object('fcmTokens/' + userId).valueChanges();
     console.log(item)
     let item2 = this.angularFireDB.object('fcmTokens/' + userId);
     console.log(item2)
+
+
+    let user$ = this.angularFireDB.object('fcmTokens/'+userId).snapshotChanges().pipe(
+      map(snap => snap.payload.val()),
+      tap(v => console.log('User: ', v))
+
+    ); 
+    console.log(user$)
   }
   
 }
