@@ -45,12 +45,12 @@ export class SessionComponent implements OnInit {
       .getVirtualAppintment(this.currentUser.token, this.currentUser.username)*/
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
-   this.loadAllSessions();
+    this.loadDoctorSessions();
  
 
     console.log('virtualAppintments on init: ' + this.virtualAppintments)
   }
-  private loadAllSessions(){
+  private loadDoctorSessions(){
     this.sessionnService
       .getByDoctorId(this.currentUser.token,this.currentUser.id)
       .pipe(first())

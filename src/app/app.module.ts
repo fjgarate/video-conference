@@ -73,6 +73,11 @@ import { environment } from '../environments/environment';
 import { MessagingService } from './shared/services/messaging.service';
 import { AsyncPipe } from '../../node_modules/@angular/common';
 import { ToastrModule } from 'ngx-toastr';
+import { EncrDecrService } from './shared/services/encr-decr.service';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ChartsModule } from 'ng2-charts';
+import { ChartEvolutionComponent } from './shared/components/chart-evolution/chart-evolution.component';
+import { TableSessionsComponent } from './shared/components/table-sessions/table-sessions.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -102,7 +107,10 @@ import { ToastrModule } from 'ngx-toastr';
     FooterComponent,
     InitVideoconferenceComponent,
     SessionComponent,
-    UserComponent
+    UserComponent,
+    DashboardComponent,
+    ChartEvolutionComponent,
+    TableSessionsComponent
   ],
   imports: [
     FormsModule,
@@ -139,7 +147,8 @@ import { ToastrModule } from 'ngx-toastr';
     AngularFireAuthModule,
     AngularFireMessagingModule,
     AngularFireModule.initializeApp(environment.firebase),
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    ChartsModule
   ],
   entryComponents: [DialogErrorComponent, WebComponentComponent],
   providers: [
@@ -147,6 +156,7 @@ import { ToastrModule } from 'ngx-toastr';
     ApiService,
     MatPaginatorIntl,
     MessagingService,
+    EncrDecrService,
     AsyncPipe
   ],
   bootstrap: [AppComponent],

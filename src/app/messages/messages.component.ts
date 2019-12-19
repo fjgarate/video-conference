@@ -11,7 +11,7 @@ import { AuthenticationService, UserService } from '../shared/services';
 import { ConversationService } from '../shared/services/conversation.service';
 import { first } from 'rxjs/operators';
 import { trigger, transition, animate, style } from '@angular/animations'
-
+import { EncrDecrService } from '../shared/services/encr-decr.service';
 @Component({
   selector: 'app-messages',
   templateUrl: './messages.component.html',
@@ -53,7 +53,8 @@ export class MessagesComponent implements OnInit {
     private userService: UserService,
     private authenticationService: AuthenticationService,
     private convesationSrv: ConversationService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private encrDecrService: EncrDecrService,
 
 ) {
     this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
@@ -148,5 +149,8 @@ export class MessagesComponent implements OnInit {
     });
     this.submitted = false;
     this.isCollapsed = !this.isCollapsed;
+  }
+  decode(valor) {
+    return this.encrDecrService.get(valor)
   }
 }

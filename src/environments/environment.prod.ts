@@ -3,6 +3,8 @@ export const environment = {
   openvidu_url: 'https://video.emerge-mhealth.com:4443',
   openvidu_secret: 'gbttel',
   api_url: 'https://login-videocall.herokuapp.com',
+  key: 'lhhXojePTEvR0/bntNuWxm+lwDW2WrWSWMvCvFFfYVU=',
+  iv:  'lBvy0G7MKm07ql0MpTah6jgKroqnVtqQTcF+mVu6+Os=',
   firebase: {
     apiKey: "AIzaSyDCNdhyeZiwyc2ItfsBCK3ujhSc3MIWpRk",
     authDomain: "video-emerge-project.firebaseapp.com",

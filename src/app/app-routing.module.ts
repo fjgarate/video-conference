@@ -12,6 +12,7 @@ import { MessagesComponent} from './messages/messages.component';
 import { AppointmentComponent} from './appointment/appointment.component';
 import { SessionComponent } from './session/session.component';
 import { UserComponent } from './user/user.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
@@ -24,6 +25,7 @@ const appRoutes: Routes = [
   { path: 'messages', component: MessagesComponent, canActivate: [AuthGuard] },
   { path: 'appointment', component: AppointmentComponent, canActivate: [AuthGuard] },
   { path: 'sessions', component: SessionComponent, canActivate: [AuthGuard] },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'videoconf', component: VideoRoomComponent, canActivate: [AuthGuard] },
   { path: 'users', component: UserComponent, canActivate: [AuthGuard] },
   { path: ':roomName', component: VideoRoomComponent, canActivate: [AuthGuard]  },

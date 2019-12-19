@@ -103,6 +103,11 @@
               <i class="fa fa-history"></i>
               <span class="header_text">Sesiones</span></a>
           </span>
+           <span class="header_item" *ngIf="isDoctor">
+            <a routerLink="/dashboard">
+              <i class="fa fa-history"></i>
+              <span class="header_text">Dashboard</span></a>
+          </span>
           <span class="header_item">
             <a matTooltip="Cerrar Sesion" (click)="logout()" class="w3-right">
               {{ currentUser.firstName }} {{ currentUser.lastName }}
@@ -159,6 +164,11 @@
           <a *ngIf="isDoctor" routerLink="/sessions" class="w3-bar-item w3-button">
             <i class="fa fa-history"></i>
             <span class="header_text">Sesiones</span></a>
+        </li>
+        <li class="nav-item" (click)="toggleNavbar()">
+          <a *ngIf="isDoctor" routerLink="/dashboard" class="w3-bar-item w3-button">
+            <i class="fa fa-history"></i>
+            <span class="header_text">Dashboard</span></a>
         </li>
       </ul>
     </div>

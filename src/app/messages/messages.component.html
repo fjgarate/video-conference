@@ -10,11 +10,11 @@
         <div class=" w3-white list border">
           <ul class="w3-ul  list-group messages">
             <li class="w3-light-grey">
-              <h2>{{conversationParams.title}}</h2>
+              <h2>{{decode(conversationParams.title)}}</h2>
             </li>
             <li class="w3-bar list-group-item" *ngFor="let message of conversationParams.messages">
               <div class=" w3-row">
-                <span class="w3-bar-item w3-left importMessage">{{message.author}}</span>
+                <span class="w3-bar-item w3-left importMessage">{{decode(message.author)}}</span>
                 <span class="w3-bar-item  w3-right">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" id="msg-dblcheck-ack" x="2063" y="2076"
                     [ngStyle]="{'fill':message.read === true ? '#4fc3f7' : '#343a40'}">
@@ -37,7 +37,7 @@
               </div>
               <div class=" w3-row">
                 <div class="chat-body lastMessage" style="white-space:nowrap; cursor:pointer" (click)="expanse($event)">
-                  {{message.text}}
+                  {{decode(message.text)}}
                 </div>
               </div>
             </li>

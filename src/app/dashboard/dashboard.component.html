@@ -1,0 +1,24 @@
+<body>
+  <div class="jumbotron">
+    <div class="page-header">
+      <span class="title">Dashboard </span>
+    </div>
+    <div class="w3-row">
+      <div class="w3-col l1 w3-container w3-hide-small">
+      </div>
+      <div class="w3-col l5 w3-container ">
+            <app-table-sessions [currentUser]="currentUser"></app-table-sessions>
+      </div>
+      <div class="w3-col l5 w3-container ">
+        <div class="w3-row">
+        <app-chart-evolution [lineChartData]="lineChartData" [lineChartLabels]="lineChartLabels"></app-chart-evolution>
+        </div>
+        <div class="w3-row">
+          <app-chart-evolution [lineChartData]="lineChartData" [lineChartLabels]="lineChartLabels"></app-chart-evolution>
+        </div>
+      </div>
+      <div class="w3-col l1 w3-container w3-hide-small">
+      </div>
+    </div>
+  </div>
+</body>

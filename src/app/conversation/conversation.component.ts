@@ -12,6 +12,7 @@ import { SharedService } from '../shared/services/shared.service';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { trigger, transition, style, animate, state } from '@angular/animations';
+import { EncrDecrService } from '../shared/services/encr-decr.service';
 
 @Component({
   selector: "app-conversation",
@@ -67,6 +68,7 @@ export class ConversationComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private sharedService: SharedService,
+    private encrDecrService: EncrDecrService,
 
   ) {
     this.currentUserSubscription = this.authenticationService.currentUser.subscribe(
@@ -98,7 +100,6 @@ export class ConversationComponent implements OnInit {
     this.isCollapsed = !this.isCollapsed;
   }
 
-
   ngOnInit() {
 
     const initialSelection = [];
@@ -113,16 +114,15 @@ export class ConversationComponent implements OnInit {
       this.loadAllPatients();
     }
     
-      this.conversationForm = this.formBuilder.group({
-        createUserId: this.currentUser.id,
-        createUsername: this.currentUser.username,
-        createName: this.currentUser.firstName + ' ' + this.currentUser.lastName, 
-        title: ['', Validators.required],
-        participants: ['', Validators.required],
-        otherName:'',
-        text: ['', Validators.required]
-        
-            });
+    this.conversationForm = this.formBuilder.group({
+      createUserId: this.currentUser.id,
+      createUsername: this.currentUser.username,
+      createName: this.currentUser.firstName + ' ' + this.currentUser.lastName, 
+      title: ['', Validators.required],
+      participants: ['', Validators.required],
+      otherName:'',
+      text: ['', Validators.required]
+    });
     this.getConversationsByUserId(this.currentUser.id);
   }
   
@@ -152,6 +152,23 @@ export class ConversationComponent implements OnInit {
       .getConversationsByUserId(this.currentUser.token, id)
       .pipe(first())
       .subscribe(conversations => {
+        /*let temp_conver: Conversation[] = [];
+        for (let conv of conversations) {
+          let conDeco = {
+            id: conv.id,
+            title: this.encrDecrService.get(conv.title),
+            createUserId: conv.createUserId,
+            createUsername: this.encrDecrService.get(conv.createUsername),
+            createName: this.encrDecrService.get(conv.createName),
+            participants: conv.participants,
+            messages: conv.messages,
+            otherUsername: this.encrDecrService.get(conv.otherUsername),
+            otherName: this.encrDecrService.get(conv.otherName),
+            createdDate: conv.createdDate,
+          }
+          
+          temp_conver.push(conDeco)
+        }*/
         this.dataSource = new MatTableDataSource();
         this.dataSource.data = conversations;
         this.dataSource.sort = this.sort;
@@ -159,25 +176,8 @@ export class ConversationComponent implements OnInit {
         this.conversations =[];
         this.conversations=conversations
   
-        for (let conv of conversations) {
-          let participants = conv.participants;
-          let otherUser
-          /*for (const participant of participants) {
-            console.log('participant: ' + participant)
-            if (this.currentUser.id !== participant) {
-             
-              this.userService
-                .getById(this.currentUser.token, participant)
-                .pipe(first())
-                .subscribe(pacientes => {
-                  otherUser = pacientes.firstName + ' ' + pacientes.lastName;
-                  conv.other_participant=otherUser
-                  this.conversations.push(conv)
-                });
-            }
-          }  */      
-        }
-        console.log('conversations',this.conversations);
+        /**/
+        console.log('conversations', this.dataSource.data);
       });
   }
 
@@ -187,6 +187,7 @@ export class ConversationComponent implements OnInit {
     if (this.conversationForm.invalid) {
       return;
     }
+   
     this.conversationForm.value.participants = [this.conversationForm.value.participants, this.currentUser.id];
     
     this.userService
@@ -196,9 +197,10 @@ export class ConversationComponent implements OnInit {
         const otherName = paciente.firstName + ' ' + paciente.lastName;
         this.conversationForm.value.otherName= otherName
         this.conversationForm.value.messages = [{
-          author: this.currentUser.firstName + ' ' + this.currentUser.lastName, text: this.conversationForm.value.text
+          author: this.encrDecrService.set(this.currentUser.firstName) + ' ' + this.encrDecrService.set(this.currentUser.lastName), text: this.encrDecrService.set(this.conversationForm.value.text)
         }]
-        this.convesationSrv.createConversation(this.conversationForm.value)
+        this.encodeElement();
+        this.convesationSrv.createConversation(this.conversation)
           .pipe(first())
           .subscribe(()=>{
             this.getConversationsByUserId(this.currentUser.id);
@@ -293,5 +295,22 @@ newMessage(message){
     return someDate.getDate() == today.getDate() &&
            someDate.getMonth() == today.getMonth() &&
            someDate.getFullYear() == today.getFullYear()
+  }
+  encodeElement(){
+    this.conversation = {
+      id: this.conversationForm.value.id,
+      title: this.encrDecrService.set(this.conversationForm.value.title),
+      createUserId: this.conversationForm.value.createUserId,
+      createUsername: this.encrDecrService.set(this.conversationForm.value.createUsername),
+      createName: this.encrDecrService.set(this.conversationForm.value.createName),
+      participants: this.conversationForm.value.participants,
+      messages: this.conversationForm.value.messages,
+      otherUsername: this.encrDecrService.set(this.conversationForm.value.otherUsername),
+      otherName: this.encrDecrService.set(this.conversationForm.value.otherName),
+      createdDate: this.conversationForm.value.createdDate,  
+    }
+  }
+  decode(valor){
+    return this.encrDecrService.get(valor)
   }
 }
