@@ -83,7 +83,7 @@
         "pack:openvidu-angular": "cd dist/openvidu-angular && npm pack",
         "start": "node server.js",
         "test": "ng test",
-        "postinstall": "ng build --aot -prod"
+        "heroku-postbuild": "ng build --prod"
     },
     "version": "2.8.0",
     "engines": {
